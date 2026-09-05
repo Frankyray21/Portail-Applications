@@ -63,4 +63,11 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
-Version initiale : **1.0.0**.
+## Version 1.1.0
+
+- Nouvelle structure d’application : navigation latérale et barre mobile.
+- Repérage de la collection active pendant le défilement.
+- Sélection à la une hiérarchisée et fiches compactes, sans tronquer les noms.
+- Espace de bas de page adapté à la hauteur réelle de la barre mobile.
+- Liens natifs utilisables sans JavaScript ; aucun compte, favori ou stockage ajouté.
+- Douze tests de catalogue/navigation et validation renforcée de l’export.
