@@ -7,7 +7,7 @@ des applications : il permet de les découvrir et de les ouvrir.
 ## Collections
 
 - **Prévention & découverte** : Prévention des TMS, Bruit, WIKI SST — Mines, Anatomie 3D.
-- **Formation & forage** : RodBot LP, Procédures de forage.
+- **Forage & procédures** : RodBot LP, Procédures de forage MRI.
 - **La vie pratique** : Camping en tente, GlucideNet.
 - **À la une** : sélection éditoriale de trois applications, sans classement,
   notes, avis ou statistiques de téléchargement inventés.
@@ -50,11 +50,17 @@ réglementaire ou technique des applications liées.
 
 ## Publication
 
-Destination prévue : `https://frankyray21.github.io/Portail-Applications/`.
+Adresse du portail : `https://frankyray21.github.io/Portail-Applications/`.
 
-Le workflow vérifie les tests, construit l’export puis publie sur GitHub Pages
-après fusion dans `main`. Dans les réglages du dépôt, section Pages, la source
-doit être **GitHub Actions**. Si le nom du dépôt change, modifier `basePath` dans
-`next.config.ts`, le lien GitHub du pied de page et l’adresse du favicon.
+Le code source est fusionné dans `main`. Après les tests, la vérification du code
+et la construction, seul le contenu de `dist/client/Portail-Applications/` est
+publié à la racine de la branche `gh-pages`, avec un fichier `.nojekyll` pour
+préserver les ressources `_next`. Dans les réglages Pages, sélectionner
+**Deploy from a branch**, branche **gh-pages**, dossier **/ (root)**.
+
+La publication est explicite : une fusion dans `main` ne reconstruit pas le site
+automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
+nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
+le lien GitHub du pied de page et l’adresse du favicon.
 
 Version initiale : **1.0.0**.
