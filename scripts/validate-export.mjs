@@ -11,6 +11,31 @@ assert.ok(page.includes('<title>Le Hub — Applications</title>'));
 assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
 assert.equal((page.match(/class="app-card"/g) ?? []).length, 8);
 assert.equal((page.match(/class="feature feature--/g) ?? []).length, 3);
+assert.ok(page.includes('aria-label="Navigation principale"'));
+assert.ok(page.includes('aria-label="Navigation mobile"'));
+assert.ok(page.includes('Le Hub · Version 1.1'));
+const cards = [
+  ...page.matchAll(
+    /<article\b[^>]*data-app-id="([^"]+)"[^>]*>([\s\S]*?)<\/article>/g,
+  ),
+];
+assert.equal(cards.length, 8);
+assert.equal(new Set(cards.map((card) => card[1])).size, 8);
+for (const card of cards) {
+  assert.equal(
+    (card[2].match(/<a\b/g) ?? []).length,
+    1,
+    `Ouverture ambiguë : ${card[1]}`,
+  );
+  assert.match(card[2], /aria-label="Ouvrir [^"]+ — nouvel onglet"/);
+}
+for (const nav of page.matchAll(
+  /<nav\b[^>]*aria-label="Navigation [^"]+"[^>]*>([\s\S]*?)<\/nav>/g,
+)) {
+  for (const id of ['accueil', 'prevention', 'forage', 'quotidien']) {
+    assert.ok(nav[1].includes(`href="#${id}"`), `Navigation manquante : ${id}`);
+  }
+}
 for (const id of [
   'accueil',
   'applications',
