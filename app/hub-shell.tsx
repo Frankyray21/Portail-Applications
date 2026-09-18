@@ -26,8 +26,8 @@ import { sectionCourante } from '@/lib/navigation';
 const navigation = [
   {
     id: 'accueil',
-    label: 'Découvrir',
-    mobile: 'Découvrir',
+    label: 'Toutes',
+    mobile: 'Toutes',
     icon: Compass,
     count: APPLICATIONS.length,
   },

@@ -3,9 +3,7 @@ import {
   ArrowUpRight,
   AudioLines,
   Box,
-  ChevronRight,
   ClipboardList,
-  Grid2X2,
   Leaf,
   ShieldCheck,
   Tent,
@@ -14,7 +12,8 @@ import {
 import {
   APPLICATIONS,
   COLLECTIONS,
-  SELECTION,
+  MISE_EN_AVANT,
+  applicationMiseEnAvant,
   applicationsCollection,
   type Application,
   type IconeId,
@@ -36,59 +35,40 @@ const COLLECTION_ICONES = {
   forage: Wrench,
   quotidien: Leaf,
 };
-const UNE: Record<string, { eyebrow: string; text: string }> = {
-  tms: {
-    eyebrow: 'ERGONOMIE AU TRAVAIL',
-    text: 'Comprendre les risques. Adopter les bons réflexes.',
-  },
-  rodbot: {
-    eyebrow: 'FORMATION OPÉRATEUR',
-    text: 'Modules, quiz et simulateurs.',
-  },
-  bruit: {
-    eyebrow: 'PROTECTION AUDITIVE',
-    text: 'Formation et calculateurs d’exposition.',
-  },
-};
 
-function Icone({
-  id,
-  color,
-  large = false,
-}: {
-  id: IconeId;
-  color: string;
-  large?: boolean;
-}) {
+function Icone({ id, color }: { id: IconeId; color: string }) {
   const Symbole = ICONES[id];
   return (
-    <span
-      className={`app-icon color-${color}${large ? ' app-icon--large' : ''}`}
-      aria-hidden="true"
-    >
+    <span className={`app-icon color-${color}`} aria-hidden="true">
       <Symbole strokeWidth={1.65} />
     </span>
   );
 }
 
+// Toute la rangée ouvre l'application : le lien porte le titre, et son
+// pseudo-élément couvre la fiche entière. Le sous-titre, la description et
+// les thèmes restent donc lisibles par un lecteur d'écran au lieu d'être
+// écrasés par un aria-label.
 function AppCard({ application }: { application: Application }) {
   return (
     <article className="app-card" data-app-id={application.id}>
       <div className="app-card__top">
         <Icone id={application.id} color={application.color} />
         <div className="app-card__name">
-          <h3>{application.title}</h3>
+          <h3>
+            <a
+              className="app-open"
+              href={application.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {application.title}
+              <span className="sr-only"> (nouvel onglet)</span>
+            </a>
+          </h3>
           <p>{application.subtitle}</p>
         </div>
-        <a
-          className="open-button"
-          href={application.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Ouvrir ${application.title} — nouvel onglet`}
-        >
-          Ouvrir <ArrowUpRight size={14} aria-hidden="true" />
-        </a>
+        <ArrowUpRight className="app-card__ext" size={18} aria-hidden="true" />
       </div>
       <p className="app-description">{application.description}</p>
       <ul className="app-tags" aria-label="Thèmes">
@@ -101,6 +81,7 @@ function AppCard({ application }: { application: Application }) {
 }
 
 export default function Home() {
+  const miseEnAvant = applicationMiseEnAvant();
   return (
     <>
       <a href="#applications" className="skip-link">
@@ -109,65 +90,30 @@ export default function Home() {
       <HubShell>
         <main id="accueil" className="page" tabIndex={-1}>
           <div className="page-heading">
-            <div>
-              <p className="eyebrow">VOTRE ESPACE D’APPLICATIONS</p>
-              <h1>Découvrir</h1>
-              <p className="heading-description">
-                Prévention, formation et outils du quotidien.
-              </p>
-            </div>
-            <a className="app-count" href="#applications">
-              <Grid2X2 size={18} aria-hidden="true" />
-              {APPLICATIONS.length} applications
-              <ChevronRight size={16} aria-hidden="true" />
-            </a>
+            <h1>La collection de Frank</h1>
+            <p className="heading-description">
+              Prévention, formation et outils du quotidien.
+            </p>
+            <p className="app-count">{APPLICATIONS.length} applications</p>
           </div>
 
-          <section className="featured" aria-labelledby="titre-selection">
-            <div className="section-heading">
-              <h2 id="titre-selection">À la une</h2>
-              <a href="#applications">
-                Tout voir <ChevronRight size={17} aria-hidden="true" />
-              </a>
-            </div>
-            <div className="featured-grid">
-              {SELECTION.map((id) => {
-                const app = APPLICATIONS.find(
-                  (application) => application.id === id,
-                )!;
-                const une = UNE[id]!;
-                return (
-                  <a
-                    key={id}
-                    className={`feature feature--${app.color}`}
-                    href={app.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Ouvrir ${app.title} — nouvel onglet`}
-                  >
-                    <div className="feature__copy">
-                      <span className="feature__eyebrow">{une.eyebrow}</span>
-                      <h3>{app.title}</h3>
-                      <p>{une.text}</p>
-                    </div>
-                    <Icone id={app.id} color={app.color} large />
-                    <div className="feature__bottom">
-                      <span className="feature__themes">
-                        {app.tags.join(' · ')}
-                      </span>
-                      <span className="feature__action">
-                        Ouvrir <ArrowUpRight aria-hidden="true" size={17} />
-                      </span>
-                    </div>
-                  </a>
-                );
-              })}
-            </div>
-          </section>
+          {miseEnAvant && MISE_EN_AVANT ? (
+            <section className="highlight" aria-labelledby="titre-mise-en-avant">
+              <h2 id="titre-mise-en-avant" className="sr-only">
+                Mise en avant
+              </h2>
+              <p className="highlight__reason">{MISE_EN_AVANT.raison}</p>
+              <div className="app-grid app-grid--single">
+                <AppCard application={miseEnAvant} />
+              </div>
+            </section>
+          ) : null}
 
           <div id="applications" className="collections" tabIndex={-1}>
             {COLLECTIONS.map((collection) => {
               const CollectionIcone = COLLECTION_ICONES[collection.id];
+              const applications = applicationsCollection(collection.id);
+              if (applications.length === 0) return null;
               return (
                 <section
                   className="collection"
@@ -188,26 +134,21 @@ export default function Home() {
                       <p>{collection.description}</p>
                     </div>
                     <span className="collection-count">
-                      {applicationsCollection(collection.id).length}
+                      {applications.length}
                       <span className="sr-only"> applications</span>
                     </span>
                   </div>
                   <div className="app-grid">
-                    {applicationsCollection(collection.id).map(
-                      (application) => (
-                        <AppCard
-                          key={application.id}
-                          application={application}
-                        />
-                      ),
-                    )}
+                    {applications.map((application) => (
+                      <AppCard key={application.id} application={application} />
+                    ))}
                   </div>
                 </section>
               );
             })}
           </div>
 
-          <aside className="info-note">
+          <aside className="info-note" aria-label="À propos des liens">
             <ArrowUpRight size={18} aria-hidden="true" />
             <p>
               Les applications s’ouvrent dans un nouvel onglet. Chacune conserve
@@ -216,9 +157,6 @@ export default function Home() {
           </aside>
         </main>
         <footer className="footer">
-          <span className="footer-brand">
-            <Grid2X2 size={17} aria-hidden="true" /> Le Hub <span>1.1</span>
-          </span>
           <p>La collection de Frank</p>
           <a
             className="footer-source"
@@ -229,14 +167,7 @@ export default function Home() {
           >
             GitHub <ArrowUpRight size={15} aria-hidden="true" />
           </a>
-          <a href="#accueil">
-            Retour en haut{' '}
-            <ChevronRight
-              className="back-top-icon"
-              size={16}
-              aria-hidden="true"
-            />
-          </a>
+          <span className="footer-version">Le Hub 1.1</span>
         </footer>
       </HubShell>
     </>

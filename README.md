@@ -1,16 +1,20 @@
 # Le Hub — Portail d’applications
 
-Accueil public des applications de Frank, organisé en collections à la manière
-d’un catalogue d’applications. Ce portail ne copie ni les données ni les comptes
-des applications : il permet de les découvrir et de les ouvrir.
+Accueil public des applications de Frank, rassemblées en trois collections.
+Ce portail ne copie ni les données ni les comptes des applications : il permet
+de les reconnaître et de les ouvrir.
 
 ## Collections
 
 - **Prévention & découverte** : Prévention des TMS, Bruit, WIKI SST — Mines, Anatomie 3D.
 - **Forage & procédures** : RodBot LP, Procédures de forage MRI.
 - **La vie pratique** : Camping en tente, GlucideNet.
-- **À la une** : sélection éditoriale de trois applications, sans classement,
-  notes, avis ou statistiques de téléchargement inventés.
+
+Aucun classement, note, avis ni statistique de téléchargement. Une seule
+application peut être mise en avant (`MISE_EN_AVANT` dans `lib/catalogue.ts`),
+avec une raison vérifiable ; elle est alors **retirée** de sa collection, de
+sorte qu’aucune application n’est publiée deux fois. Le champ vaut `null` par
+défaut : la page s’ouvre directement sur le catalogue.
 
 Les URL publiques des huit applications ont été vérifiées le 5 septembre 2026.
 Aucun dépôt privé n’est affiché. Pas de mesure d’audience, de compte ou de

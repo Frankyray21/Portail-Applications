@@ -10,7 +10,7 @@ assert.ok(page.includes('<html lang="fr-CA">'));
 assert.ok(page.includes('<title>Le Hub — Applications</title>'));
 assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
 assert.equal((page.match(/class="app-card"/g) ?? []).length, 8);
-assert.equal((page.match(/class="feature feature--/g) ?? []).length, 3);
+assert.equal((page.match(/class="feature/g) ?? []).length, 0);
 assert.ok(page.includes('aria-label="Navigation principale"'));
 assert.ok(page.includes('aria-label="Navigation mobile"'));
 assert.ok(page.includes('Le Hub · Version 1.1'));
@@ -27,7 +27,11 @@ for (const card of cards) {
     1,
     `Ouverture ambiguë : ${card[1]}`,
   );
-  assert.match(card[2], /aria-label="Ouvrir [^"]+ — nouvel onglet"/);
+  assert.match(card[2], /\(nouvel onglet\)<\/span>/);
+  assert.ok(
+    !/<a\b[^>]*aria-label=/.test(card[2]),
+    `aria-label masquant le contenu : ${card[1]}`,
+  );
 }
 for (const nav of page.matchAll(
   /<nav\b[^>]*aria-label="Navigation [^"]+"[^>]*>([\s\S]*?)<\/nav>/g,
@@ -71,5 +75,7 @@ assert.ok(
   ),
 );
 console.log(
-  `Export vérifié : 8 applications, 3 collections, 3 sélections, ${new Set(ressources).size} ressources locales.`,
+  `Export vérifié : 8 applications, 3 collections, ${
+    page.includes('class="highlight"') ? 1 : 0
+  } mise en avant, ${new Set(ressources).size} ressources locales.`,
 );

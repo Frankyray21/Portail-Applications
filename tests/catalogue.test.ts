@@ -3,7 +3,8 @@ import { test } from 'node:test';
 import {
   APPLICATIONS,
   COLLECTIONS,
-  SELECTION,
+  MISE_EN_AVANT,
+  applicationMiseEnAvant,
   applicationsCollection,
 } from '../lib/catalogue.ts';
 
@@ -40,11 +41,24 @@ await test('les collections couvrent toutes les applications sans doublon', () =
     ),
   );
 });
-await test('la sélection à la une ne référence que des applications existantes', () => {
-  assert.equal(SELECTION.length, 3);
-  assert.equal(new Set(SELECTION).size, SELECTION.length);
-  for (const id of SELECTION)
-    assert.ok(APPLICATIONS.some((app) => app.id === id));
+await test('la mise en avant, si elle existe, référence une application réelle et motivée', () => {
+  if (MISE_EN_AVANT === null) {
+    assert.equal(applicationMiseEnAvant(), null);
+    return;
+  }
+  const app = applicationMiseEnAvant();
+  assert.ok(app, 'la mise en avant désigne une application inconnue');
+  assert.equal(app.id, MISE_EN_AVANT.id);
+  assert.ok(MISE_EN_AVANT.raison.trim(), 'une mise en avant doit être motivée');
+});
+await test('la mise en avant est soustractive : jamais de doublon dans la page', () => {
+  for (const app of APPLICATIONS) {
+    const restantes = COLLECTIONS.flatMap((collection) =>
+      applicationsCollection(collection.id, app.id).map((item) => item.id),
+    );
+    assert.ok(!restantes.includes(app.id));
+    assert.equal(restantes.length, APPLICATIONS.length - 1);
+  }
 });
 await test('les fiches ont des descriptions et thèmes non vides', () => {
   for (const app of APPLICATIONS) {

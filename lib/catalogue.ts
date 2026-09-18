@@ -133,9 +133,29 @@ export const APPLICATIONS: readonly Application[] = [
   },
 ];
 
-export const SELECTION: readonly IconeId[] = ['tms', 'rodbot', 'bruit'];
+export interface MiseEnAvant {
+  id: IconeId;
+  raison: string;
+}
+
+// Mise en avant soustractive : l'application choisie est RETIRÉE de sa
+// collection et présentée une seule fois, en tête, avec une raison
+// vérifiable. Aucune application n'est donc publiée deux fois, et rien
+// n'est classé. `null` = aucune mise en avant : les huit applications
+// restent dans leur collection et la page s'ouvre sur le catalogue.
+export const MISE_EN_AVANT: MiseEnAvant | null = null;
+
+export function applicationMiseEnAvant(): Application | null {
+  const id = MISE_EN_AVANT?.id;
+  return APPLICATIONS.find((application) => application.id === id) ?? null;
+}
+
 export function applicationsCollection(
   id: CollectionId,
+  miseEnAvant: IconeId | null = MISE_EN_AVANT?.id ?? null,
 ): readonly Application[] {
-  return APPLICATIONS.filter((application) => application.collection === id);
+  return APPLICATIONS.filter(
+    (application) =>
+      application.collection === id && application.id !== miseEnAvant,
+  );
 }
