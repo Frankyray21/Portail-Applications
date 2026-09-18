@@ -71,7 +71,7 @@ le lien GitHub du pied de page et l’adresse du favicon.
 
 - Nouvelle structure d’application : navigation latérale et barre mobile.
 - Repérage de la collection active pendant le défilement.
-- Sélection à la une hiérarchisée et fiches compactes, sans tronquer les noms.
+- Fiches compactes, sans tronquer les noms.
 - Espace de bas de page adapté à la hauteur réelle de la barre mobile.
 - Liens natifs utilisables sans JavaScript ; aucun compte, favori ou stockage ajouté.
 - Douze tests de catalogue/navigation et validation renforcée de l’export.

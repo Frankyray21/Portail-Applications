@@ -614,10 +614,6 @@ h1 {
   color: #566476;
   font-size: 0.875rem;
 }
-.app-count:hover {
-  color: var(--primary);
-  border-color: #aacbf2;
-}
 .section-heading {
   margin-bottom: 16px;
 }
@@ -693,6 +689,10 @@ h1 {
 }
 /* Le lien du titre couvre toute la fiche : la cible passe de 68x44 à la
    rangée entière, sans aria-label qui masquerait le reste du contenu. */
+.app-open {
+  display: block;
+  scroll-margin-bottom: 230px;
+}
 .app-open::after {
   content: '';
   position: absolute;
@@ -707,8 +707,12 @@ h1 {
   outline-offset: 2px;
   background: #f2f6fc;
 }
-.app-open:focus-visible {
-  outline: none;
+/* L'anneau est porté par la rangée entière, mais seulement là où :has()
+   existe : sinon le lien garde son propre contour. */
+@supports selector(:has(a)) {
+  .app-open:focus-visible {
+    outline: none;
+  }
 }
 .app-card__ext {
   color: #5c6777;
@@ -800,10 +804,10 @@ html {
 @media (max-width: 767px) {
   html {
     scroll-padding-top: 88px;
-    scroll-padding-bottom: calc(var(--hub-mobile-nav-height, 112px) + 16px);
+    scroll-padding-bottom: calc(var(--hub-mobile-nav-height, 77px) + 16px);
   }
   .hub-workspace {
-    padding-bottom: calc(var(--hub-mobile-nav-height, 112px) + 24px);
+    padding-bottom: calc(var(--hub-mobile-nav-height, 77px) + 24px);
   }
   .hub-workspace .page {
     padding: 26px 20px 20px;

@@ -83,7 +83,9 @@ export function HubShell({ children }: { children: ReactNode }) {
         window.scrollY > 0 &&
         window.scrollY + window.innerHeight >=
           document.documentElement.scrollHeight - 2;
-      setActive(sectionCourante(positions, bottom));
+      setActive(
+        sectionCourante(positions, bottom, location.hash.slice(1) || null),
+      );
     };
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(update);
@@ -91,10 +93,12 @@ export function HubShell({ children }: { children: ReactNode }) {
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', schedule);
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
+      window.removeEventListener('hashchange', schedule);
     };
   }, []);
 

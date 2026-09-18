@@ -56,17 +56,15 @@ function AppCard({ application }: { application: Application }) {
       <div className="app-card__top">
         <Icone id={application.id} color={application.color} />
         <div className="app-card__name">
-          <h3>
-            <a
-              className="app-open"
-              href={application.url}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {application.title}
-              <span className="sr-only"> (nouvel onglet)</span>
-            </a>
-          </h3>
+          <a
+            className="app-open"
+            href={application.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <h3>{application.title}</h3>
+            <span className="sr-only"> (nouvel onglet)</span>
+          </a>
           <p>{application.subtitle}</p>
         </div>
         <ArrowUpRight className="app-card__ext" size={18} aria-hidden="true" />
