@@ -149,12 +149,6 @@ export function HubShell({ children }: { children: ReactNode }) {
           <a href="#accueil" className="mobile-brand">
             <Grid2X2 size={22} aria-hidden="true" /> Le Hub
           </a>
-          <span className="topbar-label">
-            La collection de Frank <span>/</span> Applications
-          </span>
-          <span className="web-label">
-            <span aria-hidden="true" /> Applications web
-          </span>
         </header>
         {children}
       </div>

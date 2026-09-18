@@ -133,6 +133,10 @@ export const APPLICATIONS: readonly Application[] = [
   },
 ];
 
+// Date de la dernière vérification manuelle des huit adresses publiques.
+// Elle est affichée sur la page : la mettre à jour en même temps que les URL.
+export const VERIFICATION_LIENS = '5 septembre 2026';
+
 export interface MiseEnAvant {
   id: IconeId;
   raison: string;

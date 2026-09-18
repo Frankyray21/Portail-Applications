@@ -109,27 +109,6 @@
   top: 0;
   z-index: 10;
 }
-.topbar-label {
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-.topbar-label > span {
-  padding: 0 14px;
-  color: #bac3d0;
-}
-.web-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-.web-label > span {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #167361;
-}
 .mobile-brand,
 .mobile-nav {
   display: none;
@@ -166,9 +145,6 @@
   .app-topbar {
     height: 64px;
     padding-inline: 20px;
-  }
-  .topbar-label {
-    display: none;
   }
   .mobile-brand {
     display: flex;
@@ -309,7 +285,7 @@ svg {
 h1 {
   font-size: clamp(2rem, 3vw, 2.7rem);
   line-height: 1.12;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.03em;
   font-weight: 750;
 }
 .app-count {
@@ -393,7 +369,7 @@ h1 {
   margin-top: 0;
 }
 .collection-count {
-  color: #717989;
+  color: #5d6577;
   font-size: 0.875rem;
   white-space: nowrap;
 }
@@ -457,11 +433,11 @@ h1 {
   display: flex;
   gap: 16px;
   align-items: flex-start;
-  padding: 24px;
-  margin-top: 36px;
+  padding: 22px 24px;
+  margin: 0 0 30px;
   border: 1px solid var(--border);
   border-radius: 16px;
-  color: #687284;
+  color: #5c6676;
 }
 .footer {
   max-width: 1240px;
@@ -475,7 +451,7 @@ h1 {
 }
 .footer p {
   font-size: 0.8125rem;
-  color: #737b89;
+  color: #5f6775;
 }
 @media (max-width: 1050px) {
   .app-card {
@@ -627,7 +603,7 @@ h1 {
 }
 .page-heading h1 {
   font-size: clamp(2rem, 3vw, 2.6rem);
-  letter-spacing: -0.055em;
+  letter-spacing: -0.03em;
 }
 .heading-description {
   margin-top: 0;
@@ -711,7 +687,7 @@ h1 {
   padding: 18px 14px;
   margin-inline: -14px;
   border: none;
-  border-bottom: 1px solid #d3dae3;
+  border-bottom: 1px solid #b9c4d1;
   border-radius: 12px;
   transition: background 0.16s ease-out;
 }
@@ -768,7 +744,7 @@ h1 {
   gap: 7px;
 }
 .app-tags li {
-  color: #647184;
+  color: #55606f;
   background: #f4f6f9;
   border-radius: 5px;
   padding: 3px 7px;
@@ -779,8 +755,11 @@ h1 {
   border: 0;
   border-radius: 12px;
   background: #f6f8fb;
-  padding: 17px 20px;
-  margin-top: 28px;
+  padding: 18px 20px;
+  margin: 0 0 26px;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 68ch;
 }
 .info-note p {
   font-size: 0.875rem;
@@ -795,7 +774,15 @@ h1 {
   font-size: 0.8125rem;
 }
 html {
-  scroll-padding-top: 100px;
+  scroll-padding-top: 24px;
+}
+/* La barre supérieure ne portait qu'un fil d'Ariane non navigable et un
+   voyant vert permanent. Elle ne subsiste que sur téléphone, où elle
+   porte le nom du site à la place de la barre latérale masquée. */
+@media (min-width: 768px) {
+  .app-topbar {
+    display: none;
+  }
 }
 @media (max-width: 1279px) {
   .app-grid {
@@ -808,9 +795,6 @@ html {
   }
   .app-count {
     margin-top: 0;
-  }
-  .web-label {
-    display: none;
   }
 }
 @media (max-width: 767px) {
@@ -828,9 +812,6 @@ html {
     display: flex;
     gap: 6px;
     margin-bottom: 18px;
-  }
-  .web-label {
-    display: flex;
   }
   .collections {
     margin-top: 26px;
@@ -864,9 +845,6 @@ html {
   .app-description,
   .app-tags {
     margin-left: 66px;
-  }
-  .footer p {
-    display: none;
   }
   .mobile-nav a {
     font-size: 0.875rem;
@@ -917,5 +895,9 @@ html {
   grid-template-columns: minmax(0, 1fr);
 }
 .footer-version {
+  color: #5f6775;
+}
+
+.info-note__meta {
   color: #5f6775;
 }

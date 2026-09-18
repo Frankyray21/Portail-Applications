@@ -13,6 +13,7 @@ import {
   APPLICATIONS,
   COLLECTIONS,
   MISE_EN_AVANT,
+  VERIFICATION_LIENS,
   applicationMiseEnAvant,
   applicationsCollection,
   type Application,
@@ -97,6 +98,19 @@ export default function Home() {
             <p className="app-count">{APPLICATIONS.length} applications</p>
           </div>
 
+          <aside className="info-note" aria-label="À propos de cette collection">
+            <p>
+              Huit outils personnels, construits par Frank pour son travail. Ils
+              ne remplacent ni les procédures officielles de votre employeur, ni
+              un avis professionnel.
+            </p>
+            <p className="info-note__meta">
+              Chaque application s’ouvre dans un nouvel onglet et garde ses
+              propres données et son mode hors ligne. Adresses vérifiées le{' '}
+              {VERIFICATION_LIENS}.
+            </p>
+          </aside>
+
           {miseEnAvant && MISE_EN_AVANT ? (
             <section className="highlight" aria-labelledby="titre-mise-en-avant">
               <h2 id="titre-mise-en-avant" className="sr-only">
@@ -147,14 +161,6 @@ export default function Home() {
               );
             })}
           </div>
-
-          <aside className="info-note" aria-label="À propos des liens">
-            <ArrowUpRight size={18} aria-hidden="true" />
-            <p>
-              Les applications s’ouvrent dans un nouvel onglet. Chacune conserve
-              ses propres données et options hors ligne.
-            </p>
-          </aside>
         </main>
         <footer className="footer">
           <p>La collection de Frank</p>
