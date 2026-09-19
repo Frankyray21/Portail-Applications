@@ -11,12 +11,6 @@ export const COLLECTIONS = [
     description: 'Les formations opérateur et les procédures de travail MRI.',
     label: 'Forage & procédures',
   },
-  {
-    id: 'quotidien',
-    title: 'La vie pratique',
-    description: 'Des outils utiles, aussi en dehors du travail.',
-    label: 'Vie pratique',
-  },
 ] as const;
 
 export type CollectionId = (typeof COLLECTIONS)[number]['id'];
@@ -26,9 +20,7 @@ export type IconeId =
   | 'rodbot'
   | 'procedures'
   | 'wiki'
-  | 'anatomie'
-  | 'camping'
-  | 'glucides';
+  | 'anatomie';
 
 export interface Application {
   id: IconeId;
@@ -101,18 +93,19 @@ export const APPLICATIONS: readonly Application[] = [
   },
   {
     id: 'wiki',
-    title: 'WIKI SST — Mines',
+    // Espace insécable avant le tiret : il ne doit jamais commencer une ligne.
+    title: 'WIKI SST\u00a0— Mines',
     subtitle: 'Les connaissances en SST',
     description:
       'Parcourir les connaissances en santé et sécurité minière selon son rôle et ses besoins.',
     resume:
       'L’encyclopédie santé et sécurité du travail en milieu minier. Des notes de cours réunies en un fonds documentaire consultable, classé par discipline, par thème et par notion.',
     contenu: [
-      'Parcours par discipline, thème et notion',
-      'Ergonomie, hygiène industrielle, sécurité, psychosocial',
-      'Recueil des lois et règlements',
-      'Espace encadrement',
+      'Sept disciplines, du psychosocial au recueil législatif',
+      'Parcours par discipline, par thème et par notion',
+      'Recherche sur l’ensemble du fonds',
       'Graphe des notions liées',
+      'Espace encadrement',
     ],
     captures: 3,
     collection: 'prevention',
@@ -190,53 +183,9 @@ export const APPLICATIONS: readonly Application[] = [
     color: 'teal',
     tags: ['Procédures', 'Documents'],
   },
-  {
-    id: 'camping',
-    title: 'Camping en tente',
-    subtitle: 'Préparer le prochain départ',
-    description:
-      'Préparer le camping en famille avec une liste personnalisable, une progression et un export PDF.',
-    resume:
-      'La liste de camping en tente, l’été, avec les flos. Ce qu’on apporte, ce qui est déjà dans le coffre, et ce qu’on oublie chaque année. Coche, le feu va pogner.',
-    contenu: [
-      'Liste cochable, classée par catégorie',
-      'Progression visible',
-      'Articles personnalisables',
-      'Export PDF',
-    ],
-    captures: 3,
-    collection: 'quotidien',
-    url: 'https://frankyray21.github.io/checklist-camping/',
-    depot: 'https://github.com/Frankyray21/checklist-camping',
-    color: 'green',
-    tags: ['Plein air', 'Organisation'],
-  },
-  {
-    id: 'glucides',
-    title: 'GlucideNet',
-    subtitle: 'Les repas, en chiffres',
-    description:
-      'Calculer les glucides nets des repas et gérer ses recettes, favoris et journal alimentaire.',
-    resume:
-      'Calculer les glucides nets d’un repas, pour le diabète de type 1 et la pompe à insuline. Scanner un produit, composer un repas, retrouver ses recettes, suivre la semaine.',
-    contenu: [
-      'Scanner un produit',
-      'Base d’aliments courants',
-      'Favoris et repas en cours',
-      'Recettes et calcul par ingrédients',
-      'Journal et graphiques des sept derniers jours',
-      'Sauvegarde et partage',
-    ],
-    captures: 2,
-    collection: 'quotidien',
-    url: 'https://frankyray21.github.io/Calcul-glucide/',
-    depot: 'https://github.com/Frankyray21/Calcul-glucide',
-    color: 'purple',
-    tags: ['Alimentation', 'Calculateur'],
-  },
 ];
 
-// Date de la dernière vérification manuelle des huit adresses publiques.
+// Date de la dernière vérification manuelle des six adresses publiques.
 // Elle est affichée sur le site : la mettre à jour en même temps que les URL.
 export const VERIFICATION_LIENS = '5 septembre 2026';
 
@@ -254,8 +203,92 @@ export const A_LA_UNE: readonly MiseEnAvant[] = [
   { id: 'wiki', raison: 'L’encyclopédie SST du milieu minier.' },
 ];
 
+export interface SujetWiki {
+  id: string;
+  titre: string;
+  exemples: string;
+  articles: number;
+  chemin: string;
+}
+
+// Les sept disciplines du WIKI SST — Mines, relevées sur son propre portail
+// (docs/index.html du dépôt wiki-sst-mines), avec les nombres d'articles que
+// le wiki affiche lui-même. Pour les rafraîchir, les y relire : ne jamais
+// les estimer, et ne jamais en ajouter une qui n'existe pas dans le wiki.
+export const SUJETS_WIKI: readonly SujetWiki[] = [
+  {
+    id: 'psychosocial',
+    titre: 'SST psychosociale',
+    exemples: 'RPS, Karasek, Siegrist, détresse, FIFO, reconnaissance',
+    articles: 320,
+    chemin: 'w/psychosocial/index.html',
+  },
+  {
+    id: 'legislation',
+    titre: 'Recueil législatif',
+    exemples: 'Lois, règlements, article par article, jurisprudence',
+    articles: 3327,
+    chemin: 'w/legislation/00-accueil/00-accueil.html',
+  },
+  {
+    id: 'ergonomie',
+    titre: 'Ergonomie',
+    exemples: 'TMS, manutention, postures, vibrations, confort thermique',
+    articles: 66,
+    chemin: 'w/ergonomie/index.html',
+  },
+  {
+    id: 'hygiene',
+    titre: 'Hygiène industrielle',
+    exemples: 'Bruit, poussières, diesel, ventilation, chaleur',
+    articles: 72,
+    chemin: 'w/hygiene/index.html',
+  },
+  {
+    id: 'securite',
+    titre: 'Sécurité industrielle',
+    exemples: 'Cadenassage, espaces clos, hauteur, explosifs, machines',
+    articles: 66,
+    chemin: 'w/securite/index.html',
+  },
+  {
+    id: 'toxicologie',
+    titre: 'Toxicologie',
+    exemples: 'Solvants, métaux, amiante, silice, voies d’exposition',
+    articles: 50,
+    chemin: 'w/toxicologie/index.html',
+  },
+  {
+    id: 'droit-travail',
+    titre: 'Droit du travail',
+    exemples: 'Cadre légal, droits du travailleur, LSST, LATMP, LMRSST',
+    articles: 39,
+    chemin: 'w/droit-travail/index.html',
+  },
+];
+
 export function application(id: string): Application | undefined {
   return APPLICATIONS.find((app) => app.id === id);
+}
+
+// Chaque sujet mène droit dans le wiki : l'adresse est construite à partir
+// de celle de l'application, jamais écrite en double.
+export function sujetsWiki(): readonly (SujetWiki & { url: string })[] {
+  const wiki = application('wiki');
+  if (!wiki) return [];
+  return SUJETS_WIKI.map((sujet) => ({
+    ...sujet,
+    url: new URL(sujet.chemin, wiki.url).toString(),
+  }));
+}
+
+// Espace insécable tous les trois chiffres, sans dépendre d'ICU au build.
+export function nombre(valeur: number): string {
+  return valeur.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+}
+
+export function pagesWiki(): number {
+  return SUJETS_WIKI.reduce((total, sujet) => total + sujet.articles, 0);
 }
 
 export function applicationsCollection(

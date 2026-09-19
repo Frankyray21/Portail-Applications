@@ -8,11 +8,14 @@ import {
   application,
   applicationsCollection,
   captures,
+  nombre,
+  pagesWiki,
+  sujetsWiki,
 } from '../lib/catalogue.ts';
 
-await test('les huit applications ont un identifiant unique', () => {
-  assert.equal(APPLICATIONS.length, 8);
-  assert.equal(new Set(APPLICATIONS.map((app) => app.id)).size, 8);
+await test('les six applications ont un identifiant unique', () => {
+  assert.equal(APPLICATIONS.length, 6);
+  assert.equal(new Set(APPLICATIONS.map((app) => app.id)).size, 6);
 });
 await test('les destinations sont des pages HTTPS publiques du propriétaire', () => {
   for (const app of APPLICATIONS) {
@@ -84,6 +87,38 @@ await test('aucune note, aucun avis, aucun compteur inventé', () => {
     assert.doesNotMatch(textes, interdits, `mention inventée : ${app.id}`);
   }
   for (const une of A_LA_UNE) assert.doesNotMatch(une.raison, interdits);
+});
+await test('les sujets du wiki mènent tous dans le wiki', () => {
+  const sujets = sujetsWiki();
+  assert.equal(sujets.length, 7);
+  assert.equal(new Set(sujets.map((sujet) => sujet.id)).size, sujets.length);
+  const wiki = application('wiki');
+  assert.ok(wiki);
+  for (const sujet of sujets) {
+    assert.ok(sujet.titre.trim(), `titre vide : ${sujet.id}`);
+    assert.ok(sujet.exemples.trim().length > 15, `exemples minces : ${sujet.id}`);
+    assert.ok(
+      Number.isInteger(sujet.articles) && sujet.articles > 0,
+      `compte d’articles invalide : ${sujet.id}`,
+    );
+    const url = new URL(sujet.url);
+    assert.equal(url.protocol, 'https:');
+    assert.equal(url.hostname, 'frankyray21.github.io');
+    assert.ok(
+      sujet.url.startsWith(wiki.url),
+      `le sujet sort du wiki : ${sujet.url}`,
+    );
+  }
+});
+await test('le total des sujets est celui qu’annonce le wiki', () => {
+  // Le portail du wiki affiche 3 940 pages ; nos sept disciplines doivent
+  // retomber sur ce total, sinon l'une d'elles a bougé.
+  assert.equal(pagesWiki(), 3940);
+});
+await test('les nombres sont écrits avec une espace insécable', () => {
+  assert.equal(nombre(3940), '3\u00a0940');
+  assert.equal(nombre(320), '320');
+  assert.equal(nombre(3327), '3\u00a0327');
 });
 await test('application() retrouve une fiche et ignore un identifiant inconnu', () => {
   assert.equal(application('rodbot')?.title, 'RodBot LP');

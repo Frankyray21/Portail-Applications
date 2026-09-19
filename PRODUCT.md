@@ -26,7 +26,7 @@ liés — à corriger si ça ne correspond pas) :
   transmettre, et jugent la crédibilité de ce qu'ils relaient.
 - **Contacts professionnels et public** : employeurs, monde académique, gens
   qui découvrent le travail de Frank. Pour eux la page est une carte de visite.
-- **Frank lui-même** : point d'entrée quotidien vers ses huit applications.
+- **Frank lui-même** : point d'entrée quotidien vers ses six applications.
 
 ## Product Purpose
 

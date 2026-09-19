@@ -11,8 +11,6 @@ const APPS = [
   'anatomie',
   'rodbot',
   'procedures',
-  'camping',
-  'glucides',
 ];
 const PAGES = [
   ['', 'Aujourd’hui'],
@@ -74,7 +72,7 @@ const liste = sansScript(lu('applications/'));
 assert.equal(
   (liste.match(/class="rangee"/g) ?? []).length,
   APPS.length,
-  'huit rangées',
+  'six rangées',
 );
 assert.ok(
   !liste.includes('frankyray21.github.io'),
@@ -90,11 +88,17 @@ for (const id of APPS) {
     ...fiche.matchAll(/href="(https:\/\/frankyray21\.github\.io\/[^"]+)"/g),
   ];
   assert.ok(ouvre.length >= 1, `aucune ouverture : ${id}`);
-  assert.equal(
-    new Set(ouvre.map((m) => m[1])).size,
-    1,
-    `la fiche ${id} ouvre plus d’une application`,
-  );
+  // Une fiche peut pointer profond dans SON application (les sujets du
+  // wiki), mais jamais vers une autre : tous ses liens publics doivent
+  // partir de l'adresse que son bouton « Ouvrir » annonce.
+  const bouton = fiche.match(/class="ouvrir"[^>]*href="([^"]+)"/) ??
+    fiche.match(/href="([^"]+)"[^>]*class="ouvrir"/);
+  assert.ok(bouton, `bouton Ouvrir introuvable : ${id}`);
+  for (const lien of ouvre)
+    assert.ok(
+      lien[1].startsWith(bouton[1]),
+      `la fiche ${id} mène hors de son application : ${lien[1]}`,
+    );
   assert.ok(
     /href="https:\/\/github\.com\/Frankyray21\//.test(fiche),
     `code source absent : ${id}`,
@@ -106,6 +110,31 @@ for (const id of APPS) {
   assert.ok(fiche.includes('class="ouvrir"'), `bouton Ouvrir : ${id}`);
 }
 
+// Le fond documentaire : les sept sujets du wiki doivent être offerts sur
+// l'accueil et sur la fiche, et mener dans le wiki, pas ailleurs.
+const SUJETS = [
+  'w/psychosocial/',
+  'w/legislation/',
+  'w/ergonomie/',
+  'w/hygiene/',
+  'w/securite/',
+  'w/toxicologie/',
+  'w/droit-travail/',
+];
+for (const ou of ['', 'app/wiki/']) {
+  const page = sansScript(lu(ou));
+  for (const sujet of SUJETS)
+    assert.ok(
+      page.includes(`https://frankyray21.github.io/wiki-sst-mines/${sujet}`),
+      `sujet du wiki absent de ${ou || '(accueil)'} : ${sujet}`,
+    );
+  assert.equal(
+    (page.match(/class="sujets__titre"/g) ?? []).length,
+    SUJETS.length,
+    `sept sujets attendus sur ${ou || '(accueil)'}`,
+  );
+}
+
 for (const url of ressources) {
   assert.ok(url.startsWith(base));
   const fichier = resolve(dossier, url.slice(base.length));
@@ -115,12 +144,12 @@ for (const url of ressources) {
 const captures = readdirSync(join(dossier, 'captures')).filter((n) =>
   n.endsWith('.jpg'),
 );
-assert.equal(captures.length, 20, `captures publiées : ${captures.length}`);
+assert.equal(captures.length, 15, `captures publiées : ${captures.length}`);
 assert.ok(
   !readdirSync(dossier).some((nom) =>
     ['server', '.env', '.openai'].includes(nom),
   ),
 );
 console.log(
-  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${captures.length} captures, ${ressources.size} ressources locales.`,
+  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${captures.length} captures, ${ressources.size} ressources locales.`,
 );

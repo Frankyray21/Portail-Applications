@@ -1,12 +1,23 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { ressource } from '@/lib/base';
 import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Le Hub — Applications',
   description:
-    'Retrouvez les applications de Frank : prévention, formation et forage, découverte et vie pratique.',
+    'Retrouvez les applications de Frank : prévention, formation, forage et découverte.',
   icons: { icon: ressource('/favicon.svg') },
+};
+
+// Le bandeau pétrole se prolonge dans la barre du navigateur, et le site
+// suit le réglage clair ou sombre de l'appareil : sous terre, les écrans
+// sont souvent en mode sombre.
+export const viewport: Viewport = {
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#094850' },
+    { media: '(prefers-color-scheme: dark)', color: '#00353c' },
+  ],
 };
 
 export default function RootLayout({

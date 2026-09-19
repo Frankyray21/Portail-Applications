@@ -42,7 +42,7 @@ export function Recherche() {
   return (
     <>
       <div className="champ">
-        <Search size={19} aria-hidden="true" />
+        <Search size={22} aria-hidden="true" />
         <input
           type="search"
           value={terme}
@@ -72,10 +72,11 @@ export function Recherche() {
                   <strong>{app.title}</strong>
                   <span>{app.subtitle}</span>
                 </span>
-                <span className="rangee__voir">
-                  Voir
-                  <ChevronRight size={16} aria-hidden="true" />
-                </span>
+                <ChevronRight
+                  size={24}
+                  className="rangee__chevron"
+                  aria-hidden="true"
+                />
               </Link>
             </li>
           ))}

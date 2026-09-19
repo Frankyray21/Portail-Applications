@@ -2,7 +2,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowUpRight, ChevronLeft, Code2 } from 'lucide-react';
 import { ressource } from '@/lib/base';
-import { APPLICATIONS, application, captures } from '@/lib/catalogue';
+import {
+  APPLICATIONS,
+  application,
+  captures,
+  nombre,
+  sujetsWiki,
+} from '@/lib/catalogue';
 import { StoreShell } from '../../store-shell';
 import { Icone } from '../../icone';
 
@@ -32,7 +38,7 @@ export default async function Fiche({
     <StoreShell actif="applications">
       <main id="contenu" className="page fiche" tabIndex={-1}>
         <Link href="/applications/" className="retour">
-          <ChevronLeft size={18} aria-hidden="true" />
+          <ChevronLeft size={20} aria-hidden="true" />
           Applications
         </Link>
 
@@ -49,7 +55,7 @@ export default async function Fiche({
             rel="noopener noreferrer"
           >
             Ouvrir
-            <ArrowUpRight size={16} aria-hidden="true" />
+            <ArrowUpRight size={20} aria-hidden="true" />
           </a>
         </header>
         <p className="fiche__nouvel-onglet">
@@ -92,18 +98,41 @@ export default async function Fiche({
           </ul>
         </section>
 
+        {app.id === 'wiki' ? (
+          <section className="bloc" aria-labelledby="titre-sujets">
+            <h2 id="titre-sujets">Les sujets</h2>
+            <ul className="sujets">
+              {sujetsWiki().map((sujet) => (
+                <li key={sujet.id}>
+                  <a href={sujet.url} target="_blank" rel="noopener noreferrer">
+                    <span className="sujets__titre">
+                      {sujet.titre}
+                      <span className="sr-only"> (nouvel onglet)</span>
+                    </span>
+                    <span className="sujets__exemples">{sujet.exemples}</span>
+                    <span className="sujets__compte">
+                      {nombre(sujet.articles)} articles
+                      <ArrowUpRight size={15} aria-hidden="true" />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
+
         <section className="bloc" aria-labelledby="titre-liens">
           <h2 id="titre-liens">Liens</h2>
           <ul className="liens">
             <li>
               <a href={app.url} target="_blank" rel="noopener noreferrer">
-                <ArrowUpRight size={17} aria-hidden="true" />
+                <ArrowUpRight size={19} aria-hidden="true" />
                 Ouvrir {app.title}
               </a>
             </li>
             <li>
               <a href={app.depot} target="_blank" rel="noopener noreferrer">
-                <Code2 size={17} aria-hidden="true" />
+                <Code2 size={19} aria-hidden="true" />
                 Le code source sur GitHub
               </a>
             </li>

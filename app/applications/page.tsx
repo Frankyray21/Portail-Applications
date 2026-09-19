@@ -10,7 +10,7 @@ import { Icone } from '../icone';
 
 export const metadata = {
   title: 'Applications — Le Hub',
-  description: 'Les huit applications de la collection, par collection.',
+  description: 'Les six applications de la collection, par collection.',
 };
 
 export default function Applications() {
@@ -18,8 +18,12 @@ export default function Applications() {
     <StoreShell actif="applications">
       <main id="contenu" className="page" tabIndex={-1}>
         <header className="entete">
-          <p className="entete__sur">{APPLICATIONS.length} applications</p>
           <h1>Applications</h1>
+          <p className="entete__lede">
+            {APPLICATIONS.length} applications, en {COLLECTIONS.length}{' '}
+            collections. Une rangée mène à la fiche ; c’est la fiche qui
+            ouvre l’application.
+          </p>
         </header>
 
         {COLLECTIONS.map((collection) => (
@@ -43,10 +47,11 @@ export default function Applications() {
                       <strong>{app.title}</strong>
                       <span>{app.subtitle}</span>
                     </span>
-                    <span className="rangee__voir">
-                      Voir
-                      <ChevronRight size={16} aria-hidden="true" />
-                    </span>
+                    <ChevronRight
+                      size={24}
+                      className="rangee__chevron"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}

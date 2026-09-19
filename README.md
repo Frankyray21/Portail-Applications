@@ -12,7 +12,6 @@ les thèmes et le contenu des fiches).
 
 - **Prévention & découverte** : Prévention des TMS, Bruit, WIKI SST — Mines, Anatomie 3D.
 - **Forage & procédures** : RodBot LP, Procédures de forage MRI.
-- **La vie pratique** : Camping en tente, GlucideNet.
 
 Aucune note, aucune étoile, aucun avis, aucun compteur de téléchargement,
 aucun classement : rien de tout cela n’existe, donc rien de tout cela n’est
@@ -21,9 +20,30 @@ construction. La mise en avant de l’onglet « Aujourd’hui » se règle dans
 `A_LA_UNE` (`lib/catalogue.ts`) ; chaque entrée doit porter une raison
 vérifiable dans l’application elle-même.
 
-Les URL publiques des huit applications ont été vérifiées le 5 septembre 2026.
+Les URL publiques des six applications ont été vérifiées le 5 septembre 2026.
 Aucun dépôt privé n’est affiché. Pas de mesure d’audience, de compte ou de
 stockage partagé ajouté au portail. Chaque application garde son fonctionnement.
+
+## Identité visuelle
+
+Deux couleurs et deux caractères, rien d’autre.
+
+- **Pétrole** (`--petrole`) pour la coquille : bandeau et onglets.
+  **Cuivre** (`--cuivre`) pour l’action : bouton « Ouvrir », liens, onglet
+  courant, barre sous les titres. Les neutres sont teintés vers le pétrole.
+  Les six plaques d’icônes gardent la couleur de leur application, ramenées
+  à la même clarté. Les couleurs sont conçues en OKLCH et écrites en
+  hexadécimal dans `app/globals.css`, ratios de contraste en commentaire.
+- **Hepta Slab 800** grave les titres et le mot « Le Hub » ;
+  **Atkinson Hyperlegible Next**, dessinée pour les lecteurs peu à l’aise,
+  compose tout le reste. Les deux fichiers woff2 (sous-ensemble latin, 57 Ko
+  en tout) sont dans `app/fonts/`, sous licence OFL (`app/fonts/OFL.txt`) ;
+  la construction les copie dans `_next/static/media/` avec le chemin de
+  base. Sans eux, le site retombe sur la police système et reste lisible.
+- **Mode sombre** : `prefers-color-scheme: dark` redéfinit les jetons et la
+  barre du navigateur suit (`theme-color`). Pas de bouton de bascule : il
+  faudrait du JavaScript et une mémoire.
+- Le favicon reprend la marque : quatre plaques, dont une en cuivre.
 
 ## Développement
 
@@ -83,11 +103,24 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
+## Version 1.3.0
+
+- Identité visuelle : pétrole pour la coquille, cuivre pour l’action,
+  Hepta Slab pour les titres et Atkinson Hyperlegible Next pour le texte,
+  auto-hébergées. Mode sombre réel, suivant le réglage de l’appareil.
+- Bandeau et onglets à la place du rail latéral ; pied de page partout.
+- Camping en tente et GlucideNet retirés : six applications, deux collections.
+- Nouvelle section « Le fond documentaire » : les sept disciplines du
+  WIKI SST — Mines, avec leurs nombres d’articles et un lien direct vers
+  chacune. La même liste ouvre la fiche du wiki.
+- Le validateur d’export exige les sept sujets, et vérifie qu’une fiche ne
+  mène jamais hors de son application.
+
 ## Version 1.2.0
 
 - Format boutique : onglets Aujourd’hui, Applications et Rechercher.
 - Une fiche par application, avec présentation, contenu réel et captures.
-- Vingt captures d’écran réelles, prises en faisant tourner les huit
+- Quinze captures d’écran réelles, prises en faisant tourner les six
   applications localement.
 - Recherche instantanée, insensible aux accents ; la liste complète reste
   rendue par l’export, donc consultable sans JavaScript.

@@ -3,9 +3,7 @@ import {
   AudioLines,
   Box,
   ClipboardList,
-  Leaf,
   ShieldCheck,
-  Tent,
   Wrench,
 } from 'lucide-react';
 import type { IconeId } from '@/lib/catalogue';
@@ -17,10 +15,10 @@ const ICONES = {
   procedures: ClipboardList,
   wiki: ShieldCheck,
   anatomie: Box,
-  camping: Tent,
-  glucides: Leaf,
 };
 
+// Une plaque : un carré presque droit dans la couleur de l'application, et
+// un pictogramme blanc au trait épais, lisible à 52 px comme à 88 px.
 export function Icone({
   id,
   color,
@@ -36,7 +34,7 @@ export function Icone({
       className={`icone icone--${taille} color-${color}`}
       aria-hidden="true"
     >
-      <Symbole strokeWidth={1.65} />
+      <Symbole strokeWidth={2} />
     </span>
   );
 }
