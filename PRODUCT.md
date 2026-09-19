@@ -35,9 +35,12 @@ et d'outillage construites par Frank, et permettre de les reconnaître puis de
 les ouvrir. Le portail ne copie ni les données ni les comptes des applications :
 chacune garde son fonctionnement, ses données et son mode hors-ligne.
 
-Réussite : un visiteur comprend en quelques secondes ce que contient la
-collection et ouvre la bonne application ; un habitué atteint la sienne en un
-geste, sur son téléphone, sans hésiter.
+Chaque application a sa fiche : présentation, contenu réel, captures d'écran
+prises dans l'application elle-même, et un bouton pour l'ouvrir. La liste mène
+à la fiche ; c'est la fiche qui ouvre l'application.
+
+Réussite : un visiteur comprend ce que fait une application avant de l'ouvrir,
+et un habitué atteint la sienne en deux gestes, sur son téléphone.
 
 ## Brand Personality
 
@@ -54,29 +57,40 @@ et la moyenne ne le sont pas.
 
 ## Anti-references
 
-- **Le clone d'App Store** (anti-référence principale, nommée par l'utilisateur).
-  Le mobilier de magasin est à bannir : notes, avis, classements, compteurs de
-  téléchargement, badges « nouveau », carrousels promotionnels, tuiles
-  identiques à l'infini. La collection est un corpus de travail, pas un rayon.
-  À surveiller aussi : la section « À la une », les fiches et les icônes
-  arrondies colorées, qui sont aujourd'hui des emprunts directs.
+**Décision du 19 septembre 2026 : le format App Store est assumé.** La
+version 1.1 le fuyait ; l'utilisateur a demandé l'inverse, explicitement et
+après qu'on lui ait rappelé la contradiction. Le portail est donc une boutique :
+onglets Aujourd'hui / Applications / Rechercher, fiche par application,
+captures d'écran, bouton « Ouvrir ». Ce document enregistre ce choix.
+
+Ce qui reste interdit, et qui ne se négocie pas :
+
+- **La popularité fabriquée.** Aucune note, aucune étoile, aucun avis, aucun
+  compteur de téléchargement, aucun classement, aucun badge « nouveau » ou
+  « tendance ». Rien de tout cela n'existe : l'afficher serait inventer. Un
+  test du catalogue et le validateur d'export le vérifient à chaque
+  construction.
+- **Le contenu inventé sur une fiche.** Les présentations et les listes
+  « ce que ça contient » sont relevées dans les applications elles-mêmes. Les
+  captures sont de vraies captures, prises en faisant tourner chaque
+  application, jamais des images d'illustration.
 - **Le site corporatif SST** : bleu-blanc générique, casques et poignées de
   main, vocabulaire de conformité.
-- **Le gabarit d'admin SaaS** : sidebar + cartes + badges + statistiques, le
-  tableau de bord qu'on voit partout.
-- **La page décorative** : effets, dégradés et animations qui retardent l'accès
-  aux applications.
+- **La page décorative** : effets et animations qui retardent l'accès aux
+  applications.
 
 ## Design Principles
 
-1. **Ouvrir, pas parcourir.** La page se juge à la vitesse à laquelle on
-   atteint la bonne application. Tout élément qui ne sert ni à reconnaître ni à
+1. **Faire connaître, puis ouvrir.** Le parcours compte deux temps : la liste
+   fait reconnaître, la fiche fait comprendre, et l'ouverture se fait depuis la
+   fiche. Tout élément qui ne sert ni à reconnaître, ni à comprendre, ni à
    ouvrir doit se justifier.
 2. **La crédibilité avant l'effet.** Le contenu lié engage la sécurité de
    gens réels. Rien d'inventé sur la page : aucune note, aucun chiffre, aucune
    promesse qui ne soit vérifiable.
-3. **Une collection, pas un magasin.** Le portail montre un travail cohérent
-   d'une seule main ; il n'imite pas la boutique d'applications.
+3. **Un magasin qui ne ment pas.** Le portail emprunte la forme d'une boutique
+   d'applications, mais aucune de ses métriques : ce qu'il affiche est
+   vérifiable dans l'application liée, ou n'est pas affiché.
 4. **Lisible avec des gants.** Grandes cibles, contraste élevé, français
    simple, fonctionnement sans JavaScript : le mobile de terrain est le cas
    normal, pas le cas dégradé.

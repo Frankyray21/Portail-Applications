@@ -1,8 +1,12 @@
 # Le Hub — Portail d’applications
 
-Accueil public des applications de Frank, rassemblées en trois collections.
-Ce portail ne copie ni les données ni les comptes des applications : il permet
-de les reconnaître et de les ouvrir.
+Boutique publique des applications de Frank. Chaque application a sa fiche :
+présentation, ce qu’elle contient, captures d’écran, et un bouton pour
+l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
+
+Trois onglets : **Aujourd’hui** (la mise en avant), **Applications** (le
+catalogue par collection) et **Rechercher** (filtrage instantané sur le nom,
+les thèmes et le contenu des fiches).
 
 ## Collections
 
@@ -10,11 +14,12 @@ de les reconnaître et de les ouvrir.
 - **Forage & procédures** : RodBot LP, Procédures de forage MRI.
 - **La vie pratique** : Camping en tente, GlucideNet.
 
-Aucun classement, note, avis ni statistique de téléchargement. Une seule
-application peut être mise en avant (`MISE_EN_AVANT` dans `lib/catalogue.ts`),
-avec une raison vérifiable ; elle est alors **retirée** de sa collection, de
-sorte qu’aucune application n’est publiée deux fois. Le champ vaut `null` par
-défaut : la page s’ouvre directement sur le catalogue.
+Aucune note, aucune étoile, aucun avis, aucun compteur de téléchargement,
+aucun classement : rien de tout cela n’existe, donc rien de tout cela n’est
+affiché. Un test du catalogue et le validateur d’export le vérifient à chaque
+construction. La mise en avant de l’onglet « Aujourd’hui » se règle dans
+`A_LA_UNE` (`lib/catalogue.ts`) ; chaque entrée doit porter une raison
+vérifiable dans l’application elle-même.
 
 Les URL publiques des huit applications ont été vérifiées le 5 septembre 2026.
 Aucun dépôt privé n’est affiché. Pas de mesure d’audience, de compte ou de
@@ -46,11 +51,22 @@ rencontré après le prérendu ; les codes d’erreur restent inchangés.
 
 ## Modifier le catalogue
 
-Le contenu est centralisé dans `lib/catalogue.ts` : nom, description, collection,
-adresse publique et icône. Ajouter une application explicitement après avoir
+Le contenu est centralisé dans `lib/catalogue.ts` : nom, description, résumé de
+fiche, liste « ce que ça contient », nombre de captures, collection, adresse
+publique, dépôt et icône. Ajouter une application explicitement après avoir
 vérifié son accès public. Ne pas importer automatiquement tous les dépôts du
 compte. Les textes sont descriptifs ; ils ne valident pas le contenu médical,
 réglementaire ou technique des applications liées.
+
+Le résumé et la liste « ce que ça contient » se relèvent **dans l’application
+elle-même**, pas ailleurs. Rien ne doit y être inventé.
+
+### Captures d’écran
+
+Les captures vivent dans `public/captures/<id>-<n>.jpg`, au format téléphone
+(390 × 844, densité 1,5, JPEG qualité 82). Elles sont prises en faisant tourner
+l’application localement, pas récupérées ailleurs. Le champ `captures` du
+catalogue dit combien il y en a ; un test échoue si un fichier manque.
 
 ## Publication
 
@@ -67,11 +83,14 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
-## Version 1.1.0
+## Version 1.2.0
 
-- Nouvelle structure d’application : navigation latérale et barre mobile.
-- Repérage de la collection active pendant le défilement.
-- Fiches compactes, sans tronquer les noms.
-- Espace de bas de page adapté à la hauteur réelle de la barre mobile.
-- Liens natifs utilisables sans JavaScript ; aucun compte, favori ou stockage ajouté.
-- Douze tests de catalogue/navigation et validation renforcée de l’export.
+- Format boutique : onglets Aujourd’hui, Applications et Rechercher.
+- Une fiche par application, avec présentation, contenu réel et captures.
+- Vingt captures d’écran réelles, prises en faisant tourner les huit
+  applications localement.
+- Recherche instantanée, insensible aux accents ; la liste complète reste
+  rendue par l’export, donc consultable sans JavaScript.
+- Feuille de style réécrite en une seule couche, sans surcharges empilées.
+- Le validateur d’export exige le chemin de base sur toute URL absolue, une
+  seule application ouverte par fiche, et aucune popularité fabriquée.

@@ -1,179 +1,94 @@
-import {
-  Accessibility,
-  ArrowUpRight,
-  AudioLines,
-  Box,
-  ClipboardList,
-  Leaf,
-  ShieldCheck,
-  Tent,
-  Wrench,
-} from 'lucide-react';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
+import { ressource } from '@/lib/base';
 import {
   APPLICATIONS,
-  COLLECTIONS,
-  MISE_EN_AVANT,
+  A_LA_UNE,
   VERIFICATION_LIENS,
-  applicationMiseEnAvant,
-  applicationsCollection,
-  type Application,
-  type IconeId,
+  application,
+  captures,
 } from '@/lib/catalogue';
-import { HubShell } from './hub-shell';
+import { StoreShell } from './store-shell';
+import { Icone } from './icone';
 
-const ICONES = {
-  tms: Accessibility,
-  bruit: AudioLines,
-  rodbot: Wrench,
-  procedures: ClipboardList,
-  wiki: ShieldCheck,
-  anatomie: Box,
-  camping: Tent,
-  glucides: Leaf,
-};
-const COLLECTION_ICONES = {
-  prevention: ShieldCheck,
-  forage: Wrench,
-  quotidien: Leaf,
+export const metadata = {
+  title: 'Aujourd’hui — Le Hub',
+  description:
+    'La collection de Frank : prévention, formation et outils du quotidien.',
 };
 
-function Icone({ id, color }: { id: IconeId; color: string }) {
-  const Symbole = ICONES[id];
+export default function Aujourdhui() {
   return (
-    <span className={`app-icon color-${color}`} aria-hidden="true">
-      <Symbole strokeWidth={1.65} />
-    </span>
-  );
-}
+    <StoreShell actif="aujourdhui">
+      <main id="contenu" className="page" tabIndex={-1}>
+        <header className="entete">
+          <p className="entete__sur">La collection de Frank</p>
+          <h1>Aujourd’hui</h1>
+        </header>
 
-// Toute la rangée ouvre l'application : le lien porte le titre, et son
-// pseudo-élément couvre la fiche entière. Le sous-titre, la description et
-// les thèmes restent donc lisibles par un lecteur d'écran au lieu d'être
-// écrasés par un aria-label.
-function AppCard({ application }: { application: Application }) {
-  return (
-    <article className="app-card" data-app-id={application.id}>
-      <div className="app-card__top">
-        <Icone id={application.id} color={application.color} />
-        <div className="app-card__name">
-          <a
-            className="app-open"
-            href={application.url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h3>{application.title}</h3>
-            <span className="sr-only"> (nouvel onglet)</span>
-          </a>
-          <p>{application.subtitle}</p>
-        </div>
-        <ArrowUpRight className="app-card__ext" size={18} aria-hidden="true" />
-      </div>
-      <p className="app-description">{application.description}</p>
-      <ul className="app-tags" aria-label="Thèmes">
-        {application.tags.map((tag) => (
-          <li key={tag}>{tag}</li>
-        ))}
-      </ul>
-    </article>
-  );
-}
-
-export default function Home() {
-  const miseEnAvant = applicationMiseEnAvant();
-  return (
-    <>
-      <a href="#applications" className="skip-link">
-        Aller aux applications
-      </a>
-      <HubShell>
-        <main id="accueil" className="page" tabIndex={-1}>
-          <div className="page-heading">
-            <h1>La collection de Frank</h1>
-            <p className="heading-description">
-              Prévention, formation et outils du quotidien.
-            </p>
-            <p className="app-count">{APPLICATIONS.length} applications</p>
-          </div>
-
-          <aside className="info-note" aria-label="À propos de cette collection">
-            <p>
-              Huit outils personnels, construits par Frank pour son travail. Ils
-              ne remplacent ni les procédures officielles de votre employeur, ni
-              un avis professionnel.
-            </p>
-            <p className="info-note__meta">
-              Chaque application s’ouvre dans un nouvel onglet et garde ses
-              propres données et son mode hors ligne. Adresses vérifiées le{' '}
-              {VERIFICATION_LIENS}.
-            </p>
-          </aside>
-
-          {miseEnAvant && MISE_EN_AVANT ? (
-            <section className="highlight" aria-labelledby="titre-mise-en-avant">
-              <h2 id="titre-mise-en-avant" className="sr-only">
-                Mise en avant
-              </h2>
-              <p className="highlight__reason">{MISE_EN_AVANT.raison}</p>
-              <div className="app-grid app-grid--single">
-                <AppCard application={miseEnAvant} />
-              </div>
-            </section>
-          ) : null}
-
-          <div id="applications" className="collections" tabIndex={-1}>
-            {COLLECTIONS.map((collection) => {
-              const CollectionIcone = COLLECTION_ICONES[collection.id];
-              const applications = applicationsCollection(collection.id);
-              if (applications.length === 0) return null;
-              return (
-                <section
-                  className="collection"
-                  id={collection.id}
-                  key={collection.id}
-                  aria-labelledby={`titre-${collection.id}`}
-                  tabIndex={-1}
-                >
-                  <div className="section-heading collection-heading">
-                    <span
-                      className={`collection-icon collection-icon--${collection.id}`}
-                      aria-hidden="true"
-                    >
-                      <CollectionIcone size={21} strokeWidth={1.8} />
-                    </span>
-                    <div className="collection-heading__copy">
-                      <h2 id={`titre-${collection.id}`}>{collection.title}</h2>
-                      <p>{collection.description}</p>
-                    </div>
-                    <span className="collection-count">
-                      {applications.length}
-                      <span className="sr-only"> applications</span>
-                    </span>
-                  </div>
-                  <div className="app-grid">
-                    {applications.map((application) => (
-                      <AppCard key={application.id} application={application} />
+        <section className="une" aria-labelledby="titre-une">
+          <h2 id="titre-une" className="sr-only">
+            À la une
+          </h2>
+          {A_LA_UNE.map(({ id, raison }) => {
+            const app = application(id)!;
+            return (
+              <Link key={id} href={`/app/${app.id}/`} className="carte-une">
+                <div className="carte-une__texte">
+                  <p className="carte-une__sur">{app.subtitle}</p>
+                  <h3>{app.title}</h3>
+                  <p className="carte-une__raison">{raison}</p>
+                </div>
+                <div className="carte-une__apercus">
+                  {captures(app)
+                    .slice(0, 3)
+                    .map((image) => (
+                      <img
+                        key={image}
+                        src={ressource(image)}
+                        alt=""
+                        width={585}
+                        height={1266}
+                        loading="lazy"
+                      />
                     ))}
-                  </div>
-                </section>
-              );
-            })}
+                </div>
+              </Link>
+            );
+          })}
+        </section>
+
+        <section className="bande" aria-labelledby="titre-tout">
+          <div className="bande__tete">
+            <h2 id="titre-tout">Toute la collection</h2>
+            <Link href="/applications/">
+              Voir <ChevronRight size={17} aria-hidden="true" />
+            </Link>
           </div>
-        </main>
-        <footer className="footer">
-          <p>La collection de Frank</p>
-          <a
-            className="footer-source"
-            href="https://github.com/Frankyray21/Portail-Applications"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Le projet sur GitHub — nouvel onglet"
-          >
-            GitHub <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
-          <span className="footer-version">Le Hub 1.1</span>
-        </footer>
-      </HubShell>
-    </>
+          <ul className="pastilles">
+            {APPLICATIONS.map((app) => (
+              <li key={app.id}>
+                <Link href={`/app/${app.id}/`}>
+                  <Icone id={app.id} color={app.color} />
+                  <span>{app.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <aside className="mention" aria-label="À propos de cette collection">
+          <p>
+            Huit outils personnels, construits par Frank pour son travail. Ils
+            ne remplacent ni les procédures officielles de votre employeur, ni
+            un avis professionnel.
+          </p>
+          <p className="mention__meta">
+            Aucune note, aucun avis, aucun compteur de téléchargement : rien de
+            tout cela n’existe ici. Adresses vérifiées le {VERIFICATION_LIENS}.
+          </p>
+        </aside>
+      </main>
+    </StoreShell>
   );
 }
