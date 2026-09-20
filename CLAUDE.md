@@ -14,7 +14,9 @@ branche `gh-pages`. Adresse du site :
 2. **Déployer** : `npm run build`, puis publier le contenu de
    `dist/client/Portail-Applications/` à la racine de `gh-pages`, avec
    `.nojekyll` (sans lui, GitHub Pages ignore les ressources `_next`).
-3. **Partager le lien du site déployé** dans la réponse, à chaque fois.
+3. **Pousser sur `main`** : la branche de travail est fusionnée dans `main`,
+   qui ne doit jamais diverger de ce qui est publié.
+4. **Partager le lien du site déployé** dans la réponse, à chaque fois.
 
 Répondre à l'utilisateur en français.
 
