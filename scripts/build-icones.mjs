@@ -11,7 +11,7 @@
 // Les PNG produits sont versionnés : relancer le script à la main quand le
 // motif ou les couleurs changent.
 import sharp from 'sharp';
-import { writeFileSync } from 'node:fs';
+import { existsSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 // Les mêmes jetons que app/globals.css : --noir, --fond, --rouge-clair.
@@ -20,6 +20,11 @@ const CLAIR = '#f6f6f7';
 const ROUGE = '#ef5a5c';
 
 const RES = 'android/app/src/main/res';
+
+// Le vrai logo du portail, quand il est là. Sinon le script dessine le
+// motif : toutes les icônes restent cohérentes dans les deux cas.
+const LOGO = resolve('public/logos/portail.png');
+const AVEC_LOGO = existsSync(LOGO);
 
 // Motif carré : 2 × 2 tuiles de 110, séparées de 22, soit 242 de côté.
 function motif(taille) {
@@ -31,6 +36,12 @@ function motif(taille) {
   </svg>`;
 }
 
+// Le dessin posé au centre : le logo s'il existe, le motif sinon.
+const dessin = (cote) =>
+  AVEC_LOGO
+    ? sharp(LOGO).resize(cote, cote, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()
+    : sharp(Buffer.from(motif(cote))).png().toBuffer();
+
 const svg = (source) => Buffer.from(source);
 
 async function ecrire(chemin, image) {
@@ -38,11 +49,12 @@ async function ecrire(chemin, image) {
   console.log(`  ${chemin}`);
 }
 
-// Le motif posé au centre d'un fond, occupant `part` de la largeur.
+// Le dessin posé au centre d'un fond, occupant `part` de la largeur.
+// Le vrai logo porte déjà son cadre : il remplit davantage que le motif nu.
 async function composer(largeur, hauteur, fond, part) {
-  const cote = Math.round(Math.min(largeur, hauteur) * part);
-  const dessin = await sharp(svg(motif(cote))).png().toBuffer();
-  return sharp(fond).composite([{ input: dessin, gravity: 'centre' }]);
+  const ampleur = AVEC_LOGO ? Math.min(1, part * 1.28) : part;
+  const cote = Math.round(Math.min(largeur, hauteur) * ampleur);
+  return sharp(fond).composite([{ input: await dessin(cote), gravity: 'centre' }]);
 }
 
 const uni = (largeur, hauteur, teinte) => ({
@@ -66,6 +78,9 @@ const plaque = (cote) =>
     </svg>`,
   );
 
+console.log(AVEC_LOGO
+  ? 'Source : public/logos/portail.png'
+  : 'Source : motif dessiné (public/logos/portail.png absent)');
 console.log('Icônes du site :');
 // Icônes « any » du manifeste : la plaque telle qu'elle s'affiche.
 for (const cote of [192, 512]) {

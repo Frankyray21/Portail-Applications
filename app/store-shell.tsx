@@ -4,6 +4,7 @@ import { ArrowUpRight, House, LayoutGrid, Search } from 'lucide-react';
 import { ressource } from '@/lib/base';
 import { APPLICATIONS } from '@/lib/catalogue';
 import { ServiceWorker } from './installer';
+import { Theme } from './theme';
 
 export type Onglet = 'decouvrir' | 'applications' | 'recherche';
 
@@ -68,7 +69,7 @@ export function StoreShell({
               <input
                 type="search"
                 name="q"
-                placeholder="Rechercher une application…"
+                placeholder="Rechercher une application"
                 aria-label="Rechercher une application ou un sujet"
                 autoComplete="off"
               />
@@ -90,6 +91,7 @@ export function StoreShell({
               ))}
             </ul>
           </nav>
+          <Theme />
         </div>
       </header>
 
@@ -98,7 +100,7 @@ export function StoreShell({
         <footer className="pied">
           <ServiceWorker />
           <p>
-            Portail SST 1.9 · {APPLICATIONS.length} applications.{' '}
+            Portail SST 1.10 · {APPLICATIONS.length} applications.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail
               <ArrowUpRight size={15} aria-hidden="true" />

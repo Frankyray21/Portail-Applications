@@ -9,8 +9,8 @@
   "scope": "/Portail-Applications/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f6f6f7",
-  "theme_color": "#101214",
+  "background_color": "#111315",
+  "theme_color": "#08090a",
   "categories": [
     "education",
     "productivity",

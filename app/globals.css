@@ -32,47 +32,50 @@
   src: url('./fonts/AtkinsonHyperlegibleNext.woff2') format('woff2');
 }
 
+/* Le sombre est le thème du portail, pas une variante : sous terre et sur
+   une tablette de terrain, c'est lui qu'on veut, quel que soit le réglage
+   de l'appareil. Le clair reste disponible, par le bouton du bandeau, pour
+   qui lit mieux en noir sur blanc ; le choix est gardé sur l'appareil. */
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
 
-  /* Neutres franchement gris : le rouge et le noir portent seuls la couleur */
-  --fond: #f6f6f7;
-  --surface: #eaeaec;
-  --surface-forte: #dcdde0;
-  --encre: #15171a; /* 16,6:1 sur le fond */
-  --encre-douce: #44484d; /* 8,5:1 */
-  --encre-faible: #585d63; /* 6,2:1 */
-  --filet: #878b90; /* 3,2:1 sur le fond : un trait qu'on voit */
-  --filet-doux: #c7c9cc;
+  --fond: #111315;
+  --surface: #1c1f22;
+  --surface-forte: #272b2f;
+  --encre: #eceef0; /* 16,0:1 sur le fond */
+  --encre-douce: #c3c7ca; /* 10,9:1 */
+  --encre-faible: #a8adb1; /* 8,2:1 */
+  --filet: #6e7478; /* 3,9:1 sur le fond */
+  --filet-doux: #3c4145;
 
-  /* Noir MRI : la coquille (bandeau, onglets) */
-  --noir: #101214;
-  --noir-texte: #ffffff; /* 18,8:1 sur le noir */
-  --noir-texte-doux: #c6c9cc; /* 11,3:1 sur le noir */
-  --noir-fond: #e0e1e3;
+  /* Noir MRI : la coquille descend plus bas que la page. */
+  --noir: #08090a;
+  --noir-texte: #eceef0; /* 17,1:1 sur la coquille */
+  --noir-texte-doux: #c6c9cc; /* 12,0:1 */
+  --noir-fond: #23272a;
 
   /* Rouge MRI : l'action (ouvrir, voir, onglet courant) */
-  --rouge: #b81b1d; /* 6,1:1 sur le fond, 5,4:1 sur la surface */
-  --rouge-appui: #8f1214;
-  --rouge-clair: #ef5a5c; /* sur le noir : 5,6:1 */
-  --rouge-fond: #fbe5e5;
-  --bouton-texte: #ffffff; /* 6,5:1 sur le rouge */
-  --focus: #b81b1d;
+  --rouge: #ef5a5c; /* 5,6:1 sur le fond, 5,0:1 sur la surface */
+  --rouge-appui: #ff8183;
+  --rouge-clair: #ef5a5c;
+  --rouge-fond: #3a1a1b;
+  --bouton-texte: #111315; /* 5,6:1 sur le rouge */
+  --focus: #ef5a5c;
 
-  /* La carte rouge de la une : un aplat de marque, identique dans les deux
-     thèmes. Le blanc y tient 5,7:1 au point le plus clair du dégradé. */
-  --rouge-carte: linear-gradient(135deg, #c81f21, #8f1214);
+  /* La carte rouge de la une : un aplat de marque. Le blanc y tient 7,4:1
+     au point le plus clair du dégradé. */
+  --rouge-carte: linear-gradient(135deg, #a81a1c, #7a0f11);
   --carte-texte: #ffffff;
-  --carte-texte-doux: #ffdedd; /* 4,6:1 au point le plus clair */
+  --carte-texte-doux: #ffdedd; /* 5,9:1 au point le plus clair */
   --carte-bouton: #ffffff;
   --carte-bouton-texte: #8f1214; /* 9,3:1 sur le blanc */
   --carte-bouton-appui: #f1f1f2;
 
-  /* Le champ de recherche, posé dans le bandeau noir. */
-  --noir-champ: #1c1f22;
-  --noir-filet: #666b70; /* 3,5:1 sur le bandeau : un bord qu'on voit */
+  /* Le champ de recherche, posé dans la coquille. */
+  --noir-champ: #1a1d20;
+  --noir-filet: #666b70; /* 3,7:1 sur la coquille : un bord qu'on voit */
 
-  --ombre: 0 12px 28px #15171a26;
+  --ombre: 0 12px 28px #00000073;
 
   --affiche: 'Hepta Slab', 'Rockwell', 'Roboto Slab', serif;
   --texte:
@@ -88,39 +91,38 @@
   --z-evitement: 60;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fond: #111315;
-    --surface: #1c1f22;
-    --surface-forte: #272b2f;
-    --encre: #eceef0; /* 16,0:1 sur le fond */
-    --encre-douce: #c3c7ca; /* 10,9:1 */
-    --encre-faible: #a8adb1; /* 8,2:1 */
-    --filet: #6e7478; /* 3,9:1 sur le fond */
-    --filet-doux: #3c4145;
+/* Le clair, choisi explicitement. */
+:root[data-theme='clair'] {
+  color-scheme: light;
 
-    /* Sous terre, la coquille descend plus bas que la page. */
-    --noir: #08090a;
-    --noir-texte: #eceef0;
-    --noir-texte-doux: #c6c9cc;
-    --noir-fond: #23272a;
+  --fond: #f6f6f7;
+  --surface: #eaeaec;
+  --surface-forte: #dcdde0;
+  --encre: #15171a; /* 16,6:1 sur le fond */
+  --encre-douce: #44484d; /* 8,5:1 */
+  --encre-faible: #585d63; /* 6,2:1 */
+  --filet: #878b90; /* 3,2:1 sur le fond : un trait qu'on voit */
+  --filet-doux: #c7c9cc;
 
-    --rouge: #ef5a5c; /* 5,6:1 sur le fond, 5,0:1 sur la surface */
-    --rouge-appui: #ff8183;
-    --rouge-clair: #ef5a5c;
-    --rouge-fond: #3a1a1b;
-    --bouton-texte: #111315; /* 5,6:1 sur le rouge */
-    --focus: #ef5a5c;
+  --noir: #101214;
+  --noir-texte: #ffffff; /* 18,8:1 sur la coquille */
+  --noir-texte-doux: #c6c9cc; /* 11,3:1 */
+  --noir-fond: #e0e1e3;
 
-    /* Sous terre, l'aplat descend d'un cran : le blanc y tient 7,4:1. */
-    --rouge-carte: linear-gradient(135deg, #a81a1c, #7a0f11);
-    --carte-texte-doux: #ffdedd; /* 5,9:1 au point le plus clair */
+  --rouge: #b81b1d; /* 6,1:1 sur le fond, 5,4:1 sur la surface */
+  --rouge-appui: #8f1214;
+  --rouge-clair: #ef5a5c; /* sur la coquille : 5,6:1 */
+  --rouge-fond: #fbe5e5;
+  --bouton-texte: #ffffff; /* 6,5:1 sur le rouge */
+  --focus: #b81b1d;
 
-    --noir-champ: #1a1d20;
-    --noir-filet: #666b70; /* 3,7:1 sur le bandeau sombre */
+  --rouge-carte: linear-gradient(135deg, #c81f21, #8f1214);
+  --carte-texte-doux: #ffdedd; /* 4,6:1 au point le plus clair */
 
-    --ombre: 0 12px 28px #00000073;
-  }
+  --noir-champ: #1c1f22;
+  --noir-filet: #666b70; /* 3,5:1 sur la coquille */
+
+  --ombre: 0 12px 28px #15171a26;
 }
 
 * {
@@ -288,10 +290,10 @@ h3 {
 .chercher form {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   width: 100%;
   min-height: 44px;
-  padding: 0 14px;
+  padding: 0 13px;
   background: var(--noir-champ);
   border: 1px solid var(--noir-filet);
   border-radius: 999px;
@@ -305,7 +307,7 @@ h3 {
 }
 .chercher input {
   width: 100%;
-  min-height: 42px;
+  min-height: 44px;
   border: 0;
   background: none;
   color: var(--noir-texte);
@@ -318,6 +320,38 @@ h3 {
 .chercher input:focus {
   outline: none;
 }
+/* Le bouton de thème : une cible carrée dans la coquille, à droite des
+   onglets. Il ne dit qu'une chose, et son libellé est lu par la synthèse.
+   Sans JavaScript il ne ferait rien : il ne s'affiche donc pas. */
+.theme {
+  display: none;
+}
+:root[data-js] .theme {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: auto 0;
+  padding: 0;
+  border: 1px solid var(--noir-filet);
+  border-radius: 999px;
+  background: none;
+  color: var(--noir-texte-doux);
+  cursor: pointer;
+  transition:
+    color 120ms ease-out,
+    border-color 120ms ease-out;
+}
+.theme:hover {
+  color: var(--noir-texte);
+  border-color: var(--noir-texte-doux);
+}
+.theme:focus-visible {
+  outline: 3px solid var(--rouge-clair);
+  outline-offset: 2px;
+}
 .onglets-haut ul {
   display: flex;
   height: 100%;
@@ -325,10 +359,10 @@ h3 {
 .onglet {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   height: 100%;
   min-height: 48px;
-  padding: 0 13px;
+  padding: 0 11px;
   font-size: 1rem;
   white-space: nowrap;
   font-weight: 600;
@@ -464,7 +498,12 @@ h3 {
   font-size: 1.375rem;
   line-height: 1.15;
 }
+/* Le nom mène à la fiche : sa boîte est portée à 44 px sans déplacer le
+   texte, pour qu'on l'atteigne avec des gants. */
 .heros__nom a {
+  display: inline-block;
+  padding-block: 8px;
+  margin-block: -8px;
   color: inherit;
 }
 .heros__nom a:hover {
@@ -607,6 +646,9 @@ h3 {
   overflow-wrap: anywhere;
 }
 .tuile__nom a {
+  display: inline-block;
+  padding-block: 11px;
+  margin-block: -11px;
   color: var(--encre);
 }
 .tuile__nom a:hover {
@@ -990,6 +1032,22 @@ h3 {
     font-size: 0.875rem;
   }
 }
+/* Entre 901 et 1010 px, la marque, le champ, les trois onglets et le bouton
+   de thème ne tiennent plus sur une ligne sans rogner l'invite : le champ
+   descend sur la sienne, comme sur téléphone. */
+@media (min-width: 901px) and (max-width: 1010px) {
+  .bandeau__dedans {
+    flex-wrap: wrap;
+    gap: 0 16px;
+    padding-bottom: 12px;
+  }
+  .chercher {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+}
+
 @media (max-width: 1150px) and (min-width: 901px) {
   .marque__nom {
     font-size: 1.25rem;
@@ -1161,6 +1219,68 @@ h3 {
   }
   .heros__nom {
     font-size: 1.25rem;
+  }
+}
+
+/* ---------- Tablette de terrain ---------- */
+
+/* La Galaxy Tab Active4 Pro sort 1920 × 1200 à densité 1,5, soit 1280 × 800
+   px CSS en paysage et 800 × 1280 en portrait. Deux conséquences.
+
+   1. En paysage l'écran n'a que 800 px de haut : le grand titre et les
+      marges mangeraient le premier écran, et « Les essentiels » — ce qu'on
+      vient chercher — commencerait sous la ligne de flottaison. */
+@media (min-width: 901px) and (max-height: 860px) {
+  .page {
+    padding-top: 28px;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  .entete {
+    margin-bottom: 24px;
+  }
+  .entete__lede {
+    max-width: 78ch;
+  }
+  .une {
+    margin-bottom: 28px;
+  }
+  .heros {
+    padding: 18px;
+  }
+  /* La capture n'a plus besoin d'être haute : elle montre déjà de quoi il
+     s'agit, et la carte cesse d'imposer sa hauteur à toute la bande. */
+  .heros__apercu {
+    width: 118px;
+  }
+}
+
+/* 2. Elle se manipule avec des gants : sur un pointeur grossier, les
+      commandes principales passent de 44 à 48 px. */
+@media (pointer: coarse) {
+  .bouton-clair,
+  .bouton-rouge,
+  .ouvrir,
+  .installer button,
+  .emporter__bouton a {
+    min-height: 48px;
+  }
+  .theme {
+    width: 48px;
+    height: 48px;
+  }
+  .chercher form,
+  .chercher input {
+    min-height: 48px;
+  }
+  .tuile__nom a {
+    padding-block: 13px;
+    margin-block: -13px;
+  }
+  .heros__nom a {
+    padding-block: 10px;
+    margin-block: -10px;
   }
 }
 

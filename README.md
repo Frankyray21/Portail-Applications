@@ -45,9 +45,13 @@ Deux couleurs et deux caractères, rien d’autre.
   en tout) sont dans `app/fonts/`, sous licence OFL (`app/fonts/OFL.txt`) ;
   la construction les copie dans `_next/static/media/` avec le chemin de
   base. Sans eux, le site retombe sur la police système et reste lisible.
-- **Mode sombre** : `prefers-color-scheme: dark` redéfinit les jetons et la
-  barre du navigateur suit (`theme-color`). Pas de bouton de bascule : il
-  faudrait du JavaScript et une mémoire.
+- **Le sombre est le thème du portail**, pas une variante : il s'applique
+  quel que soit le réglage de l'appareil. Sous terre et sur une tablette de
+  terrain, c'est celui qu'on veut. Le clair reste atteignable par le bouton
+  du bandeau, et le choix est gardé sur l'appareil (`localStorage`). Un
+  petit script en tête de page le rétablit avant le premier affichage, donc
+  sans clignotement ; sans JavaScript le bouton ne s'affiche pas, puisqu'il
+  ne ferait rien.
 - Le favicon reprend la marque : quatre plaques, dont une en rouge. Toutes
   les icônes (site, lanceur Android, écran de lancement) sortent du même
   motif, par `node scripts/build-icones.mjs`.
@@ -165,6 +169,27 @@ Avant de déployer, relever la release :
 ```sh
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
+
+## Version 1.10.0
+
+- **Le sombre est le thème du portail**, quel que soit le réglage de
+  l'appareil. Sous terre et sur une tablette de terrain, c'est celui qu'on
+  veut. Le clair reste atteignable par un bouton dans le bandeau, et le
+  choix est gardé sur l'appareil. Un script en tête de page le rétablit
+  avant le premier affichage, donc sans clignotement ; sans JavaScript le
+  bouton ne s'affiche pas, puisqu'il ne ferait rien.
+- **Optimisé pour la Galaxy Tab Active4 Pro** (1920 × 1200 à densité 1,5,
+  soit 1280 × 800 px CSS en paysage). En paysage l'écran n'a que 800 px de
+  haut : le titre et la une se resserrent pour que « Les essentiels » reste
+  au-dessus de la ligne de flottaison.
+- **Manipulable avec des gants** : sur un pointeur grossier, les commandes
+  principales passent de 44 à 48 px. Les noms d'application, qui mènent à la
+  fiche, voient leur cible portée à 44 px sans que le texte bouge.
+- Le bandeau tient à onze largeurs de 320 à 1920 px, avec les deux types de
+  pointeur : aucun débordement, et l'invite du champ de recherche entière.
+  Entre 901 et 1010 px, le champ descend sur sa propre ligne.
+- Les vingt textes de l'accueil sont mesurés dans le navigateur, dans les
+  deux thèmes : tous au niveau AA.
 
 ## Version 1.9.0
 

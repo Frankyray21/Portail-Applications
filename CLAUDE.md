@@ -55,10 +55,29 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
   aplats. Toute valeur ajoutée porte son ratio de contraste en commentaire.
 - Un seul script produit toutes les icônes : `node scripts/build-icones.mjs`.
   Ne jamais retoucher un PNG d'icône à la main, les familles divergeraient.
+  S'il existe, `public/logos/portail.png` sert de source à toutes ; sinon le
+  script dessine le motif à quatre tuiles.
+- **Le sombre est le thème par défaut**, quel que soit le réglage de
+  l'appareil. Le clair est un choix explicite (bouton du bandeau, gardé dans
+  `localStorage`, rétabli avant le premier affichage par le script de
+  `layout.tsx`). Ne pas remettre de bascule sur `prefers-color-scheme`.
+
+## Tablette de terrain
+
+La cible est une **Galaxy Tab Active4 Pro** : 1920 × 1200 à densité 1,5, soit
+1280 × 800 px CSS en paysage et 800 × 1280 en portrait, manipulée avec des
+gants.
+
+- En paysage l'écran n'a que 800 px de haut : un palier
+  `(min-width: 901px) and (max-height: 860px)` resserre le titre et la une
+  pour que « Les essentiels » reste au-dessus de la ligne de flottaison.
+- `@media (pointer: coarse)` porte les commandes principales à 48 px.
+- Vérifier à onze largeurs, de 320 à 1920 px, avec les deux types de
+  pointeur : aucun débordement, et l'invite du champ de recherche entière.
 
 ## Application Android (APK)
 
-Le Hub existe aussi en APK, compilé par `.github/workflows/build-apk.yml` à
+Le portail existe aussi en APK, compilé par `.github/workflows/build-apk.yml` à
 chaque poussée sur `main`. Capacitor enveloppe l'export, rebâti avec
 `PORTAIL_BASE` vide (`scripts/build-apk-www.mjs`) parce que le préfixe
 `/Portail-Applications` n'existe pas dans une WebView.
