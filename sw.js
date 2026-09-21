@@ -1,21 +1,21 @@
 // Généré par scripts/build-sw.mjs — ne pas modifier à la main.
-const CACHE = 'le-hub-59464c7b77d2';
+const CACHE = 'le-hub-4b1f1f115bc3';
 const BASE = "/Portail-Applications/";
 const PRECACHE = [
-  "/Portail-Applications/_next/static/5af9a2f0-9f59-4595-b54f-ce3ec4d28ee1/_buildManifest.js",
-  "/Portail-Applications/_next/static/5af9a2f0-9f59-4595-b54f-ce3ec4d28ee1/_ssgManifest.js",
+  "/Portail-Applications/_next/static/402e8b00-1c3f-4d25-a388-2e0042656867/_buildManifest.js",
+  "/Portail-Applications/_next/static/402e8b00-1c3f-4d25-a388-2e0042656867/_ssgManifest.js",
   "/Portail-Applications/_next/static/chunks/Icon-jpk45vUa.js",
   "/Portail-Applications/_next/static/chunks/base-DCCTftsV.js",
   "/Portail-Applications/_next/static/chunks/framework-DTZGTDtF.js",
-  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-YBpGkGW0.js",
-  "/Portail-Applications/_next/static/chunks/index-JoSoe997.js",
-  "/Portail-Applications/_next/static/chunks/installer-Bx3jFxom.js",
-  "/Portail-Applications/_next/static/chunks/layout-segment-context-CRMTfJT7.js",
-  "/Portail-Applications/_next/static/chunks/link-B-tDR-z_.js",
+  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-CvXezsai.js",
+  "/Portail-Applications/_next/static/chunks/index-DttEpb8S.js",
+  "/Portail-Applications/_next/static/chunks/installer-B0E-1zIJ.js",
+  "/Portail-Applications/_next/static/chunks/layout-segment-context-Dc4PR9tO.js",
+  "/Portail-Applications/_next/static/chunks/link-pgeJwWtk.js",
   "/Portail-Applications/_next/static/chunks/query-DugiHe4Q.js",
-  "/Portail-Applications/_next/static/chunks/recherche-B-jJ6ADR.js",
+  "/Portail-Applications/_next/static/chunks/recherche-DnN8QFqu.js",
   "/Portail-Applications/_next/static/chunks/rolldown-runtime-hePW80VL.js",
-  "/Portail-Applications/_next/static/chunks/vinext-DgVA_nAz.js",
+  "/Portail-Applications/_next/static/chunks/vinext-vgkGhYnV.js",
   "/Portail-Applications/_next/static/css/index.BETlLIMj.css",
   "/Portail-Applications/_next/static/media/AtkinsonHyperlegibleNext.BcXVPD7q.woff2",
   "/Portail-Applications/_next/static/media/HeptaSlab-800.DbfWV3Kq.woff2",
