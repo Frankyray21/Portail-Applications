@@ -197,6 +197,20 @@ for (const fichier of logos)
     `logo publié mais jamais affiché : ${fichier}`,
   );
 
+// Les codes QR : un par application plus celui du portail, tous servis et
+// tous affichés quelque part.
+const qr = readdirSync(join(dossier, 'qr')).filter((n) => n.endsWith('.svg'));
+assert.equal(qr.length, APPS.length + 1, `codes QR publiés : ${qr.length}`);
+for (const id of APPS)
+  assert.ok(
+    sansScript(lu(`app/${id}/`)).includes(`${base}qr/${id}.svg`),
+    `code QR absent de la fiche : ${id}`,
+  );
+assert.ok(
+  sansScript(lu('')).includes(`${base}qr/portail.svg`),
+  'code QR du portail absent de l’accueil',
+);
+
 const captures = readdirSync(join(dossier, 'captures')).filter((n) =>
   n.endsWith('.jpg'),
 );
@@ -207,5 +221,5 @@ assert.ok(
   ),
 );
 console.log(
-  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${logos.length} logos, ${captures.length} captures, ${ressources.size} ressources locales, application installable (${precache.length} fichiers hors ligne).`,
+  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${logos.length} logos, ${qr.length} codes QR, ${captures.length} captures, ${ressources.size} ressources locales, application installable (${precache.length} fichiers hors ligne).`,
 );

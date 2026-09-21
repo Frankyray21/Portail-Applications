@@ -121,6 +121,26 @@ export default async function Fiche({
           </section>
         ) : null}
 
+        <section className="bloc" aria-labelledby="titre-qr">
+          <h2 id="titre-qr">Scanner pour ouvrir</h2>
+          <div className="qr">
+            {/* Le code mène à la même adresse que le bouton « Ouvrir ».
+                Décoratif : l'adresse est écrite juste à côté, ce qu'un
+                lecteur d'écran peut restituer, contrairement au code. */}
+            <img
+              src={ressource(`/qr/${app.id}.svg`)}
+              alt=""
+              width={200}
+              height={200}
+            />
+            <p>
+              Montrez ce code à quelqu’un : son téléphone ouvre{' '}
+              {app.title} directement.
+              <span className="qr__adresse">{app.url}</span>
+            </p>
+          </div>
+        </section>
+
         <section className="bloc" aria-labelledby="titre-liens">
           <h2 id="titre-liens">Liens</h2>
           <ul className="liens">

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
-import { ressource } from '@/lib/base';
+import { URL_PUBLIQUE, ressource } from '@/lib/base';
 import {
   APPLICATIONS,
   A_LA_UNE,
@@ -116,6 +116,23 @@ export default function Aujourdhui() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="afficher" aria-labelledby="titre-afficher">
+          <h2 id="titre-afficher">Afficher Le Hub</h2>
+          <div className="qr">
+            <img
+              src={ressource('/qr/portail.svg')}
+              alt=""
+              width={200}
+              height={200}
+            />
+            <p>
+              À imprimer et à poser au mur, dans la salle à dîner ou près de
+              la machine. Le code ouvre cette page.
+              <span className="qr__adresse">{URL_PUBLIQUE}</span>
+            </p>
+          </div>
         </section>
 
         <aside className="mention" aria-label="À propos de cette collection">

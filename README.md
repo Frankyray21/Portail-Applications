@@ -103,6 +103,19 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
+## Version 1.6.0
+
+- Un code QR par application, sur sa fiche : on montre l’écran, le téléphone
+  d’en face ouvre l’application. Et un code pour le portail lui-même, à
+  imprimer et poser au mur.
+- Les codes sont générés au build à partir du catalogue
+  (`scripts/build-qr.mjs`) : une adresse qui change se répercute toute seule,
+  et un code ne peut pas mener ailleurs que le bouton « Ouvrir ».
+- Correction d’erreur M, fond blanc en clair comme en sombre : un lecteur a
+  besoin de contraste, pas d’un thème.
+- Un test régénère chaque code et le compare octet par octet au fichier
+  publié ; le validateur vérifie qu’ils sont servis et affichés.
+
 ## Version 1.5.0
 
 - Chaque application porte son vrai logo, celui auquel on la reconnaît sur

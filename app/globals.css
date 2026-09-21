@@ -1134,3 +1134,41 @@ h3 {
     transform: none;
   }
 }
+
+/* ---------- Codes QR ---------- */
+
+.afficher {
+  margin-bottom: var(--gouttiere);
+}
+.afficher h2 {
+  margin-bottom: 12px;
+}
+.qr {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 22px;
+}
+/* Un code QR se scanne sur fond clair, en clair comme en sombre : c'est une
+   contrainte du lecteur, pas un choix de thème. */
+.qr img {
+  width: 148px;
+  height: 148px;
+  padding: 8px;
+  background: #ffffff;
+  border: 1px solid var(--filet-doux);
+  border-radius: var(--rayon);
+}
+.qr p {
+  flex: 1 1 260px;
+  max-width: 46ch;
+  color: var(--encre-douce);
+  line-height: 1.55;
+}
+.qr__adresse {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  color: var(--encre-faible);
+  overflow-wrap: break-word;
+}

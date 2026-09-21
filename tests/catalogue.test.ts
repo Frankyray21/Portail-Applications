@@ -75,6 +75,32 @@ await test('chaque logo annoncé existe vraiment', () => {
     }
   }
 });
+await test('chaque code QR mène là où mène le bouton Ouvrir', async () => {
+  // On régénère le code avec les mêmes options et on compare au fichier
+  // publié : si une adresse du catalogue change sans que les codes soient
+  // refaits, ce test échoue au lieu de laisser un code mentir au mur.
+  const QRCode = (await import('qrcode')).default;
+  const { URL_PUBLIQUE } = await import('../lib/base.ts');
+  const options = {
+    type: 'svg' as const,
+    errorCorrectionLevel: 'M' as const,
+    margin: 3,
+    color: { dark: '#101d21', light: '#ffffff' },
+  };
+  const codes: [string, string][] = [
+    ['portail', URL_PUBLIQUE],
+    ...APPLICATIONS.map((app): [string, string] => [app.id, app.url]),
+  ];
+  for (const [nom, cible] of codes) {
+    const fichier = new URL(`../public/qr/${nom}.svg`, import.meta.url);
+    assert.ok(existsSync(fichier), `code QR manquant : ${nom}`);
+    assert.equal(
+      readFileSync(fichier, 'utf8'),
+      await QRCode.toString(cible, options),
+      `le code QR de ${nom} ne mène plus à ${cible}`,
+    );
+  }
+});
 await test('chaque capture annoncée existe vraiment', () => {
   for (const app of APPLICATIONS) {
     assert.ok(app.captures >= 1, `aucune capture : ${app.id}`);
