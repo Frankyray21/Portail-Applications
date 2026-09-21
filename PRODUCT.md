@@ -4,7 +4,7 @@
 
 brand
 
-Le Hub tient les deux registres à parts égales, et c'est une contrainte de
+Le portail tient les deux registres à parts égales, et c'est une contrainte de
 conception, pas une indécision : la page est une **vitrine** pour qui découvre
 la collection, et un **lanceur** pour qui revient. Le registre par défaut est
 `brand` parce que la page n'a pas d'autre fonction que de présenter : il n'y a
@@ -26,7 +26,7 @@ liés — à corriger si ça ne correspond pas) :
   transmettre, et jugent la crédibilité de ce qu'ils relaient.
 - **Contacts professionnels et public** : employeurs, monde académique, gens
   qui découvrent le travail de Frank. Pour eux la page est une carte de visite.
-- **Frank lui-même** : point d'entrée quotidien vers ses six applications.
+- **Frank lui-même** : point d'entrée quotidien vers ses applications.
 
 ## Product Purpose
 
@@ -55,6 +55,18 @@ Sobre ne veut pas dire timide. Une palette engagée, une hiérarchie typographiq
 franche et une mise en page assumée sont compatibles avec le calme ; le fade
 et la moyenne ne le sont pas.
 
+**Décision du 21 septembre 2026 : l'identité est celle de MRI.** Le portail
+s'appelle **Portail SST — MRI** et porte les couleurs de Machines Roger
+International, relevées sur le logo : rouge sur noir. La palette pétrole et
+cuivre de la version 1.1 est retirée. Le portail appartient visuellement à la
+même famille que les applications qu'il liste (RodBot LP, Bruit, Procédures
+de forage sont déjà rouge sur noir), ce qui vaut mieux qu'une identité
+inventée pour lui seul.
+
+Le ton, lui, ne change pas : les applications restent créditées à Frank, et
+la mention de l'accueil continue de dire qu'elles ne remplacent ni les
+procédures officielles d'un employeur, ni un avis professionnel.
+
 ## Anti-references
 
 **Décision du 19 septembre 2026 : le format App Store est assumé.** La
@@ -74,8 +86,9 @@ Ce qui reste interdit, et qui ne se négocie pas :
   « ce que ça contient » sont relevées dans les applications elles-mêmes. Les
   captures sont de vraies captures, prises en faisant tourner chaque
   application, jamais des images d'illustration.
-- **Le site corporatif SST** : bleu-blanc générique, casques et poignées de
-  main, vocabulaire de conformité.
+- **Le site corporatif SST** : palette d'entreprise générique, casques et
+  poignées de main en photo, vocabulaire de conformité. Reprendre les
+  couleurs de MRI n'est pas ça : c'est nommer d'où viennent ces outils.
 - **La page décorative** : effets et animations qui retardent l'accès aux
   applications.
 
