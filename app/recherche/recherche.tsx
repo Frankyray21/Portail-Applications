@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { ChevronRight, Search } from 'lucide-react';
 import { APPLICATIONS, COLLECTIONS } from '@/lib/catalogue';
@@ -14,8 +14,21 @@ const sansAccent = (texte: string) =>
 
 // La liste complète est rendue par l'export statique : sans JavaScript, la
 // page reste un catalogue consultable, seul le filtrage disparaît.
+// Le champ du bandeau envoie ici avec ?q=… . L'adresse est une source
+// extérieure à React : on la lit comme telle, et le rendu serveur part d'une
+// chaîne vide, donc sans écart d'hydratation. Sans JavaScript, on arrive
+// simplement sur la liste complète, ce qui reste utile.
+const RIEN = () => () => {};
+const lireRequete = () =>
+  new URLSearchParams(window.location.search).get('q') ?? '';
+
 export function Recherche() {
-  const [terme, setTerme] = useState('');
+  const depuisAdresse = useSyncExternalStore(RIEN, lireRequete, () => '');
+  // Tant que personne n'a tapé, le terme est celui de l'adresse.
+  const [tape, setTape] = useState<string | null>(null);
+  const terme = tape ?? depuisAdresse;
+  const setTerme = setTape;
+
   const index = useMemo(
     () =>
       APPLICATIONS.map((app) => ({

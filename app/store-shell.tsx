@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { ArrowUpRight, House, LayoutGrid, Search } from 'lucide-react';
+import { ressource } from '@/lib/base';
 import { APPLICATIONS } from '@/lib/catalogue';
 import { ServiceWorker } from './installer';
 
-export type Onglet = 'accueil' | 'applications' | 'recherche';
+export type Onglet = 'decouvrir' | 'applications' | 'recherche';
 
 const ONGLETS = [
-  { id: 'accueil', label: 'Accueil', href: '/', icon: House },
+  { id: 'decouvrir', label: 'Découvrir', href: '/', icon: House },
   {
     id: 'applications',
     label: 'Applications',
@@ -61,6 +62,18 @@ export function StoreShell({
               <span className="marque__sous">Machines Roger International</span>
             </span>
           </Link>
+          <search className="chercher">
+            <form action={ressource('/recherche/')}>
+              <Search size={19} aria-hidden="true" />
+              <input
+                type="search"
+                name="q"
+                placeholder="Rechercher une application…"
+                aria-label="Rechercher une application ou un sujet"
+                autoComplete="off"
+              />
+            </form>
+          </search>
           <nav className="onglets-haut" aria-label="Navigation principale">
             <ul>
               {ONGLETS.map(({ id, label, href, icon: Icon }) => (

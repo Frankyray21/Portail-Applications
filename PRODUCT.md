@@ -75,7 +75,7 @@ pas une signature, qui tient la promesse d'honnêteté.
 **Décision du 19 septembre 2026 : le format App Store est assumé.** La
 version 1.1 le fuyait ; l'utilisateur a demandé l'inverse, explicitement et
 après qu'on lui ait rappelé la contradiction. Le portail est donc une boutique :
-onglets Accueil / Applications / Rechercher, fiche par application,
+onglets Découvrir / Applications / Rechercher, fiche par application,
 captures d'écran, bouton « Ouvrir ». Ce document enregistre ce choix.
 
 Ce qui reste interdit, et qui ne se négocie pas :

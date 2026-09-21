@@ -4,6 +4,7 @@ import { URL_PUBLIQUE, ressource } from '@/lib/base';
 import {
   APPLICATIONS,
   A_LA_UNE,
+  COLLECTIONS,
   VERIFICATION_LIENS,
   application,
   captures,
@@ -12,81 +13,109 @@ import {
   sujetsWiki,
 } from '@/lib/catalogue';
 import { Emporter } from './emporter';
-import { StoreShell } from './store-shell';
 import { Icone } from './icone';
+import { StoreShell } from './store-shell';
 
 export const metadata = {
-  title: 'Accueil · Portail SST — MRI',
+  title: 'Découvrir · Portail SST — MRI',
   description:
     'Les applications santé et sécurité de Machines Roger International : prévention, formation et forage en mine.',
 };
 
-// Le lanceur d'abord, la vitrine ensuite : l'habitué trouve sa plaque au
-// premier écran, le visiteur lit ce qu'est la collection puis voit de
-// vraies captures.
-export default function Accueil() {
+const collection = (id: string) =>
+  COLLECTIONS.find((c) => c.id === id)?.label ?? '';
+
+// Deux gestes, jamais mélangés : le nom mène à la fiche (ce que contient
+// l'application), le bouton ouvre l'application. Aucun lien dans un lien.
+export default function Decouvrir() {
   return (
-    <StoreShell actif="accueil">
+    <StoreShell actif="decouvrir">
       <main id="contenu" className="page" tabIndex={-1}>
         <header className="entete">
-          <h1>Accueil</h1>
+          <h1>Découvrir</h1>
           <p className="entete__lede">
-            Cinq applications pour la prévention, la formation et le forage
-            en mine. Chaque fiche dit ce que l’application contient, puis
-            l’ouvre.
+            Des outils pour un milieu de travail plus sûr. Chaque fiche dit ce
+            que l’application contient ; le bouton l’ouvre.
           </p>
         </header>
 
-        <section className="bande" aria-labelledby="titre-tout">
-          <h2 id="titre-tout">Les cinq applications</h2>
-          <ul className="pastilles">
-            {APPLICATIONS.map((app) => (
-              <li key={app.id}>
-                <Link href={`/app/${app.id}/`}>
-                  <Icone id={app.id} color={app.color} />
-                  <span>{app.title}</span>
-                </Link>
-              </li>
-            ))}
+        <section className="une" aria-labelledby="titre-une">
+          <h2 id="titre-une" className="sr-only">
+            À la une
+          </h2>
+          <ul className="une__liste">
+            {A_LA_UNE.map(({ id, raison }, rang) => {
+              const app = application(id)!;
+              const [image] = captures(app);
+              return (
+                <li key={id} className="heros">
+                  <p className="heros__genre">
+                    {rang === 0 ? 'À la une' : collection(app.collection)}
+                  </p>
+                  <h3 className="heros__nom">
+                    <Link href={`/app/${app.id}/`}>{app.title}</Link>
+                  </h3>
+                  <p className="heros__sous">{app.subtitle}</p>
+                  <p className="heros__raison">{raison}</p>
+                  <p className="heros__action">
+                    <a
+                      href={app.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bouton-clair"
+                    >
+                      Ouvrir
+                      <ArrowUpRight size={17} aria-hidden="true" />
+                      <span className="sr-only">
+                        {app.title} (nouvel onglet)
+                      </span>
+                    </a>
+                  </p>
+                  <img
+                    className="heros__apercu"
+                    src={ressource(image)}
+                    alt=""
+                    width={585}
+                    height={1266}
+                    loading="lazy"
+                  />
+                </li>
+              );
+            })}
           </ul>
-          <p className="bande__suite">
+        </section>
+
+        <section className="essentiels" aria-labelledby="titre-essentiels">
+          <div className="essentiels__tete">
+            <h2 id="titre-essentiels">Les essentiels</h2>
             <Link href="/applications/" className="lien-rouge">
               Voir par collection
               <ChevronRight size={18} aria-hidden="true" />
             </Link>
-          </p>
-        </section>
-
-        <section className="une" aria-labelledby="titre-une">
-          <h2 id="titre-une">À la une</h2>
-          <ul className="une__liste">
-            {A_LA_UNE.map(({ id, raison }) => {
-              const app = application(id)!;
-              const [image] = captures(app);
-              return (
-                <li key={id}>
-                  <Link href={`/app/${app.id}/`} className="carte-une">
-                    <img
-                      className="carte-une__apercu"
-                      src={ressource(image)}
-                      alt=""
-                      width={585}
-                      height={1266}
-                      loading="lazy"
-                    />
-                    <div className="carte-une__texte">
-                      <h3>{app.title}</h3>
-                      <span className="carte-une__sous">{app.subtitle}</span>
-                      <span className="carte-une__raison">{raison}</span>
-                      <span className="carte-une__voir">
-                        Voir la fiche
-                        <ChevronRight size={18} aria-hidden="true" />
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
+          </div>
+          <ul className="essentiels__liste">
+            {APPLICATIONS.map((app) => (
+              <li key={app.id} className="tuile" data-app-id={app.id}>
+                <Icone id={app.id} color={app.color} />
+                <h3 className="tuile__nom">
+                  <Link href={`/app/${app.id}/`}>{app.title}</Link>
+                </h3>
+                <p className="tuile__genre">{app.subtitle}</p>
+                <p className="tuile__quoi">{app.description}</p>
+                <p className="tuile__action">
+                  <a
+                    href={app.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bouton-rouge"
+                  >
+                    Ouvrir
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                    <span className="sr-only">{app.title} (nouvel onglet)</span>
+                  </a>
+                </p>
+              </li>
+            ))}
           </ul>
         </section>
 
@@ -138,11 +167,11 @@ export default function Accueil() {
           </div>
         </section>
 
-        <aside className="mention" aria-label="À propos de cette collection">
+        <aside className="mention" aria-label="À propos de ce portail">
           <p>
-            Cinq outils de travail, réunis ici pour les retrouver vite. Ils
-            ne remplacent ni les procédures officielles de votre employeur, ni
-            un avis professionnel.
+            Cinq outils de travail, réunis ici pour les retrouver vite. Ils ne
+            remplacent ni les procédures officielles de votre employeur, ni un
+            avis professionnel.
           </p>
           <p>
             Aucune note, aucun avis, aucun compteur de téléchargement : rien de

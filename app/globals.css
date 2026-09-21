@@ -59,6 +59,19 @@
   --bouton-texte: #ffffff; /* 6,5:1 sur le rouge */
   --focus: #b81b1d;
 
+  /* La carte rouge de la une : un aplat de marque, identique dans les deux
+     thèmes. Le blanc y tient 5,7:1 au point le plus clair du dégradé. */
+  --rouge-carte: linear-gradient(135deg, #c81f21, #8f1214);
+  --carte-texte: #ffffff;
+  --carte-texte-doux: #ffdedd; /* 4,6:1 au point le plus clair */
+  --carte-bouton: #ffffff;
+  --carte-bouton-texte: #8f1214; /* 9,3:1 sur le blanc */
+  --carte-bouton-appui: #f1f1f2;
+
+  /* Le champ de recherche, posé dans le bandeau noir. */
+  --noir-champ: #1c1f22;
+  --noir-filet: #666b70; /* 3,5:1 sur le bandeau : un bord qu'on voit */
+
   --ombre: 0 12px 28px #15171a26;
 
   --affiche: 'Hepta Slab', 'Rockwell', 'Roboto Slab', serif;
@@ -98,6 +111,13 @@
     --rouge-fond: #3a1a1b;
     --bouton-texte: #111315; /* 5,6:1 sur le rouge */
     --focus: #ef5a5c;
+
+    /* Sous terre, l'aplat descend d'un cran : le blanc y tient 7,4:1. */
+    --rouge-carte: linear-gradient(135deg, #a81a1c, #7a0f11);
+    --carte-texte-doux: #ffdedd; /* 5,9:1 au point le plus clair */
+
+    --noir-champ: #1a1d20;
+    --noir-filet: #666b70; /* 3,7:1 sur le bandeau sombre */
 
     --ombre: 0 12px 28px #00000073;
   }
@@ -222,7 +242,7 @@ h3 {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  gap: 24px;
+  gap: 18px;
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 var(--gouttiere);
@@ -246,6 +266,7 @@ h3 {
 .marque__nom {
   font-size: 1.5rem;
   line-height: 1;
+  white-space: nowrap;
 }
 .marque__sous {
   display: block;
@@ -254,6 +275,48 @@ h3 {
   font-weight: 500;
   line-height: 1.2;
   color: var(--noir-texte-doux);
+}
+/* Le champ du bandeau : un formulaire, donc il marche sans JavaScript.
+   Sur téléphone il passe sous la marque, sur toute la largeur. */
+.chercher {
+  display: flex;
+  flex: 1 1 240px;
+  align-items: center;
+  max-width: 440px;
+  margin: auto 0;
+}
+.chercher form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 14px;
+  background: var(--noir-champ);
+  border: 1px solid var(--noir-filet);
+  border-radius: 999px;
+}
+.chercher form:focus-within {
+  border-color: var(--rouge-clair);
+}
+.chercher svg {
+  flex: none;
+  color: var(--noir-texte-doux);
+}
+.chercher input {
+  width: 100%;
+  min-height: 42px;
+  border: 0;
+  background: none;
+  color: var(--noir-texte);
+  font: inherit;
+  font-size: 0.9375rem;
+}
+.chercher input::placeholder {
+  color: var(--noir-texte-doux);
+}
+.chercher input:focus {
+  outline: none;
 }
 .onglets-haut ul {
   display: flex;
@@ -265,8 +328,9 @@ h3 {
   gap: 9px;
   height: 100%;
   min-height: 48px;
-  padding: 0 16px;
+  padding: 0 13px;
   font-size: 1rem;
+  white-space: nowrap;
   font-weight: 600;
   color: var(--noir-texte-doux);
   transition: color 120ms ease-out;
@@ -352,19 +416,134 @@ h3 {
   color: var(--encre);
 }
 
-/* ---------- Accueil : le lanceur, puis la vitrine ---------- */
+/* ---------- Découvrir : la une, puis les essentiels ---------- */
 
-.bande {
+/* La une : une grande carte rouge et deux petites, sur quatre colonnes.
+   Pas de carrousel : il faudrait du JavaScript, il cacherait deux cartes
+   sur trois, et il se manipule mal avec des gants. */
+.une {
+  margin-bottom: 40px;
+}
+.une__liste {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.heros {
+  display: grid;
+  grid-template-areas:
+    'genre  apercu'
+    'nom    apercu'
+    'sous   apercu'
+    'raison apercu'
+    'action apercu';
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: 4px 20px;
+  padding: 22px;
+  background: var(--rouge-carte);
+  border-radius: var(--rayon-image);
+  color: var(--carte-texte);
+}
+/* La première tient deux colonnes : sa capture se met à côté du texte. */
+.une__liste > .heros:first-child {
+  grid-column: span 2;
+}
+.heros__genre {
+  grid-area: genre;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--carte-texte-doux);
+}
+.heros__nom {
+  grid-area: nom;
+  margin-top: 6px;
+  font-family: var(--affiche);
+  font-size: 1.375rem;
+  line-height: 1.15;
+}
+.heros__nom a {
+  color: inherit;
+}
+.heros__nom a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.heros__sous {
+  grid-area: sous;
+  font-weight: 600;
+  color: var(--carte-texte-doux);
+}
+.heros__raison {
+  grid-area: raison;
+  margin-top: 8px;
+  max-width: 34ch;
+  line-height: 1.5;
+  color: var(--carte-texte-doux);
+  text-wrap: pretty;
+}
+.heros__action {
+  grid-area: action;
+  margin-top: 16px;
+}
+/* La capture n'apparaît que sur la grande carte : ailleurs elle serait trop
+   petite pour montrer quoi que ce soit. */
+.heros__apercu {
+  display: none;
+  grid-area: apercu;
+  align-self: end;
+  width: 150px;
+  height: auto;
+  border-radius: var(--rayon) var(--rayon) 0 0;
+  box-shadow: 0 10px 26px #00000040;
+}
+.une__liste > .heros:first-child .heros__apercu {
+  display: block;
+}
+
+/* Le bouton clair, sur le rouge. */
+.bouton-clair,
+.bouton-rouge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: var(--rayon);
+  font-weight: 700;
+  transition:
+    background-color 120ms ease-out,
+    transform 90ms ease-out;
+}
+.bouton-clair {
+  background: var(--carte-bouton);
+  color: var(--carte-bouton-texte);
+}
+.bouton-clair:hover {
+  background: var(--carte-bouton-appui);
+}
+.bouton-rouge {
+  background: var(--rouge);
+  color: var(--bouton-texte);
+}
+.bouton-rouge:hover {
+  background: var(--rouge-appui);
+}
+.bouton-clair:active,
+.bouton-rouge:active {
+  transform: scale(0.98);
+}
+
+/* Les essentiels : toutes les applications, avec le geste d'ouverture. */
+.essentiels {
   margin-bottom: 44px;
 }
-.bande h2 {
-  margin-bottom: 16px;
-}
-.bande__suite {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 6px;
-}
+/* Le lien discret qui prolonge une section : « Voir par collection »,
+   « voyez d'abord sa fiche ». Cible de 44 px, jamais coupé avant son
+   chevron. */
 .lien-rouge {
   display: inline-flex;
   align-items: center;
@@ -388,98 +567,72 @@ h3 {
   vertical-align: baseline;
   white-space: normal;
 }
-.pastilles {
+.essentiels__tete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 18px;
+  margin-bottom: 14px;
+}
+.essentiels__liste {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 14px;
 }
-.pastilles a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 72px;
-  padding: 10px 14px 10px 10px;
+.tuile {
+  display: grid;
+  grid-template-areas:
+    'icone nom'
+    'icone genre'
+    'quoi  quoi'
+    'action action';
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr auto;
+  gap: 2px 14px;
+  padding: 16px;
   background: var(--surface);
-  border-radius: var(--rayon);
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.25;
-  overflow-wrap: anywhere;
-  transition:
-    background-color 120ms ease-out,
-    transform 90ms ease-out;
-}
-.pastilles a:hover {
-  background: var(--surface-forte);
-}
-.pastilles a:active {
-  transform: scale(0.98);
-}
-.une {
-  margin-bottom: 44px;
-}
-.une h2 {
-  margin-bottom: 18px;
-}
-.une__liste {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0 32px;
-}
-.carte-une {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  height: 100%;
-  padding: 20px 0 22px;
-  border-top: 1px solid var(--filet);
-  transition: transform 90ms ease-out;
-}
-.carte-une:active {
-  transform: scale(0.99);
-}
-/* La capture est montrée entière : aucun rognage, donc aucun titre coupé. */
-.carte-une__apercu {
-  width: 208px;
-  height: auto;
   border-radius: var(--rayon-image);
-  background: var(--surface);
-  box-shadow: 0 0 0 1px var(--filet-doux);
-  transition: transform 180ms ease-out;
 }
-.carte-une:hover .carte-une__apercu {
-  transform: translateY(-3px);
+.tuile .icone {
+  grid-area: icone;
+  align-self: start;
 }
-.carte-une__texte {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.carte-une__sous {
-  font-size: 0.9375rem;
-  color: var(--encre-douce);
-}
-.carte-une__raison {
-  margin-top: 6px;
+.tuile__nom {
+  grid-area: nom;
+  align-self: center;
   font-size: 1.0625rem;
-  line-height: 1.45;
-  color: var(--encre);
-  text-wrap: pretty;
-}
-.carte-une__voir {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  margin-top: 8px;
-  color: var(--rouge);
-  font-size: 0.9375rem;
   font-weight: 700;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
-.carte-une:hover .carte-une__voir {
-  color: var(--rouge-appui);
+.tuile__nom a {
+  color: var(--encre);
+}
+.tuile__nom a:hover {
+  color: var(--rouge);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+.tuile__genre {
+  grid-area: genre;
+  align-self: center;
+  font-size: 0.875rem;
+  color: var(--encre-faible);
+}
+.tuile__quoi {
+  grid-area: quoi;
+  margin-top: 12px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--encre-douce);
+  text-wrap: pretty;
+}
+.tuile__action {
+  grid-area: action;
+  margin-top: 14px;
+}
+
 .mention {
   margin-top: 8px;
   padding-top: 22px;
@@ -494,6 +647,17 @@ h3 {
 }
 .mention p + p {
   margin-top: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bouton-clair,
+  .bouton-rouge {
+    transition: none;
+  }
+  .bouton-clair:active,
+  .bouton-rouge:active {
+    transform: none;
+  }
 }
 
 /* ---------- Listes d'applications (Applications, Rechercher) ---------- */
@@ -818,6 +982,28 @@ h3 {
 
 /* ---------- Téléphone ---------- */
 
+/* Sous 1150 px, les trois onglets et le champ se disputent la place : la
+   marque et l'invite descendent d'un cran pour que l'invite reste lisible
+   en entier, à toutes les largeurs de 320 à 1920 px. */
+@media (max-width: 1150px) {
+  .chercher input {
+    font-size: 0.875rem;
+  }
+}
+@media (max-width: 1150px) and (min-width: 901px) {
+  .marque__nom {
+    font-size: 1.25rem;
+  }
+  .marque__sous {
+    font-size: 0.8125rem;
+  }
+  .onglet {
+    gap: 7px;
+    padding: 0 9px;
+    font-size: 0.9375rem;
+  }
+}
+
 @media (max-width: 900px) {
   :root {
     --gouttiere: 20px;
@@ -893,34 +1079,27 @@ h3 {
   .onglets a[aria-current] svg {
     color: var(--rouge-clair);
   }
-  .bande {
-    margin-bottom: 36px;
-  }
-  .bande__suite {
-    justify-content: flex-start;
-  }
-  .pastilles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
-  }
-  .pastilles a {
-    min-height: 68px;
-    font-size: 0.9375rem;
-  }
+  /* Tablette : la une passe sur deux colonnes, la grande les prend toutes
+     les deux ; les essentiels descendent à deux colonnes. */
   .une__liste {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .carte-une {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 18px;
-    padding: 18px 0;
+  .essentiels__liste {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  .carte-une__apercu {
-    width: 112px;
+  .heros__apercu {
+    width: 128px;
   }
-  .carte-une__raison {
-    font-size: 1rem;
+  /* Le champ passe sur sa propre ligne, sous la marque et les onglets. */
+  .bandeau__dedans {
+    flex-wrap: wrap;
+    gap: 0 16px;
+    padding-bottom: 12px;
+  }
+  .chercher {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
   }
   .liste {
     grid-template-columns: minmax(0, 1fr);
@@ -959,6 +1138,17 @@ h3 {
   }
 }
 
+@media (max-width: 560px) {
+  .une__liste,
+  .essentiels__liste {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Sur une colonne, la grande carte ne s'étale plus sur deux. */
+  .une__liste > .heros:first-child {
+    grid-column: auto;
+  }
+}
+
 @media (max-width: 380px) {
   :root {
     --gouttiere: 16px;
@@ -966,15 +1156,11 @@ h3 {
   .marque__sous {
     display: none;
   }
-  /* Une seule colonne : aucun nom d'application coupé au milieu d'un mot. */
-  .pastilles {
-    grid-template-columns: minmax(0, 1fr);
+  .heros {
+    padding: 18px;
   }
-  .pastilles a {
-    min-height: 64px;
-  }
-  .carte-une__apercu {
-    width: 96px;
+  .heros__nom {
+    font-size: 1.25rem;
   }
 }
 
@@ -990,7 +1176,6 @@ h3 {
     transition-duration: 0.01ms !important;
     animation: none !important;
   }
-  .carte-une:hover .carte-une__apercu,
   .rangee:hover .rangee__chevron,
   .ouvrir:hover svg {
     transform: none;

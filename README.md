@@ -5,7 +5,7 @@ International. Chaque application a sa fiche :
 présentation, ce qu’elle contient, captures d’écran, et un bouton pour
 l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
 
-Trois onglets : **Accueil** (le lanceur et la mise en avant), **Applications** (le
+Trois onglets : **Découvrir** (la une et les essentiels), **Applications** (le
 catalogue par collection) et **Rechercher** (filtrage instantané sur le nom,
 les thèmes et le contenu des fiches).
 
@@ -17,7 +17,7 @@ les thèmes et le contenu des fiches).
 Aucune note, aucune étoile, aucun avis, aucun compteur de téléchargement,
 aucun classement : rien de tout cela n’existe, donc rien de tout cela n’est
 affiché. Un test du catalogue et le validateur d’export le vérifient à chaque
-construction. La mise en avant de l’onglet « Accueil » se règle dans
+construction. La mise en avant de l’onglet « Découvrir » se règle dans
 `A_LA_UNE` (`lib/catalogue.ts`) ; chaque entrée doit porter une raison
 vérifiable dans l’application elle-même.
 
@@ -168,14 +168,26 @@ node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/tele
 
 ## Version 1.9.0
 
-- L'onglet **Aujourd'hui** s'appelle maintenant **Accueil**. Le nom venait
-  du calque App Store, et rien sur cette page ne change d'un jour à l'autre :
-  c'est le lanceur, la mise en avant, le fond documentaire et l'installation.
+- **Nouvelle mise en page de la page d'accueil**, d'après la maquette.
+  Une bande « à la une » en cartes rouges : une grande carte avec sa capture,
+  deux plus petites à côté. Puis **Les essentiels**, toutes les applications
+  en tuiles avec leur logo, leur thème, ce qu'elles contiennent en une
+  phrase, et un bouton **Ouvrir**.
+- Deux gestes, jamais mélangés : le **nom** mène à la fiche, le **bouton**
+  ouvre l'application. Aucun lien dans un lien.
+- Un **champ de recherche dans la barre du haut**, sur toutes les pages.
+  C'est un formulaire : sans JavaScript, il mène à la page de recherche et
+  sa liste complète ; avec, le terme est repris et filtre tout de suite.
+- L'onglet **Aujourd'hui** s'appelle maintenant **Découvrir** — le nom venait
+  du calque App Store, où c'est un fil éditorial qui change chaque jour.
   L'icône suit (une maison plutôt que des étincelles).
 - **Aucun nom propre sur le site.** Le portail parle d'outils de travail,
   plus de la collection d'une personne. La mention de l'accueil reste
   entière : ces applications ne remplacent ni les procédures officielles
   d'un employeur, ni un avis professionnel.
+- Pas de carrousel : il demanderait du JavaScript, cacherait deux cartes sur
+  trois et se manipule mal avec des gants. Les cartes se réorganisent en
+  grille (quatre colonnes, puis deux, puis une).
 
 ## Version 1.8.0
 
