@@ -8,6 +8,7 @@ import {
   application,
   applicationsCollection,
   captures,
+  logo,
   nombre,
   pagesWiki,
   sujetsWiki,
@@ -58,6 +59,20 @@ await test('chaque fiche a de quoi être lue', () => {
     assert.ok(app.contenu.length >= 3, `contenu trop mince : ${app.id}`);
     assert.ok(app.contenu.every((ligne) => ligne.trim().length > 0));
     assert.ok(app.tags.length > 0);
+  }
+});
+await test('chaque logo annoncé existe vraiment', () => {
+  for (const app of APPLICATIONS) {
+    const chemin = logo(app);
+    if (app.logo) {
+      assert.ok(chemin, `logo annoncé mais introuvable : ${app.id}`);
+      assert.ok(
+        existsSync(new URL(`../public${chemin}`, import.meta.url)),
+        `fichier de logo manquant : ${chemin}`,
+      );
+    } else {
+      assert.equal(chemin, null);
+    }
   }
 });
 await test('chaque capture annoncée existe vraiment', () => {

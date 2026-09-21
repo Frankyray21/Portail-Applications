@@ -85,7 +85,7 @@ export function StoreShell({
         <footer className="pied">
           <Installer />
           <p>
-            Le Hub 1.4 · {APPLICATIONS.length} applications, construites par
+            Le Hub 1.5 · {APPLICATIONS.length} applications, construites par
             Frank.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail

@@ -103,6 +103,16 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
+## Version 1.5.0
+
+- Chaque application porte son vrai logo, celui auquel on la reconnaît sur
+  son propre écran d'accueil : TMS, Bruit, WIKI SST, RodBot LP et Procédures
+  de forage. Les fichiers sont normalisés à 256 px dans `public/logos/`.
+- Anatomie 3D garde sa plaque colorée : cette application n'a pas encore de
+  logo à elle. Le champ `logo` du catalogue dit laquelle en a un.
+- Un test vérifie que chaque logo annoncé existe, et le validateur refuse un
+  logo publié qui ne serait affiché nulle part.
+
 ## Version 1.4.0
 
 - Le Hub s’installe : manifeste, icônes 192/512 et maskable, service worker.

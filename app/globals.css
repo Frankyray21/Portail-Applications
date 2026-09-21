@@ -776,6 +776,11 @@ h3 {
   border-radius: var(--rayon-plaque);
   color: #fff;
 }
+/* Un logo remplit sa plaque : même forme, même taille, mêmes coins. */
+.icone--logo {
+  object-fit: cover;
+  background: var(--surface-forte);
+}
 .icone svg {
   width: 27px;
   height: 27px;

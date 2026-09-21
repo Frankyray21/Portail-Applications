@@ -6,9 +6,11 @@ import {
   ShieldCheck,
   Wrench,
 } from 'lucide-react';
-import type { IconeId } from '@/lib/catalogue';
+import { ressource } from '@/lib/base';
+import { application, logo, type IconeId } from '@/lib/catalogue';
 
-const ICONES = {
+// Repli pour une application qui n'a pas encore de logo à elle.
+const PLAQUES = {
   tms: Accessibility,
   bruit: AudioLines,
   rodbot: Wrench,
@@ -17,8 +19,6 @@ const ICONES = {
   anatomie: Box,
 };
 
-// Une plaque : un carré presque droit dans la couleur de l'application, et
-// un pictogramme blanc au trait épais, lisible à 52 px comme à 88 px.
 export function Icone({
   id,
   color,
@@ -28,7 +28,26 @@ export function Icone({
   color: string;
   taille?: 'normale' | 'grande';
 }) {
-  const Symbole = ICONES[id];
+  const app = application(id);
+  const image = app ? logo(app) : null;
+
+  // Le logo de l'application, quand elle en a un : c'est à lui qu'on la
+  // reconnaît sur son propre écran d'accueil. Décoratif ici, puisque le nom
+  // est toujours écrit juste à côté.
+  if (image) {
+    return (
+      <img
+        className={`icone icone--${taille} icone--logo`}
+        src={ressource(image)}
+        alt=""
+        width={256}
+        height={256}
+        loading="lazy"
+      />
+    );
+  }
+
+  const Symbole = PLAQUES[id];
   return (
     <span
       className={`icone icone--${taille} color-${color}`}

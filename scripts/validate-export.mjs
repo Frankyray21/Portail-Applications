@@ -186,6 +186,17 @@ for (const url of ressources) {
   assert.ok(fichier.startsWith(dossier));
   assert.ok(existsSync(fichier), `Ressource manquante : ${url}`);
 }
+// Les logos réels des applications, servis et référencés.
+const logos = readdirSync(join(dossier, 'logos')).filter((n) =>
+  n.endsWith('.png'),
+);
+const accueil = sansScript(lu(''));
+for (const fichier of logos)
+  assert.ok(
+    accueil.includes(`${base}logos/${fichier}`),
+    `logo publié mais jamais affiché : ${fichier}`,
+  );
+
 const captures = readdirSync(join(dossier, 'captures')).filter((n) =>
   n.endsWith('.jpg'),
 );
@@ -196,5 +207,5 @@ assert.ok(
   ),
 );
 console.log(
-  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${captures.length} captures, ${ressources.size} ressources locales, application installable (${precache.length} fichiers hors ligne).`,
+  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${logos.length} logos, ${captures.length} captures, ${ressources.size} ressources locales, application installable (${precache.length} fichiers hors ligne).`,
 );

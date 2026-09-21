@@ -33,6 +33,11 @@ export interface Application {
   contenu: readonly string[];
   /** Nombre de captures dans public/captures : <id>-1.jpg .. <id>-N.jpg */
   captures: number;
+  /**
+   * Vrai quand l'application a son propre logo, repris dans
+   * public/logos/<id>.png. Sinon, la plaque colorée sert de repère.
+   */
+  logo: boolean;
   collection: CollectionId;
   url: string;
   depot: string;
@@ -63,7 +68,8 @@ export const APPLICATIONS: readonly Application[] = [
       'Capsules vidéo',
     ],
     captures: 3,
-    collection: 'prevention',
+        logo: true,
+collection: 'prevention',
     url: 'https://frankyray21.github.io/TMS/',
     depot: 'https://github.com/Frankyray21/TMS',
     color: 'blue',
@@ -85,7 +91,8 @@ export const APPLICATIONS: readonly Application[] = [
       'Suivi de sa progression',
     ],
     captures: 3,
-    collection: 'prevention',
+        logo: true,
+collection: 'prevention',
     url: 'https://frankyray21.github.io/Bruit/',
     depot: 'https://github.com/Frankyray21/Bruit',
     color: 'red',
@@ -108,7 +115,8 @@ export const APPLICATIONS: readonly Application[] = [
       'Espace encadrement',
     ],
     captures: 3,
-    collection: 'prevention',
+        logo: true,
+collection: 'prevention',
     url: 'https://frankyray21.github.io/wiki-sst-mines/',
     depot: 'https://github.com/Frankyray21/wiki-sst-mines',
     color: 'navy',
@@ -130,7 +138,8 @@ export const APPLICATIONS: readonly Application[] = [
       'Sources et limites affichées',
     ],
     captures: 1,
-    collection: 'prevention',
+        logo: false,
+collection: 'prevention',
     url: 'https://frankyray21.github.io/anatomie-3d-template/',
     depot: 'https://github.com/Frankyray21/anatomie-3d-template',
     color: 'violet',
@@ -154,7 +163,8 @@ export const APPLICATIONS: readonly Application[] = [
       'Quiz par module, seuil de réussite de 70 %',
     ],
     captures: 3,
-    collection: 'forage',
+        logo: true,
+collection: 'forage',
     url: 'https://frankyray21.github.io/RodBot/',
     depot: 'https://github.com/Frankyray21/RodBot',
     color: 'orange',
@@ -177,7 +187,8 @@ export const APPLICATIONS: readonly Application[] = [
       'Badge « Mise à jour » sur les fiches révisées',
     ],
     captures: 2,
-    collection: 'forage',
+        logo: true,
+collection: 'forage',
     url: 'https://frankyray21.github.io/Procedures-Forage-MRI/',
     depot: 'https://github.com/Frankyray21/Procedures-Forage-MRI',
     color: 'teal',
@@ -295,6 +306,10 @@ export function applicationsCollection(
   id: CollectionId,
 ): readonly Application[] {
   return APPLICATIONS.filter((application) => application.collection === id);
+}
+
+export function logo(app: Application): string | null {
+  return app.logo ? `/logos/${app.id}.png` : null;
 }
 
 export function captures(app: Application): readonly string[] {
