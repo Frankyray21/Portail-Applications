@@ -11,7 +11,8 @@ branche `gh-pages`. Adresse du site :
 1. **Monter la version** dans `package.json`, dans le pied de `app/store-shell.tsx`
    (« Le Hub X.Y ») et dans la section de version du `README.md`. Un seul bump
    par lot, pas un par commit. Pas de bump si aucun fichier servi ne change.
-2. **Déployer** : `npm run build`, puis publier le contenu de
+2. **Déployer** : `npm run build` (qui écrit aussi `sw.js` via
+   `scripts/build-sw.mjs`), puis publier le contenu de
    `dist/client/Portail-Applications/` à la racine de `gh-pages`, avec
    `.nojekyll` (sans lui, GitHub Pages ignore les ressources `_next`).
 3. **Pousser sur `main`** : la branche de travail est fusionnée dans `main`,

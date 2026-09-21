@@ -1074,3 +1074,58 @@ h3 {
     transform: none;
   }
 }
+
+/* ---------- Installer Le Hub (progressif : rien sans JavaScript) ---------- */
+
+.installer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--filet-doux);
+}
+.installer button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--rayon);
+  background: var(--cuivre);
+  color: var(--bouton-texte);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.14s ease-out;
+}
+.installer button:hover {
+  background: var(--cuivre-appui);
+}
+.installer button:active {
+  transform: scale(0.98);
+}
+.installer span {
+  color: var(--encre-douce);
+}
+.installer--ios {
+  gap: 9px;
+}
+.installer--ios svg {
+  color: var(--cuivre);
+}
+.installer--ios strong {
+  color: var(--encre);
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .installer button {
+    transition: none;
+  }
+  .installer button:active {
+    transform: none;
+  }
+}

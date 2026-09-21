@@ -6,7 +6,12 @@ export const metadata: Metadata = {
   title: 'Le Hub — Applications',
   description:
     'Retrouvez les applications de Frank : prévention, formation, forage et découverte.',
-  icons: { icon: ressource('/favicon.svg') },
+  icons: {
+    icon: ressource('/favicon.svg'),
+    apple: ressource('/apple-touch-icon.png'),
+  },
+  manifest: ressource('/manifest.webmanifest'),
+  appleWebApp: { capable: true, title: 'Le Hub', statusBarStyle: 'default' },
 };
 
 // Le bandeau pétrole se prolonge dans la barre du navigateur, et le site

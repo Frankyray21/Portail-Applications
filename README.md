@@ -103,6 +103,20 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
+## Version 1.4.0
+
+- Le Hub s’installe : manifeste, icônes 192/512 et maskable, service worker.
+- Bouton « Installer Le Hub » quand le navigateur l’offre ; sur iPhone, le
+  geste est expliqué (Partager, puis Sur l’écran d’accueil). Rien ne
+  s’affiche si l’application est déjà installée, ni sans JavaScript.
+- Hors ligne : 32 fichiers préchargés à l’installation (0,97 Mo, captures
+  exclues). Les pages passent par le réseau d’abord, le cache ensuite ; les
+  actifs versionnés par le cache d’abord.
+- `scripts/build-sw.mjs` écrit le service worker après la construction, pour
+  qu’il connaisse le nom réel des actifs. Le validateur vérifie le manifeste,
+  les icônes, la présence d’un gestionnaire `fetch` et chaque fichier
+  préchargé.
+
 ## Version 1.3.0
 
 - Identité visuelle : pétrole pour la coquille, cuivre pour l’action,

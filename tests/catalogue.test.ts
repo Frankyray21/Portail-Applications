@@ -1,5 +1,5 @@
 import { strict as assert } from 'node:assert';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import {
   APPLICATIONS,
@@ -119,6 +119,27 @@ await test('les nombres sont écrits avec une espace insécable', () => {
   assert.equal(nombre(3940), '3\u00a0940');
   assert.equal(nombre(320), '320');
   assert.equal(nombre(3327), '3\u00a0327');
+});
+await test('le manifeste parle du même chemin de base que le code', async () => {
+  const { BASE_PATH } = await import('../lib/base.ts');
+  const manifeste = JSON.parse(
+    readFileSync(new URL('../public/manifest.webmanifest', import.meta.url), 'utf8'),
+  );
+  const base = `${BASE_PATH}/`;
+  for (const chemin of [
+    manifeste.start_url,
+    manifeste.scope,
+    manifeste.id,
+    ...manifeste.icons.map((icone: { src: string }) => icone.src),
+  ])
+    assert.ok(chemin.startsWith(base), `manifeste hors base : ${chemin}`);
+  assert.equal(manifeste.display, 'standalone');
+  assert.equal(manifeste.lang, 'fr-CA');
+  for (const icone of manifeste.icons)
+    assert.ok(
+      existsSync(new URL(`../public${icone.src.slice(BASE_PATH.length)}`, import.meta.url)),
+      `icône manquante : ${icone.src}`,
+    );
 });
 await test('application() retrouve une fiche et ignore un identifiant inconnu', () => {
   assert.equal(application('rodbot')?.title, 'RodBot LP');

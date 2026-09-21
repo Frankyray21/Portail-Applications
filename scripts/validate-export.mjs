@@ -32,6 +32,10 @@ for (const [chemin, titreH1] of PAGES) {
   assert.equal((page.match(/<h1\b/g) ?? []).length, 1, `un seul h1 : ${ou}`);
   assert.ok(page.includes('href="#contenu"'), `lien d’évitement : ${ou}`);
   assert.ok(
+    page.includes(`href="${base}manifest.webmanifest"`),
+    `manifeste non lié : ${ou}`,
+  );
+  assert.ok(
     page.includes('aria-label="Navigation principale"') &&
       page.includes('aria-label="Navigation"'),
     `navigation : ${ou}`,
@@ -135,6 +139,47 @@ for (const ou of ['', 'app/wiki/']) {
   );
 }
 
+// Application installable : le manifeste, les icônes et le service worker
+// doivent être là, cohérents, et tout porter le chemin de base.
+const manifeste = JSON.parse(
+  readFileSync(join(dossier, 'manifest.webmanifest'), 'utf8'),
+);
+for (const chemin of [
+  manifeste.start_url,
+  manifeste.scope,
+  manifeste.id,
+  ...manifeste.icons.map((icone) => icone.src),
+  ...manifeste.shortcuts.flatMap((r) => [r.url, ...r.icons.map((i) => i.src)]),
+])
+  assert.ok(chemin.startsWith(base), `manifeste hors base : ${chemin}`);
+assert.equal(manifeste.display, 'standalone');
+for (const icone of manifeste.icons)
+  assert.ok(
+    existsSync(resolve(dossier, icone.src.slice(base.length))),
+    `icône manquante : ${icone.src}`,
+  );
+for (const taille of ['192x192', '512x512'])
+  assert.ok(
+    manifeste.icons.some((icone) => icone.sizes === taille),
+    `icône ${taille} absente : l'application ne serait pas installable`,
+  );
+assert.ok(
+  manifeste.icons.some((icone) => icone.purpose === 'maskable'),
+  'aucune icône maskable',
+);
+
+const sw = readFileSync(join(dossier, 'sw.js'), 'utf8');
+assert.match(sw, /addEventListener\('fetch'/, 'service worker sans fetch');
+const precache = JSON.parse(sw.match(/const PRECACHE = (\[[\s\S]*?\n\]);/)[1]);
+assert.ok(precache.length > 10, `préchargement trop mince : ${precache.length}`);
+for (const url of precache) {
+  assert.ok(url.startsWith(base), `préchargement hors base : ${url}`);
+  assert.ok(
+    existsSync(resolve(dossier, url.slice(base.length))),
+    `fichier préchargé absent : ${url}`,
+  );
+}
+
 for (const url of ressources) {
   assert.ok(url.startsWith(base));
   const fichier = resolve(dossier, url.slice(base.length));
@@ -151,5 +196,5 @@ assert.ok(
   ),
 );
 console.log(
-  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${captures.length} captures, ${ressources.size} ressources locales.`,
+  `Export vérifié : ${PAGES.length} pages, ${APPS.length} fiches, ${SUJETS.length} sujets du wiki, ${captures.length} captures, ${ressources.size} ressources locales, application installable (${precache.length} fichiers hors ligne).`,
 );
