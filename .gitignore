@@ -37,3 +37,11 @@ next-env.d.ts
 /outputs/
 /work/
 *.tsbuildinfo
+
+# contenu embarqué de l'APK, reconstruit à chaque build
+/apk/www/
+/dist-apk/
+
+# clé de signature Android : jamais dans le dépôt, elle vient des secrets
+/apk/*.keystore
+/apk/*.jks

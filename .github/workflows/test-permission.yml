@@ -1,7 +1,0 @@
-name: Test de permission
-on: workflow_dispatch
-jobs:
-  rien:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "test"

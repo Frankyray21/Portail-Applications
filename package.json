@@ -11,7 +11,9 @@
     "start": "vinext start",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "lint": "oxlint app lib tests next.config.ts vite.config.ts",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "apk:www": "node scripts/build-apk-www.mjs",
+    "apk:sync": "node scripts/build-apk-www.mjs && npx cap sync android"
   },
   "dependencies": {
     "@base-ui/react": "1.7.0",
@@ -35,6 +37,9 @@
     "vinext": "1.0.0-beta.9"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
     "@cloudflare/vite-plugin": "1.54.4",
     "@cloudflare/workers-types": "5.20260801.1",
     "@openai/sites-vite-plugin": "0.2.0",

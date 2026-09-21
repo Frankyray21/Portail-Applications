@@ -1,0 +1,11 @@
+{
+  "appId": "com.machinesroger.lehub",
+  "appName": "Le Hub",
+  "webDir": "apk/www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

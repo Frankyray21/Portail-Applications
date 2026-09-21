@@ -1,0 +1,125 @@
+# Compile l'application Android du Hub et la publie en release.
+#
+# Le téléchargement stable, celui qu'on partage et qu'on met dans un code QR :
+#   https://github.com/Frankyray21/Portail-Applications/releases/download/apk-latest/le-hub.apk
+#
+# L'APK embarque le site entier (pages, captures, logos, codes QR) : il
+# s'ouvre sous terre sans réseau dès l'installation.
+name: Build Android APK
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "**/*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: write # publier la release et son APK
+
+# Une release sans APK laisserait un lien de téléchargement en 404 : on
+# n'annule donc pas un run en cours de publication.
+concurrency:
+  group: "apk"
+  cancel-in-progress: false
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Dépendances
+        run: npm ci
+
+      - name: Assembler le contenu embarqué (apk/www)
+        run: node scripts/build-apk-www.mjs
+
+      - name: Synchroniser Capacitor
+        run: npx cap sync android
+
+      - name: Lire la version du site
+        id: ver
+        run: |
+          NAME=$(node -p "require('./package.json').version")
+          CODE=$(node -p "const [a,b,c] = require('./package.json').version.split('.').map(Number); a * 10000 + b * 100 + c")
+          if [ -z "$NAME" ] || [ -z "$CODE" ]; then
+            echo "Version introuvable dans package.json — arrêt."
+            exit 1
+          fi
+          echo "name=$NAME" >> "$GITHUB_OUTPUT"
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+
+      # La clé de signature vit dans les secrets du dépôt, jamais dans le
+      # code. Sans elle, on s'arrête ici plutôt que de publier un APK non
+      # signé, que personne ne pourrait installer.
+      - name: Restituer la clé de signature
+        env:
+          CLE: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$CLE" ]; then
+            echo "Secret ANDROID_KEYSTORE_BASE64 absent : impossible de signer."
+            echo "Voir README, section « Application Android »."
+            exit 1
+          fi
+          mkdir -p apk
+          printf '%s' "$CLE" | base64 -d > apk/le-hub-release.keystore
+          ls -l apk/le-hub-release.keystore
+
+      - name: Compiler l'APK signé
+        working-directory: android
+        env:
+          STORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_NAME: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASS: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease \
+            -PappVersionCode=${{ steps.ver.outputs.code }} \
+            -PappVersionName=${{ steps.ver.outputs.name }} \
+            -PstorePass="$STORE_PASS" \
+            -PkeyName="${KEY_NAME:-lehub}" \
+            -PkeyPass="${KEY_PASS:-$STORE_PASS}"
+
+      - name: Effacer la clé
+        if: always()
+        run: rm -f apk/le-hub-release.keystore
+
+      - name: Renommer l'APK
+        run: |
+          mkdir -p dist-apk
+          cp android/app/build/outputs/apk/release/app-release.apk dist-apk/le-hub.apk
+          ls -lh dist-apk
+
+      - name: Publier la release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-latest
+          name: "Le Hub pour Android (${{ steps.ver.outputs.name }})"
+          body: |
+            L'application **Le Hub** pour Android, avec tout le contenu
+            embarqué : elle s'ouvre sans réseau dès l'installation.
+
+            Version ${{ steps.ver.outputs.name }} (build ${{ steps.ver.outputs.code }})
+
+            **Installation** : télécharger `le-hub.apk` sur le téléphone,
+            l'ouvrir, puis accepter « installer des applications de cette
+            source ». Une mise à jour s'installe par-dessus la précédente,
+            sans désinstaller.
+
+            Sur iPhone, l'APK ne s'applique pas : ouvrir le site et utiliser
+            « Partager » puis « Sur l'écran d'accueil ».
+          files: dist-apk/le-hub.apk
