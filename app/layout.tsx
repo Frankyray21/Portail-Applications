@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     'Les applications santé et sécurité de Machines Roger International : prévention, formation et forage en mine.',
   icons: {
-    icon: ressource('/favicon.svg'),
+    icon: ressource('/favicon.png'),
     apple: ressource('/apple-touch-icon.png'),
   },
   manifest: ressource('/manifest.webmanifest'),

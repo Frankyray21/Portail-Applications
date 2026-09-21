@@ -53,10 +53,14 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
 - Le rouge du logo est trop clair pour écrire sur fond pâle. Écrire avec
   `#b81b1d` sur clair, `#ef5a5c` sur noir ; le rouge exact reste celui des
   aplats. Toute valeur ajoutée porte son ratio de contraste en commentaire.
-- Un seul script produit toutes les icônes : `node scripts/build-icones.mjs`.
-  Ne jamais retoucher un PNG d'icône à la main, les familles divergeraient.
-  S'il existe, `public/logos/portail.png` sert de source à toutes ; sinon le
-  script dessine le motif à quatre tuiles.
+- **Le logo est `assets/logo-portail.png`**, et il n'est pas servi : tout ce
+  qui doit l'être en sort par `node scripts/build-icones.mjs` — favicon,
+  marque du bandeau, icônes du manifeste, lanceur Android, écran de
+  lancement. Ne jamais retoucher un PNG d'icône à la main, les familles
+  divergeraient. Aux petites tailles (marque, favicon) le script ne garde
+  que la grappe de quatre tuiles : le mot-symbole y serait une tache.
+- Les icônes sont quantifiées en palette : sans ça la seule icône de 512 px
+  pèse 295 Ko, et tout est préchargé pour l'usage hors ligne.
 - **Le sombre est le thème par défaut**, quel que soit le réglage de
   l'appareil. Le clair est un choix explicite (bouton du bandeau, gardé dans
   `localStorage`, rétabli avant le premier affichage par le script de

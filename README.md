@@ -5,9 +5,10 @@ International. Chaque application a sa fiche :
 présentation, ce qu’elle contient, captures d’écran, et un bouton pour
 l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
 
-Trois onglets : **Découvrir** (la une et les essentiels), **Applications** (le
-catalogue par collection) et **Rechercher** (filtrage instantané sur le nom,
-les thèmes et le contenu des fiches).
+Deux onglets : **Découvrir** (la une et les essentiels) et **Applications**
+(le catalogue par collection). La recherche est un champ du bandeau, présent
+sur toutes les pages : elle filtre sur le nom, les thèmes et le contenu des
+fiches.
 
 ## Collections
 
@@ -169,6 +170,24 @@ Avant de déployer, relever la release :
 ```sh
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
+
+## Version 1.11.0
+
+- **Le logo du portail est en place.** `assets/logo-portail.png` est la seule
+  source : `node scripts/build-icones.mjs` en tire le favicon, la marque du
+  bandeau, les icônes du manifeste, celles du lanceur Android et l'écran de
+  lancement de l'APK. Le fichier source n'est pas servi.
+- Aux petites tailles, le script ne garde que la **grappe de quatre tuiles**
+  du logo : le mot-symbole « Portail SST / MRI » y deviendrait une tache. Les
+  bornes de la découpe sont relevées dans le fichier lui-même.
+- Les icônes sont quantifiées en palette. Sans ça la seule icône de 512 px
+  pesait 295 Ko, et tout est préchargé pour l'usage hors ligne : le lot passe
+  de 1,65 à 1,20 Mo, sans différence visible.
+- **L'onglet « Rechercher » disparaît de la navigation.** Le champ de
+  recherche est dans le bandeau, sur toutes les pages : un onglet de plus
+  répétait le même geste et prenait la place dont le champ avait besoin.
+  L'invite complète de la maquette tient maintenant à vingt largeurs, de 320
+  à 1920 px, avec les deux types de pointeur.
 
 ## Version 1.10.0
 

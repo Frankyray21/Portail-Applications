@@ -8,6 +8,10 @@ import { Theme } from './theme';
 
 export type Onglet = 'decouvrir' | 'applications' | 'recherche';
 
+// « Rechercher » n'est pas un onglet : le champ du bandeau est sur toutes
+// les pages, un onglet de plus ne ferait que répéter le même geste et
+// prendre la place dont le champ a besoin pour montrer son invite.
+
 const ONGLETS = [
   { id: 'decouvrir', label: 'Découvrir', href: '/', icon: House },
   {
@@ -16,32 +20,26 @@ const ONGLETS = [
     href: '/applications/',
     icon: LayoutGrid,
   },
-  { id: 'recherche', label: 'Rechercher', href: '/recherche/', icon: Search },
 ] as const;
 
 const DEPOT_PORTAIL = 'https://github.com/Frankyray21/Portail-Applications';
 
-// La marque : quatre plaques, dont une en cuivre — celle qu'on choisit.
-// C'est aussi le dessin du favicon.
+// La marque : la grappe de quatre tuiles du logo, découpée par
+// scripts/build-icones.mjs. Le mot-symbole du logo n'est pas repris ici — il
+// serait illisible à cette taille, et le nom est écrit juste à côté.
 function Marque() {
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <rect x="2" y="2" width="9" height="9" rx="1.5" fill="currentColor" />
-      <rect x="13" y="2" width="9" height="9" rx="1.5" fill="currentColor" />
-      <rect x="2" y="13" width="9" height="9" rx="1.5" fill="currentColor" />
-      <rect
-        x="13"
-        y="13"
-        width="9"
-        height="9"
-        rx="1.5"
-        className="marque__accent"
-      />
-    </svg>
+    <img
+      src={ressource('/marque.png')}
+      alt=""
+      width={160}
+      height={160}
+      decoding="async"
+    />
   );
 }
 
-// Coquille de la boutique : un bandeau pétrole avec la marque et, sur
+// Coquille de la boutique : un bandeau noir avec la marque et, sur
 // ordinateur, les trois onglets ; sur téléphone, les onglets passent dans
 // une barre fixée au bas de l'écran, sous le pouce. Les deux navigations
 // sont rendues par l'export : la feuille de style choisit laquelle montrer.
@@ -69,7 +67,7 @@ export function StoreShell({
               <input
                 type="search"
                 name="q"
-                placeholder="Rechercher une application"
+                placeholder="Rechercher une application, un sujet…"
                 aria-label="Rechercher une application ou un sujet"
                 autoComplete="off"
               />
@@ -100,7 +98,7 @@ export function StoreShell({
         <footer className="pied">
           <ServiceWorker />
           <p>
-            Portail SST 1.10 · {APPLICATIONS.length} applications.{' '}
+            Portail SST 1.11 · {APPLICATIONS.length} applications.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail
               <ArrowUpRight size={15} aria-hidden="true" />
