@@ -1,22 +1,22 @@
 // Généré par scripts/build-sw.mjs — ne pas modifier à la main.
-const CACHE = 'le-hub-04e2c2987962';
+const CACHE = 'le-hub-ccbec9fcac52';
 const BASE = "/Portail-Applications/";
 const PRECACHE = [
-  "/Portail-Applications/_next/static/c66a1cb3-fd0f-4683-8728-811fcd2a40ba/_buildManifest.js",
-  "/Portail-Applications/_next/static/c66a1cb3-fd0f-4683-8728-811fcd2a40ba/_ssgManifest.js",
+  "/Portail-Applications/_next/static/0ac0686b-4e6f-4b6b-b218-a8b0effc9d79/_buildManifest.js",
+  "/Portail-Applications/_next/static/0ac0686b-4e6f-4b6b-b218-a8b0effc9d79/_ssgManifest.js",
   "/Portail-Applications/_next/static/chunks/Icon-BneD8-un.js",
-  "/Portail-Applications/_next/static/chunks/createLucideIcon-B8vRHZfL.js",
+  "/Portail-Applications/_next/static/chunks/base-C_qwDQUu.js",
   "/Portail-Applications/_next/static/chunks/framework-A1pNZAzD.js",
-  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-BavZRWdg.js",
-  "/Portail-Applications/_next/static/chunks/index-B9qgVCpM.js",
-  "/Portail-Applications/_next/static/chunks/installer-DK1_oFMc.js",
-  "/Portail-Applications/_next/static/chunks/layout-segment-context-DpAhS-rZ.js",
-  "/Portail-Applications/_next/static/chunks/link-CRLN9hul.js",
+  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-bWUjWgAf.js",
+  "/Portail-Applications/_next/static/chunks/index-0vJef3K7.js",
+  "/Portail-Applications/_next/static/chunks/installer-D2h0a_SB.js",
+  "/Portail-Applications/_next/static/chunks/layout-segment-context-CYQbUK25.js",
+  "/Portail-Applications/_next/static/chunks/link-D_T04esq.js",
   "/Portail-Applications/_next/static/chunks/query-DugiHe4Q.js",
-  "/Portail-Applications/_next/static/chunks/recherche-C2eiwXVL.js",
+  "/Portail-Applications/_next/static/chunks/recherche-CiEm4X4l.js",
   "/Portail-Applications/_next/static/chunks/rolldown-runtime-hePW80VL.js",
-  "/Portail-Applications/_next/static/chunks/vinext-CVTMRx6j.js",
-  "/Portail-Applications/_next/static/css/index.CztZcOzf.css",
+  "/Portail-Applications/_next/static/chunks/vinext-C8U8UGjz.js",
+  "/Portail-Applications/_next/static/css/index.DsJspJ0m.css",
   "/Portail-Applications/_next/static/media/AtkinsonHyperlegibleNext.BcXVPD7q.woff2",
   "/Portail-Applications/_next/static/media/HeptaSlab-800.DbfWV3Kq.woff2",
   "/Portail-Applications/app/anatomie/index.html",
@@ -32,6 +32,11 @@ const PRECACHE = [
   "/Portail-Applications/icone-512.png",
   "/Portail-Applications/icone-maskable-512.png",
   "/Portail-Applications/index.html",
+  "/Portail-Applications/logos/bruit.png",
+  "/Portail-Applications/logos/procedures.png",
+  "/Portail-Applications/logos/rodbot.png",
+  "/Portail-Applications/logos/tms.png",
+  "/Portail-Applications/logos/wiki.png",
   "/Portail-Applications/manifest.webmanifest",
   "/Portail-Applications/recherche/index.html"
 ];
