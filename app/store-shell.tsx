@@ -2,7 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { ArrowUpRight, LayoutGrid, Search, Sparkles } from 'lucide-react';
 import { APPLICATIONS } from '@/lib/catalogue';
-import { Installer } from './installer';
+import { ServiceWorker } from './installer';
 
 export type Onglet = 'aujourdhui' | 'applications' | 'recherche';
 
@@ -83,9 +83,9 @@ export function StoreShell({
       <div className="vue">
         {children}
         <footer className="pied">
-          <Installer />
+          <ServiceWorker />
           <p>
-            Le Hub 1.6 · {APPLICATIONS.length} applications, construites par
+            Le Hub 1.7 · {APPLICATIONS.length} applications, construites par
             Frank.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail

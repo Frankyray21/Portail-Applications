@@ -11,6 +11,7 @@ import {
   pagesWiki,
   sujetsWiki,
 } from '@/lib/catalogue';
+import { Emporter } from './emporter';
 import { StoreShell } from './store-shell';
 import { Icone } from './icone';
 
@@ -117,6 +118,8 @@ export default function Aujourdhui() {
             ))}
           </ul>
         </section>
+
+        <Emporter />
 
         <section className="afficher" aria-labelledby="titre-afficher">
           <h2 id="titre-afficher">Afficher Le Hub</h2>

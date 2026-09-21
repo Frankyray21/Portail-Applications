@@ -1080,21 +1080,80 @@ h3 {
   }
 }
 
-/* ---------- Installer Le Hub (progressif : rien sans JavaScript) ---------- */
+/* ---------- Emporter Le Hub ---------- */
 
+.emporter {
+  margin-bottom: 44px;
+}
+.emporter h2 {
+  margin-bottom: 10px;
+}
+.emporter__lede {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  max-width: 62ch;
+  margin-bottom: 20px;
+  color: var(--encre-douce);
+  line-height: 1.55;
+}
+.emporter__lede svg {
+  flex: none;
+  color: var(--cuivre);
+  transform: translateY(2px);
+}
+.emporter__liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+}
+.emporter__carte {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: var(--rayon-image);
+}
+.emporter__carte h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--affiche);
+  font-size: 1.125rem;
+  line-height: 1.25;
+}
+.emporter__carte h3 svg {
+  flex: none;
+  color: var(--cuivre);
+}
+.emporter__carte > p {
+  max-width: 44ch;
+  color: var(--encre-douce);
+  line-height: 1.55;
+}
+/* Le bloc d'action est poussé en bas : d'une carte à l'autre, les boutons
+   restent alignés même quand les textes n'ont pas la même longueur. */
+.emporter__carte .installer,
+.emporter__bouton {
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+/* Le geste d'installation : bouton quand le navigateur l'autorise, phrase
+   décrivant le menu sinon. Jamais de bouton qui ne ferait rien. */
 .installer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px 14px;
-  padding-top: 18px;
-  border-top: 1px solid var(--filet-doux);
 }
-.installer button {
+.installer button,
+.emporter__bouton a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 8px;
   min-height: 48px;
   padding: 0 20px;
   border: 0;
@@ -1103,34 +1162,57 @@ h3 {
   color: var(--bouton-texte);
   font: inherit;
   font-weight: 700;
+  text-align: center;
   cursor: pointer;
   transition: background 0.14s ease-out;
 }
-.installer button:hover {
+.installer button:hover,
+.emporter__bouton a:hover {
   background: var(--cuivre-appui);
 }
-.installer button:active {
+.installer button:active,
+.emporter__bouton a:active {
   transform: scale(0.98);
 }
-.installer span {
-  color: var(--encre-douce);
-}
-.installer--ios {
+.installer--geste,
+.installer--faite {
+  /* Le pictogramme se cale sur la première ligne, pas au milieu du pavé. */
+  align-items: baseline;
   gap: 9px;
+  color: var(--encre-douce);
+  line-height: 1.5;
 }
-.installer--ios svg {
+.installer--geste svg,
+.installer--faite svg {
+  flex: none;
   color: var(--cuivre);
+  transform: translateY(3px);
 }
-.installer--ios strong {
+.installer--geste strong {
   color: var(--encre);
   font-weight: 700;
 }
+.installer--geste span,
+.installer--faite span {
+  flex: 1 1 200px;
+}
+.emporter__detail {
+  font-size: 0.875rem;
+  color: var(--encre-faible);
+  line-height: 1.5;
+}
+.emporter__note {
+  display: block;
+  margin-top: 6px;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  .installer button {
+  .installer button,
+  .emporter__bouton a {
     transition: none;
   }
-  .installer button:active {
+  .installer button:active,
+  .emporter__bouton a:active {
     transform: none;
   }
 }

@@ -103,6 +103,78 @@ automatiquement. Aucun workflow personnalisé ni droit OAuth `workflow` n’est
 nécessaire. Si le nom du dépôt change, modifier `basePath` dans `next.config.ts`,
 le lien GitHub du pied de page et l’adresse du favicon.
 
+## Application Android
+
+Le Hub existe aussi en APK : le site entier, embarqué, qui s'ouvre sans
+réseau dès l'installation. Le fichier est toujours à la même adresse :
+
+<https://github.com/Frankyray21/Portail-Applications/releases/download/apk-latest/le-hub.apk>
+
+Capacitor enveloppe l'export existant. Le préfixe `/Portail-Applications`
+n'existe pas dans une WebView, donc `scripts/build-apk-www.mjs` rebâtit
+l'export avec `PORTAIL_BASE` vide, dans `apk/www`.
+
+```sh
+npm run apk:sync                 # reconstruit apk/www, puis npx cap sync android
+node scripts/build-icones-android.mjs   # seulement si le motif de l'icône change
+```
+
+La compilation elle-même demande le SDK Android : elle se fait dans
+`.github/workflows/build-apk.yml`, à chaque poussée sur `main`.
+
+### Les quatre secrets de signature
+
+Android n'installe qu'un APK signé, et n'accepte une mise à jour que si elle
+porte **la même clé** que la version déjà installée. Cette clé ne doit jamais
+entrer dans le dépôt : elle vit dans les secrets, sous
+**Settings → Secrets and variables → Actions**.
+
+| Secret | Contenu |
+| --- | --- |
+| `ANDROID_KEYSTORE_BASE64` | le fichier `.keystore`, encodé en base64 |
+| `ANDROID_KEYSTORE_PASSWORD` | le mot de passe du magasin |
+| `ANDROID_KEY_ALIAS` | le nom de la clé dans le magasin |
+| `ANDROID_KEY_PASSWORD` | le mot de passe de la clé |
+
+Pour créer la clé, une seule fois, sur une machine avec Java :
+
+```sh
+keytool -genkeypair -v -keystore le-hub-release.keystore \
+  -alias lehub -keyalg RSA -keysize 2048 -validity 10950 \
+  -dname "CN=Le Hub, O=Machines Roger International, C=CA"
+base64 -w0 le-hub-release.keystore   # sur macOS : base64 -i le-hub-release.keystore
+```
+
+Garder le fichier `.keystore` en lieu sûr, hors du dépôt : **le perdre oblige
+à désinstaller l'application sur chaque appareil** avant de pouvoir publier
+une mise à jour. Sans les secrets, le workflow s'arrête avec un message
+clair plutôt que de publier un APK que personne ne pourrait installer.
+
+### Après une publication
+
+Le bouton de téléchargement du site ne s'affiche que si le fichier existe.
+Avant de déployer, relever la release :
+
+```sh
+node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
+```
+
+## Version 1.7.0
+
+- Une section « Emporter Le Hub » sur l'accueil : on installe depuis le
+  navigateur, sur Android, iPhone et ordinateur. Le bouton n'apparaît que si
+  le navigateur donne vraiment l'invitation ; sinon la phrase nomme le geste
+  du menu, plutôt qu'un bouton qui ne ferait rien.
+- Le Hub existe aussi en application Android. Elle embarque tout le contenu :
+  pages, captures, logos et codes QR. Elle s'ouvre sous terre, sans réseau,
+  dès l'installation.
+- L'APK est compilé et publié par GitHub Actions
+  (`.github/workflows/build-apk.yml`), sous un tag fixe : l'adresse de
+  téléchargement ne change jamais. Voir « Application Android » plus bas.
+- Le bouton de téléchargement ne s'affiche que si le fichier existe
+  vraiment : `scripts/relever-apk.mjs` relève la release avant chaque
+  déploiement.
+
 ## Version 1.6.0
 
 - Un code QR par application, sur sa fiche : on montre l’écran, le téléphone

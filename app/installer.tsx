@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
-import { Download, Share } from 'lucide-react';
+import { Check, Download, Share } from 'lucide-react';
 import { ressource } from '@/lib/base';
 
 interface InvitationInstallation extends Event {
@@ -40,16 +40,24 @@ function sAbonner(prevenir: () => void) {
 // Le service worker sert deux choses : rendre Le Hub installable, et garder
 // les pages consultables sous terre, sans signal. Il ne met en cache que le
 // portail : les applications gardent le leur, chacune sur son chemin.
-function enregistrerServiceWorker() {
-  if (!('serviceWorker' in navigator)) return;
-  navigator.serviceWorker
-    .register(ressource('/sw.js'), { scope: ressource('/') })
-    .catch(() => {
-      // Une installation ratée ne doit jamais casser la navigation.
-    });
+// Ce composant ne dessine rien ; il est posé dans le pied de chaque page,
+// pour que le cache se remplisse quelle que soit la page d'arrivée.
+export function ServiceWorker() {
+  useEffect(() => {
+    if (!('serviceWorker' in navigator)) return;
+    navigator.serviceWorker
+      .register(ressource('/sw.js'), { scope: ressource('/') })
+      .catch(() => {
+        // Une installation ratée ne doit jamais casser la navigation.
+      });
+  }, []);
+  return null;
 }
 
-export function Installer() {
+// Le geste d'installation depuis le navigateur. Trois situations, jamais un
+// bouton qui ne ferait rien : le navigateur a donné l'invitation, ou c'est
+// un iPhone et on décrit le geste, ou Le Hub est déjà installé.
+export function BoutonInstaller() {
   // Rendu serveur : « installée », donc rien. Le client recalcule ensuite,
   // sans écart d'hydratation.
   const etat = useSyncExternalStore(sAbonner, lireEtat, () => 'installee');
@@ -58,7 +66,6 @@ export function Installer() {
   );
 
   useEffect(() => {
-    enregistrerServiceWorker();
     const capter = (evenement: Event) => {
       evenement.preventDefault();
       setInvitation(evenement as InvitationInstallation);
@@ -79,33 +86,48 @@ export function Installer() {
     setInvitation(null);
   }, [invitation]);
 
-  if (etat === 'installee') return null;
+  if (etat === 'installee') {
+    return (
+      <p className="installer installer--faite">
+        <Check size={18} aria-hidden="true" />
+        <span>Le Hub est installé sur cet appareil.</span>
+      </p>
+    );
+  }
 
-  // Aucun bouton qui ne ferait rien : on n'en montre un que si le navigateur
-  // a vraiment donné l'invitation, et sur iOS on explique le geste.
   if (invitation) {
     return (
       <p className="installer">
         <button type="button" onClick={installer}>
-          <Download size={17} aria-hidden="true" />
+          <Download size={18} aria-hidden="true" />
           Installer Le Hub
         </button>
-        <span>Pour l’ouvrir depuis l’écran d’accueil, même sans signal.</span>
       </p>
     );
   }
 
   if (etat === 'ios') {
     return (
-      <p className="installer installer--ios">
-        <Share size={17} aria-hidden="true" />
+      <p className="installer installer--geste">
+        <Share size={18} aria-hidden="true" />
         <span>
-          Pour installer Le Hub : touchez <strong>Partager</strong>, puis{' '}
+          Touchez <strong>Partager</strong>, puis{' '}
           <strong>Sur l’écran d’accueil</strong>.
         </span>
       </p>
     );
   }
 
-  return null;
+  // Firefox et les navigateurs qui ne donnent pas l'invitation : le menu
+  // reste le seul chemin, autant le nommer.
+  return (
+    <p className="installer installer--geste">
+      <Download size={18} aria-hidden="true" />
+      <span>
+        Ouvrez le menu du navigateur, puis{' '}
+        <strong>Installer l’application</strong> ou{' '}
+        <strong>Ajouter à l’écran d’accueil</strong>.
+      </span>
+    </p>
+  );
 }
