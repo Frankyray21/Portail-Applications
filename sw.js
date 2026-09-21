@@ -1,0 +1,101 @@
+// Généré par scripts/build-sw.mjs — ne pas modifier à la main.
+const CACHE = 'le-hub-04e2c2987962';
+const BASE = "/Portail-Applications/";
+const PRECACHE = [
+  "/Portail-Applications/_next/static/c66a1cb3-fd0f-4683-8728-811fcd2a40ba/_buildManifest.js",
+  "/Portail-Applications/_next/static/c66a1cb3-fd0f-4683-8728-811fcd2a40ba/_ssgManifest.js",
+  "/Portail-Applications/_next/static/chunks/Icon-BneD8-un.js",
+  "/Portail-Applications/_next/static/chunks/createLucideIcon-B8vRHZfL.js",
+  "/Portail-Applications/_next/static/chunks/framework-A1pNZAzD.js",
+  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-BavZRWdg.js",
+  "/Portail-Applications/_next/static/chunks/index-B9qgVCpM.js",
+  "/Portail-Applications/_next/static/chunks/installer-DK1_oFMc.js",
+  "/Portail-Applications/_next/static/chunks/layout-segment-context-DpAhS-rZ.js",
+  "/Portail-Applications/_next/static/chunks/link-CRLN9hul.js",
+  "/Portail-Applications/_next/static/chunks/query-DugiHe4Q.js",
+  "/Portail-Applications/_next/static/chunks/recherche-C2eiwXVL.js",
+  "/Portail-Applications/_next/static/chunks/rolldown-runtime-hePW80VL.js",
+  "/Portail-Applications/_next/static/chunks/vinext-CVTMRx6j.js",
+  "/Portail-Applications/_next/static/css/index.CztZcOzf.css",
+  "/Portail-Applications/_next/static/media/AtkinsonHyperlegibleNext.BcXVPD7q.woff2",
+  "/Portail-Applications/_next/static/media/HeptaSlab-800.DbfWV3Kq.woff2",
+  "/Portail-Applications/app/anatomie/index.html",
+  "/Portail-Applications/app/bruit/index.html",
+  "/Portail-Applications/app/procedures/index.html",
+  "/Portail-Applications/app/rodbot/index.html",
+  "/Portail-Applications/app/tms/index.html",
+  "/Portail-Applications/app/wiki/index.html",
+  "/Portail-Applications/apple-touch-icon.png",
+  "/Portail-Applications/applications/index.html",
+  "/Portail-Applications/favicon.svg",
+  "/Portail-Applications/icone-192.png",
+  "/Portail-Applications/icone-512.png",
+  "/Portail-Applications/icone-maskable-512.png",
+  "/Portail-Applications/index.html",
+  "/Portail-Applications/manifest.webmanifest",
+  "/Portail-Applications/recherche/index.html"
+];
+
+self.addEventListener('install', (evenement) => {
+  evenement.waitUntil(
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(PRECACHE))
+      .then(() => self.skipWaiting()),
+  );
+});
+
+self.addEventListener('activate', (evenement) => {
+  evenement.waitUntil(
+    caches
+      .keys()
+      .then((noms) =>
+        Promise.all(
+          noms.filter((nom) => nom !== CACHE).map((nom) => caches.delete(nom)),
+        ),
+      )
+      .then(() => self.clients.claim()),
+  );
+});
+
+self.addEventListener('fetch', (evenement) => {
+  const requete = evenement.request;
+  if (requete.method !== 'GET') return;
+  const url = new URL(requete.url);
+  if (url.origin !== self.location.origin || !url.pathname.startsWith(BASE))
+    return;
+
+  // Les pages : le réseau d'abord, pour qu'une nouvelle version arrive dès
+  // qu'il y a du signal ; le cache prend le relais sous terre.
+  if (requete.mode === 'navigate') {
+    evenement.respondWith(
+      fetch(requete)
+        .then((reponse) => {
+          const copie = reponse.clone();
+          caches.open(CACHE).then((cache) => cache.put(requete, copie));
+          return reponse;
+        })
+        .catch(() =>
+          caches
+            .match(requete)
+            .then((cache) => cache || caches.match(BASE)),
+        ),
+    );
+    return;
+  }
+
+  // Les actifs : le cache d'abord, ils portent leur version dans leur nom.
+  evenement.respondWith(
+    caches.match(requete).then(
+      (cache) =>
+        cache ||
+        fetch(requete).then((reponse) => {
+          if (reponse.ok && reponse.type === 'basic') {
+            const copie = reponse.clone();
+            caches.open(CACHE).then((c) => c.put(requete, copie));
+          }
+          return reponse;
+        }),
+    ),
+  );
+});
