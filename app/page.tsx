@@ -16,7 +16,7 @@ import { StoreShell } from './store-shell';
 import { Icone } from './icone';
 
 export const metadata = {
-  title: 'Aujourd’hui · Portail SST — MRI',
+  title: 'Accueil · Portail SST — MRI',
   description:
     'Les applications santé et sécurité de Machines Roger International : prévention, formation et forage en mine.',
 };
@@ -24,16 +24,16 @@ export const metadata = {
 // Le lanceur d'abord, la vitrine ensuite : l'habitué trouve sa plaque au
 // premier écran, le visiteur lit ce qu'est la collection puis voit de
 // vraies captures.
-export default function Aujourdhui() {
+export default function Accueil() {
   return (
-    <StoreShell actif="aujourdhui">
+    <StoreShell actif="accueil">
       <main id="contenu" className="page" tabIndex={-1}>
         <header className="entete">
-          <h1>Aujourd’hui</h1>
+          <h1>Accueil</h1>
           <p className="entete__lede">
-            Cinq applications construites par Frank pour la prévention, la
-            formation et le forage en mine. Chaque fiche dit ce que
-            l’application contient, puis l’ouvre.
+            Cinq applications pour la prévention, la formation et le forage
+            en mine. Chaque fiche dit ce que l’application contient, puis
+            l’ouvre.
           </p>
         </header>
 
@@ -140,7 +140,7 @@ export default function Aujourdhui() {
 
         <aside className="mention" aria-label="À propos de cette collection">
           <p>
-            Cinq outils personnels, construits par Frank pour son travail. Ils
+            Cinq outils de travail, réunis ici pour les retrouver vite. Ils
             ne remplacent ni les procédures officielles de votre employeur, ni
             un avis professionnel.
           </p>

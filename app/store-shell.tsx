@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { ArrowUpRight, LayoutGrid, Search, Sparkles } from 'lucide-react';
+import { ArrowUpRight, House, LayoutGrid, Search } from 'lucide-react';
 import { APPLICATIONS } from '@/lib/catalogue';
 import { ServiceWorker } from './installer';
 
-export type Onglet = 'aujourdhui' | 'applications' | 'recherche';
+export type Onglet = 'accueil' | 'applications' | 'recherche';
 
 const ONGLETS = [
-  { id: 'aujourdhui', label: 'Aujourd’hui', href: '/', icon: Sparkles },
+  { id: 'accueil', label: 'Accueil', href: '/', icon: House },
   {
     id: 'applications',
     label: 'Applications',
@@ -85,8 +85,7 @@ export function StoreShell({
         <footer className="pied">
           <ServiceWorker />
           <p>
-            Portail SST 1.8 · {APPLICATIONS.length} applications, construites par
-            Frank.{' '}
+            Portail SST 1.9 · {APPLICATIONS.length} applications.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail
               <ArrowUpRight size={15} aria-hidden="true" />

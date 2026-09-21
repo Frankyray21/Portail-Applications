@@ -181,7 +181,7 @@ export interface MiseEnAvant {
   raison: string;
 }
 
-// Mise en avant de la page « Aujourd'hui ». Chaque entrée dit une chose
+// Mise en avant de la page d'accueil. Chaque entrée dit une chose
 // vérifiable dans l'application elle-même : aucune note, aucun classement,
 // aucun compteur de téléchargement.
 export const A_LA_UNE: readonly MiseEnAvant[] = [

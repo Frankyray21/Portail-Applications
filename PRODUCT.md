@@ -25,13 +25,14 @@ liés — à corriger si ça ne correspond pas) :
   Sur ordinateur. Ils partagent le lien, cherchent la bonne ressource à
   transmettre, et jugent la crédibilité de ce qu'ils relaient.
 - **Contacts professionnels et public** : employeurs, monde académique, gens
-  qui découvrent le travail de Frank. Pour eux la page est une carte de visite.
-- **Frank lui-même** : point d'entrée quotidien vers ses applications.
+  qui découvrent ces outils. Pour eux la page est une carte de visite.
+- **Celui qui maintient le portail** : point d'entrée quotidien vers les
+  applications.
 
 ## Product Purpose
 
 Rassembler en une adresse publique les applications de prévention, de formation
-et d'outillage construites par Frank, et permettre de les reconnaître puis de
+et d'outillage de MRI, et permettre de les reconnaître puis de
 les ouvrir. Le portail ne copie ni les données ni les comptes des applications :
 chacune garde son fonctionnement, ses données et son mode hors-ligne.
 
@@ -63,16 +64,18 @@ même famille que les applications qu'il liste (RodBot LP, Bruit, Procédures
 de forage sont déjà rouge sur noir), ce qui vaut mieux qu'une identité
 inventée pour lui seul.
 
-Le ton, lui, ne change pas : les applications restent créditées à Frank, et
-la mention de l'accueil continue de dire qu'elles ne remplacent ni les
-procédures officielles d'un employeur, ni un avis professionnel.
+**Décision du 21 septembre 2026 : aucun nom propre sur le site.** Le portail
+ne nomme plus son auteur ; il parle d'outils de travail. La mention de
+l'accueil, elle, reste : ces outils ne remplacent ni les procédures
+officielles d'un employeur, ni un avis professionnel. C'est cette phrase,
+pas une signature, qui tient la promesse d'honnêteté.
 
 ## Anti-references
 
 **Décision du 19 septembre 2026 : le format App Store est assumé.** La
 version 1.1 le fuyait ; l'utilisateur a demandé l'inverse, explicitement et
 après qu'on lui ait rappelé la contradiction. Le portail est donc une boutique :
-onglets Aujourd'hui / Applications / Rechercher, fiche par application,
+onglets Accueil / Applications / Rechercher, fiche par application,
 captures d'écran, bouton « Ouvrir ». Ce document enregistre ce choix.
 
 Ce qui reste interdit, et qui ne se négocie pas :
@@ -107,8 +110,9 @@ Ce qui reste interdit, et qui ne se négocie pas :
 4. **Lisible avec des gants.** Grandes cibles, contraste élevé, français
    simple, fonctionnement sans JavaScript : le mobile de terrain est le cas
    normal, pas le cas dégradé.
-5. **Un auteur assumé.** « La collection de Frank » est le sujet de la page.
-   La voix reste personnelle et directe.
+5. **Des outils assumés.** Ce que ces applications contiennent, et ce
+   qu'elles ne remplacent pas, est dit franchement. La voix reste directe :
+   le portail décrit, il ne vend pas.
 
 ## Accessibility & Inclusion
 
