@@ -37,6 +37,14 @@ export interface Application {
    * public/logos/<id>.png. Sinon, la plaque colorée sert de repère.
    */
   logo: boolean;
+  /**
+   * Vrai quand l'application s'installe sur l'écran d'accueil : manifeste
+   * lié, `display: standalone`, icônes 192/512/masquable et service worker.
+   * Relevé dans l'application publiée, jamais supposé — une application sans
+   * tout cela ne s'installe pas, et le portail ne doit pas le promettre.
+   * Les cinq ont été vérifiées sur leur branche publiée le 21 septembre 2026.
+   */
+  installable: boolean;
   collection: CollectionId;
   url: string;
   depot: string;
@@ -68,6 +76,7 @@ export const APPLICATIONS: readonly Application[] = [
     ],
     captures: 3,
         logo: true,
+        installable: true,
 collection: 'prevention',
     url: 'https://frankyray21.github.io/TMS/',
     depot: 'https://github.com/Frankyray21/TMS',
@@ -91,6 +100,7 @@ collection: 'prevention',
     ],
     captures: 3,
         logo: true,
+        installable: true,
 collection: 'prevention',
     url: 'https://frankyray21.github.io/Bruit/',
     depot: 'https://github.com/Frankyray21/Bruit',
@@ -115,6 +125,7 @@ collection: 'prevention',
     ],
     captures: 3,
         logo: true,
+        installable: true,
 collection: 'prevention',
     url: 'https://frankyray21.github.io/wiki-sst-mines/',
     depot: 'https://github.com/Frankyray21/wiki-sst-mines',
@@ -140,6 +151,7 @@ collection: 'prevention',
     ],
     captures: 3,
         logo: true,
+        installable: true,
 collection: 'forage',
     url: 'https://frankyray21.github.io/RodBot/',
     depot: 'https://github.com/Frankyray21/RodBot',
@@ -164,6 +176,7 @@ collection: 'forage',
     ],
     captures: 2,
         logo: true,
+        installable: true,
 collection: 'forage',
     url: 'https://frankyray21.github.io/Procedures-Forage-MRI/',
     depot: 'https://github.com/Frankyray21/Procedures-Forage-MRI',

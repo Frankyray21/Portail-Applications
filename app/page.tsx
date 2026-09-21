@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowUpRight, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ChevronRight, Download } from 'lucide-react';
 import { URL_PUBLIQUE, ressource } from '@/lib/base';
 import {
   APPLICATIONS,
@@ -34,8 +34,12 @@ export default function Decouvrir() {
         <header className="entete">
           <h1>Découvrir</h1>
           <p className="entete__lede">
-            Des outils pour un milieu de travail plus sûr. Chaque fiche dit ce
-            que l’application contient ; le bouton l’ouvre.
+            Des outils pour un milieu de travail plus sûr. Chacun s’installe
+            sur l’écran d’accueil et s’ouvre ensuite sans réseau, sous terre.
+            Le bouton <strong>Installer</strong> ouvre l’application ; de là,
+            le navigateur propose de l’ajouter — sur iPhone, c’est{' '}
+            <strong>Partager</strong>, puis{' '}
+            <strong>Sur l’écran d’accueil</strong>.
           </p>
         </header>
 
@@ -64,10 +68,16 @@ export default function Decouvrir() {
                       rel="noopener noreferrer"
                       className="bouton-clair"
                     >
-                      Ouvrir
-                      <ArrowUpRight size={17} aria-hidden="true" />
+                      {app.installable ? 'Installer' : 'Ouvrir'}
+                      {app.installable ? (
+                        <Download size={17} aria-hidden="true" />
+                      ) : (
+                        <ArrowUpRight size={17} aria-hidden="true" />
+                      )}
                       <span className="sr-only">
-                        {app.title} (nouvel onglet)
+                        {app.installable
+                          ? ` ${app.title} : ouvre l’application, qui s’ajoute ensuite à l’écran d’accueil (nouvel onglet)`
+                          : ` ${app.title} (nouvel onglet)`}
                       </span>
                     </a>
                   </p>
@@ -109,9 +119,17 @@ export default function Decouvrir() {
                     rel="noopener noreferrer"
                     className="bouton-rouge"
                   >
-                    Ouvrir
-                    <ArrowUpRight size={16} aria-hidden="true" />
-                    <span className="sr-only">{app.title} (nouvel onglet)</span>
+                    {app.installable ? 'Installer' : 'Ouvrir'}
+                    {app.installable ? (
+                      <Download size={16} aria-hidden="true" />
+                    ) : (
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    )}
+                    <span className="sr-only">
+                      {app.installable
+                        ? ` ${app.title} : ouvre l’application, qui s’ajoute ensuite à l’écran d’accueil (nouvel onglet)`
+                        : ` ${app.title} (nouvel onglet)`}
+                    </span>
                   </a>
                 </p>
               </li>

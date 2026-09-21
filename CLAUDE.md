@@ -66,6 +66,22 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
   `localStorage`, rétabli avant le premier affichage par le script de
   `layout.tsx`). Ne pas remettre de bascule sur `prefers-color-scheme`.
 
+## « Installer », pas « Ouvrir »
+
+Le portail propose d'**installer** chaque application, pas de l'ouvrir : sous
+terre, une application posée sur l'écran d'accueil s'ouvre sans réseau.
+
+- **Un site ne peut pas installer la PWA d'un autre site.**
+  `beforeinstallprompt` ne concerne que sa propre origine et `navigator.install`
+  n'existe pas encore. Le bouton ouvre donc l'application, et c'est le
+  navigateur qui propose ensuite de l'ajouter. Le portail le dit franchement,
+  dans son chapeau et sur chaque fiche : ne pas retirer ces phrases, le bouton
+  deviendrait un mensonge.
+- Le champ `installable` du catalogue est **relevé**, jamais supposé :
+  manifeste lié, `display: standalone`, icônes 192/512/masquable et service
+  worker, sur la branche publiée de l'application. Une application qui ne les
+  a pas garde « Ouvrir ».
+
 ## Tablette de terrain
 
 La cible est une **Galaxy Tab Active4 Pro** : 1920 × 1200 à densité 1,5, soit

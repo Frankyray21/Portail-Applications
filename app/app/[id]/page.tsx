@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowUpRight, ChevronLeft, Code2 } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, Code2, Download } from 'lucide-react';
 import { ressource } from '@/lib/base';
 import {
   APPLICATIONS,
@@ -54,12 +54,27 @@ export default async function Fiche({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Ouvrir
-            <ArrowUpRight size={20} aria-hidden="true" />
+            {app.installable ? 'Installer' : 'Ouvrir'}
+            {app.installable ? (
+              <Download size={20} aria-hidden="true" />
+            ) : (
+              <ArrowUpRight size={20} aria-hidden="true" />
+            )}
           </a>
         </header>
         <p className="fiche__nouvel-onglet">
-          S’ouvre dans un nouvel onglet, sur {new URL(app.url).hostname}.
+          {app.installable ? (
+            <>
+              Le bouton ouvre l’application dans un nouvel onglet, sur{' '}
+              {new URL(app.url).hostname} ; de là, le navigateur propose de
+              l’ajouter à l’écran d’accueil. Sur iPhone, c’est{' '}
+              <strong>Partager</strong>, puis{' '}
+              <strong>Sur l’écran d’accueil</strong>. Une fois installée, elle
+              s’ouvre sans réseau.
+            </>
+          ) : (
+            <>S’ouvre dans un nouvel onglet, sur {new URL(app.url).hostname}.</>
+          )}
         </p>
 
         <section className="captures" aria-labelledby="titre-captures">
