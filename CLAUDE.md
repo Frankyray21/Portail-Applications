@@ -43,6 +43,23 @@ npm run build            # lance aussi scripts/validate-export.mjs
 - **Contraste WCAG AA partout**, cibles interactives ≥ 44 px, aucun débordement
   horizontal de 320 à 1920 px, `prefers-reduced-motion` respecté.
 
+## Application Android (APK)
+
+Le Hub existe aussi en APK, compilé par `.github/workflows/build-apk.yml` à
+chaque poussée sur `main`. Capacitor enveloppe l'export, rebâti avec
+`PORTAIL_BASE` vide (`scripts/build-apk-www.mjs`) parce que le préfixe
+`/Portail-Applications` n'existe pas dans une WebView.
+
+- **La clé de signature ne va jamais dans le dépôt.** Elle vit dans quatre
+  secrets GitHub (voir README, « Application Android »). Un APK signé d'une
+  autre clé ne peut pas remplacer l'installation existante.
+- Le bouton de téléchargement du site n'apparaît que si la release existe :
+  lancer `node scripts/relever-apk.mjs` avant de déployer, jamais éditer
+  `lib/telechargement.ts` à la main.
+- Les icônes et l'écran de lancement viennent de
+  `scripts/build-icones-android.mjs` ; le motif de l'icône adaptative doit
+  tenir dans la zone sûre du lanceur (au plus 0,47 de la toile).
+
 ## Pièges connus
 
 - `next/image` **n'applique pas** le `basePath` dans ce moteur : les images
