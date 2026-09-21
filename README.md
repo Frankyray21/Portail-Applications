@@ -148,14 +148,50 @@ entrer dans le dépôt : elle vit dans les secrets, sous
 | `ANDROID_KEY_ALIAS` | le nom de la clé dans le magasin (`portailsst`) |
 | `ANDROID_KEY_PASSWORD` | le mot de passe de la clé |
 
-Pour créer la clé, une seule fois, sur une machine avec Java :
+#### 1. Créer la clé, une seule fois
+
+Il faut `keytool`, qui vient avec Java. S'il est introuvable, installer un JDK
+(<https://adoptium.net>) ; Android Studio en embarque un aussi.
 
 ```sh
 keytool -genkeypair -v -keystore portail-sst-release.keystore \
   -alias portailsst -keyalg RSA -keysize 2048 -validity 10950 \
   -dname "CN=Portail SST MRI, O=Machines Roger International, C=CA"
-base64 -w0 portail-sst-release.keystore   # sur macOS : base64 -i portail-sst-release.keystore
 ```
+
+La commande demande un mot de passe, deux fois, puis celui de la clé : appuyer
+sur **Entrée** pour reprendre le même. Les deux secrets de mot de passe auront
+donc la même valeur. Choisir un mot de passe et le noter quelque part de sûr.
+
+#### 2. Encoder le fichier en base64
+
+Le secret ne contient pas le fichier mais son encodage. Selon le système,
+une seule ligne, qui met le résultat dans le presse-papiers :
+
+```powershell
+# Windows, dans PowerShell
+[Convert]::ToBase64String([IO.File]::ReadAllBytes("portail-sst-release.keystore")) | Set-Clipboard
+```
+
+```sh
+# macOS
+base64 -i portail-sst-release.keystore | pbcopy
+
+# Linux
+base64 -w0 portail-sst-release.keystore | xclip -selection clipboard
+```
+
+#### 3. Coller les quatre secrets
+
+Sur <https://github.com/Frankyray21/Portail-Applications/settings/secrets/actions>,
+bouton **New repository secret**, une fois par ligne du tableau ci-dessus.
+`ANDROID_KEY_PASSWORD` reprend la même valeur que `ANDROID_KEYSTORE_PASSWORD`
+si on a appuyé sur Entrée à l'étape 1.
+
+La compilation part toute seule à la poussée suivante sur `main`, ou
+immédiatement depuis l'onglet **Actions → Build Android APK → Run workflow**.
+
+#### Et ensuite
 
 Garder le fichier `.keystore` en lieu sûr, hors du dépôt : **le perdre oblige
 à désinstaller l'application sur chaque appareil** avant de pouvoir publier
