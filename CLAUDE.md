@@ -68,10 +68,11 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
 
 ## Chaque application, une seule fois
 
-L'accueil présente les cinq applications **une fois**, dans « Les cinq
-applications ». Pas de bande « à la une » qui en répéterait trois au-dessus :
-sur une tablette de terrain, ce doublon rallongeait la page sans rien
-apprendre. Une mise en avant éditoriale, si elle revient un jour, doit
+L'accueil présente les cinq applications **une fois**, et rien d'autre
+au-dessus : pas de titre de cérémonie, pas de chapeau. « Les cinq
+applications » est le `h1` de la page, et la liste commence tout de suite.
+Sur une tablette de terrain, chaque ligne avant les applications est une
+ligne de trop. Une mise en avant éditoriale, si elle revient un jour, doit
 remplacer une présentation, pas s'y ajouter.
 
 ## Ouvrir, installer : ce que le portail peut dire
@@ -88,9 +89,9 @@ pas installé, « Ouvrir » quand ça l'est. **Il ne peut pas.**
   installée, l'application s'ouvre telle quelle ; sinon, elle s'ouvre dans le
   navigateur. Ne pas le remplacer par « Installer », ce serait promettre un
   geste que le portail ne fait pas.
-- Le geste d'installation est expliqué là où il y a la place : le chapeau de
-  l'accueil et le bloc « L'avoir sous terre » de chaque fiche, geste iPhone
-  compris. Ne pas retirer ces passages.
+- Le geste d'installation est expliqué dans le bloc « L'avoir sous terre »
+  de chaque fiche, geste iPhone compris. Ne pas retirer ce passage : c'est le
+  seul endroit où il est dit.
 - Le champ `installable` du catalogue est **relevé**, jamais supposé :
   manifeste lié, `display: standalone`, icônes 192/512/masquable et service
   worker, sur la branche publiée de l'application. Il commande le bloc

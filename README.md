@@ -205,6 +205,22 @@ Avant de déployer, relever la release :
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
 
+## Version 1.16.0
+
+- **L'accueil commence par les applications.** Le titre « Découvrir » et son
+  chapeau sont retirés : sur une tablette de terrain, chaque ligne avant les
+  applications est une ligne de trop. « Les cinq applications » devient le
+  `h1` de la page, et les noms de tuiles passent en `h2` pour que la
+  hiérarchie des titres reste continue.
+- **La marque du bandeau grossit encore** : 96 px sur tablette (72 avant),
+  80 px sur téléphone, 72 px à la souris. La source passe à 320 px pour
+  rester nette à trois pixels par point.
+- Trois paliers ont dû suivre, faute de quoi le bandeau se cassait : le champ
+  de recherche descend sur sa ligne dès 1100 px au lieu de 1010, et sous
+  380 px le nom et les écarts se resserrent — sans ça le bouton de thème
+  était repoussé sur sa propre rangée, à un pixel près.
+- La page raccourcit encore : 2,6 écrans sur la tablette en paysage.
+
 ## Version 1.15.0
 
 - **Chaque application n'est présentée qu'une fois.** La bande « À la une »

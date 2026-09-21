@@ -24,19 +24,9 @@ export default function Decouvrir() {
   return (
     <StoreShell actif="decouvrir">
       <main id="contenu" className="page" tabIndex={-1}>
-        <header className="entete">
-          <h1>Découvrir</h1>
-          <p className="entete__lede">
-            Des outils pour un milieu de travail plus sûr. Le bouton ouvre
-            l’application : déjà posée sur l’écran d’accueil, elle s’ouvre
-            telle quelle ; sinon, ajoutez-la de là, et elle s’ouvrira ensuite
-            sans réseau, sous terre.
-          </p>
-        </header>
-
         <section className="essentiels" aria-labelledby="titre-essentiels">
           <div className="essentiels__tete">
-            <h2 id="titre-essentiels">Les cinq applications</h2>
+            <h1 id="titre-essentiels">Les cinq applications</h1>
             <Link href="/applications/" className="lien-rouge">
               Voir par collection
               <ChevronRight size={18} aria-hidden="true" />
@@ -46,9 +36,9 @@ export default function Decouvrir() {
             {APPLICATIONS.map((app) => (
               <li key={app.id} className="tuile" data-app-id={app.id}>
                 <Icone id={app.id} color={app.color} />
-                <h3 className="tuile__nom">
+                <h2 className="tuile__nom">
                   <Link href={`/app/${app.id}/`}>{app.title}</Link>
-                </h3>
+                </h2>
                 <p className="tuile__genre">{app.subtitle}</p>
                 <p className="tuile__quoi">{app.description}</p>
                 <p className="tuile__action">

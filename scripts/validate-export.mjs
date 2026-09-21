@@ -12,7 +12,7 @@ const APPS = [
   'procedures',
 ];
 const PAGES = [
-  ['', 'Découvrir'],
+  ['', 'Les cinq applications'],
   ['applications/', 'Applications'],
   ['recherche/', 'Rechercher'],
   ...APPS.map((id) => [`app/${id}/`, null]),

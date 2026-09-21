@@ -32,8 +32,8 @@ function Marque() {
     <img
       src={ressource('/marque.png')}
       alt=""
-      width={224}
-      height={224}
+      width={320}
+      height={320}
       decoding="async"
     />
   );
@@ -98,7 +98,7 @@ export function StoreShell({
         <footer className="pied">
           <ServiceWorker />
           <p>
-            Portail SST 1.15 · {APPLICATIONS.length} applications.{' '}
+            Portail SST 1.16 · {APPLICATIONS.length} applications.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail
               <ArrowUpRight size={15} aria-hidden="true" />

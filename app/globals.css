@@ -239,7 +239,7 @@ h3 {
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 var(--gouttiere);
-  min-height: 84px;
+  min-height: 96px;
 }
 .marque {
   display: flex;
@@ -252,9 +252,9 @@ h3 {
    pixels elle devient une tache rouge. Elle se cale sur la hauteur du nom
    et de sa ligne d'en dessous. */
 .marque img {
-  width: 58px;
-  height: 58px;
-  border-radius: 10px;
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
 }
 .marque__nom {
   font-size: 1.5rem;
@@ -933,10 +933,10 @@ h3 {
     font-size: 0.875rem;
   }
 }
-/* Entre 901 et 1010 px, la marque, le champ, les trois onglets et le bouton
-   de thème ne tiennent plus sur une ligne sans rogner l'invite : le champ
+/* Entre 901 et 1100 px, la marque, le champ, les onglets et le bouton de
+   thème ne tiennent plus sur une ligne sans rogner l'invite : le champ
    descend sur la sienne, comme sur téléphone. */
-@media (min-width: 901px) and (max-width: 1010px) {
+@media (min-width: 901px) and (max-width: 1100px) {
   .bandeau__dedans {
     flex-wrap: wrap;
     gap: 0 16px;
@@ -968,14 +968,14 @@ h3 {
     --gouttiere: 20px;
   }
   .bandeau__dedans {
-    min-height: 64px;
+    min-height: 72px;
   }
   .marque {
     gap: 10px;
   }
   .marque img {
-    width: 54px;
-    height: 54px;
+    width: 64px;
+    height: 64px;
   }
   .marque__nom {
     font-size: 1.25rem;
@@ -1104,10 +1104,7 @@ h3 {
   .marque__sous {
     display: none;
   }
-  .marque img {
-    width: 44px;
-    height: 44px;
-  }
+
   .chercher input {
     font-size: 0.8125rem;
   }
@@ -1146,12 +1143,12 @@ h3 {
   /* Sur un appareil tenu à bout de bras, la marque doit se voir : elle
      grossit sur toutes les tailles tactiles. */
   .bandeau__dedans {
-    min-height: 92px;
+    min-height: 116px;
   }
   .marque img {
-    width: 72px;
-    height: 72px;
-    border-radius: 12px;
+    width: 96px;
+    height: 96px;
+    border-radius: 16px;
   }
   .bouton-rouge,
   .ouvrir,
@@ -1173,16 +1170,40 @@ h3 {
   }
 }
 
-/* Sous 380 px, 72 px de marque pousseraient le nom hors de l'écran : elle
-   redescend, sans revenir à sa taille d'avant. */
-@media (pointer: coarse) and (max-width: 380px) {
+/* Sur un téléphone, la marque de 96 px prendrait près d'un quart de la
+   hauteur de l'écran : elle redescend par paliers, sans revenir à sa taille
+   d'avant. */
+@media (pointer: coarse) and (max-width: 560px) {
   .bandeau__dedans {
-    min-height: 76px;
+    min-height: 96px;
   }
   .marque img {
-    width: 56px;
-    height: 56px;
-    border-radius: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 14px;
+  }
+}
+
+@media (pointer: coarse) and (max-width: 380px) {
+  .bandeau__dedans {
+    min-height: 84px;
+    /* À 320 px il manquait un pixel pour que le bouton de thème tienne sur
+       la rangée de la marque. */
+    gap: 0 10px;
+  }
+  .marque img {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+  }
+  /* Sans ces deux crans, le bouton de thème est repoussé sur sa propre
+     ligne et le bandeau enfle d'une rangée pour rien : à 320 px il ne reste
+     que 288 px de contenu, et il en manquait deux. */
+  .marque {
+    gap: 8px;
+  }
+  .marque__nom {
+    font-size: 0.9375rem;
   }
 }
 
