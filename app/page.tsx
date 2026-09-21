@@ -37,24 +37,27 @@ export default function Decouvrir() {
               <li key={app.id} className="tuile" data-app-id={app.id}>
                 <Icone id={app.id} color={app.color} />
                 <h2 className="tuile__nom">
-                  <Link href={`/app/${app.id}/`}>{app.title}</Link>
-                </h2>
-                <p className="tuile__genre">{app.subtitle}</p>
-                <p className="tuile__quoi">{app.description}</p>
-                <p className="tuile__action">
+                  {/* Le lien ne porte que le nom, pour que la synthèse
+                      vocale annonce « Bruit » et non tout le paragraphe ;
+                      la feuille de style l'étire ensuite sur toute la
+                      tuile, qui devient cliquable d'un bout à l'autre. */}
                   <a
+                    className="tuile__lien"
                     href={app.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bouton-rouge"
                   >
-                    Ouvrir
-                    <ArrowUpRight size={16} aria-hidden="true" />
-                    <span className="sr-only">
-                      {` ${app.title} (nouvel onglet)`}
-                    </span>
+                    {app.title}
+                    <span className="sr-only"> (nouvel onglet)</span>
                   </a>
-                </p>
+                </h2>
+                <p className="tuile__genre">{app.subtitle}</p>
+                <p className="tuile__quoi">{app.description}</p>
+                <ArrowUpRight
+                  className="tuile__fleche"
+                  size={18}
+                  aria-hidden="true"
+                />
               </li>
             ))}
           </ul>

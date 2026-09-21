@@ -75,6 +75,14 @@ Sur une tablette de terrain, chaque ligne avant les applications est une
 ligne de trop. Une mise en avant éditoriale, si elle revient un jour, doit
 remplacer une présentation, pas s'y ajouter.
 
+**L'accueil est un lanceur, l'onglet Applications est la boutique.** Une
+tuile de l'accueil ouvre l'application, d'un bout à l'autre de l'encadré ;
+les fiches se rejoignent par « Voir par collection » et par la recherche.
+Le lien du nom est étiré sur la tuile par un pseudo-élément plutôt que
+d'envelopper la carte : la synthèse vocale annonce le seul nom, il n'y a
+qu'un arrêt clavier par tuile, et l'anneau de focus entoure l'encadré
+(`:focus-within`). Ne jamais imbriquer un deuxième lien dedans.
+
 ## Ouvrir, installer : ce que le portail peut dire
 
 Le portail voudrait faire comme une boutique : « Installer » quand ce n'est

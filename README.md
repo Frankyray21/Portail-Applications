@@ -205,6 +205,20 @@ Avant de déployer, relever la release :
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
 
+## Version 1.17.0
+
+- **L'encadré entier ouvre l'application.** Le bouton « Ouvrir » disparaît :
+  avec des gants, viser un encadré de la largeur d'une colonne vaut mieux
+  que viser un bouton. Une flèche discrète indique que l'application s'ouvre
+  dans un nouvel onglet.
+- Le lien du nom est étiré sur la tuile par un pseudo-élément, plutôt que
+  d'envelopper toute la carte : la synthèse vocale annonce « Bruit » et non
+  les trois paragraphes, il n'y a qu'un arrêt clavier par tuile, et l'anneau
+  de focus entoure l'encadré.
+- L'accueil devient donc un **lanceur** : les fiches se rejoignent par
+  « Voir par collection » et par la recherche, qui mènent toutes deux au
+  catalogue.
+
 ## Version 1.16.0
 
 - **L'accueil commence par les applications.** Le titre « Découvrir » et son

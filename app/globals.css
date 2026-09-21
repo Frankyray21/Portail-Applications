@@ -441,33 +441,7 @@ h3 {
   color: var(--encre);
 }
 
-/* ---------- Découvrir : la une, puis les essentiels ---------- */
-
-.bouton-rouge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 44px;
-  padding: 0 18px;
-  border-radius: var(--rayon);
-  font-weight: 700;
-  transition:
-    background-color 120ms ease-out,
-    transform 90ms ease-out;
-}
-.bouton-rouge {
-  background: var(--rouge);
-  color: var(--bouton-texte);
-}
-.bouton-rouge:hover {
-  background: var(--rouge-appui);
-}
-.bouton-rouge:active {
-  transform: scale(0.98);
-}
-
-/* Les essentiels : toutes les applications, avec le geste d'ouverture. */
+/* ---------- Accueil : les cinq applications ---------- */
 .essentiels {
   margin-bottom: 44px;
 }
@@ -510,19 +484,55 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
+/* La tuile entière ouvre l'application : le lien du nom est étiré dessus
+   par un pseudo-élément, au lieu d'envelopper toute la carte. La synthèse
+   vocale annonce ainsi le seul nom de l'application, et non les trois
+   paragraphes qui suivent. */
 .tuile {
+  position: relative;
   display: grid;
   grid-template-areas:
-    'icone nom'
-    'icone genre'
-    'quoi  quoi'
-    'action action';
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-rows: auto auto 1fr auto;
+    'icone nom    fleche'
+    'icone genre  fleche'
+    'quoi  quoi   quoi';
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto 1fr;
   gap: 2px 14px;
   padding: 16px;
   background: var(--surface);
   border-radius: var(--rayon-image);
+  transition:
+    background-color 120ms ease-out,
+    transform 90ms ease-out;
+}
+.tuile:hover {
+  background: var(--surface-forte);
+}
+.tuile:active {
+  transform: scale(0.995);
+}
+.tuile__lien::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+/* L'anneau de focus entoure la tuile, pas le seul mot cliquable. */
+.tuile:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.tuile__lien:focus-visible {
+  outline: none;
+}
+.tuile__fleche {
+  grid-area: fleche;
+  align-self: center;
+  color: var(--rouge);
+  transition: transform 140ms ease-out;
+}
+.tuile:hover .tuile__fleche {
+  transform: translate(2px, -2px);
 }
 .tuile .icone {
   grid-area: icone;
@@ -536,16 +546,11 @@ h3 {
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
-.tuile__nom a {
-  display: inline-block;
-  padding-block: 11px;
-  margin-block: -11px;
+.tuile__lien {
   color: var(--encre);
 }
-.tuile__nom a:hover {
+.tuile:hover .tuile__lien {
   color: var(--rouge);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 .tuile__genre {
   grid-area: genre;
@@ -561,11 +566,6 @@ h3 {
   color: var(--encre-douce);
   text-wrap: pretty;
 }
-.tuile__action {
-  grid-area: action;
-  margin-top: 14px;
-}
-
 .mention {
   margin-top: 8px;
   padding-top: 22px;
@@ -583,10 +583,14 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bouton-rouge {
+  .tuile,
+  .tuile__fleche {
     transition: none;
   }
-  .bouton-rouge:active {
+  .tuile:active {
+    transform: none;
+  }
+  .tuile:hover .tuile__fleche {
     transform: none;
   }
 }
@@ -1150,7 +1154,6 @@ h3 {
     height: 96px;
     border-radius: 16px;
   }
-  .bouton-rouge,
   .ouvrir,
   .installer button,
   .emporter__bouton a {
