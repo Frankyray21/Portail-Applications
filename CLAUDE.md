@@ -1,4 +1,4 @@
-# Le Hub — portail d'applications : consignes pour Claude
+# Portail SST — MRI : consignes pour Claude
 
 Boutique publique statique (React + vinext), export vers GitHub Pages depuis la
 branche `gh-pages`. Adresse du site :
@@ -9,7 +9,7 @@ branche `gh-pages`. Adresse du site :
 À **chaque lot de changements** livré, dans cet ordre :
 
 1. **Monter la version** dans `package.json`, dans le pied de `app/store-shell.tsx`
-   (« Le Hub X.Y ») et dans la section de version du `README.md`. Un seul bump
+   (« Portail SST X.Y ») et dans la section de version du `README.md`. Un seul bump
    par lot, pas un par commit. Pas de bump si aucun fichier servi ne change.
 2. **Déployer** : `npm run build` (qui écrit aussi `sw.js` via
    `scripts/build-sw.mjs`), puis publier le contenu de
@@ -43,6 +43,19 @@ npm run build            # lance aussi scripts/validate-export.mjs
 - **Contraste WCAG AA partout**, cibles interactives ≥ 44 px, aucun débordement
   horizontal de 320 à 1920 px, `prefers-reduced-motion` respecté.
 
+## L'identité visuelle appartient à MRI
+
+Les couleurs sont celles de **Machines Roger International**, relevées sur le
+logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
+
+- `--noir` porte la coquille, `--rouge` porte l'action. Les neutres restent
+  gris : aucune autre teinte n'entre dans la palette.
+- Le rouge du logo est trop clair pour écrire sur fond pâle. Écrire avec
+  `#b81b1d` sur clair, `#ef5a5c` sur noir ; le rouge exact reste celui des
+  aplats. Toute valeur ajoutée porte son ratio de contraste en commentaire.
+- Un seul script produit toutes les icônes : `node scripts/build-icones.mjs`.
+  Ne jamais retoucher un PNG d'icône à la main, les familles divergeraient.
+
 ## Application Android (APK)
 
 Le Hub existe aussi en APK, compilé par `.github/workflows/build-apk.yml` à
@@ -56,8 +69,8 @@ chaque poussée sur `main`. Capacitor enveloppe l'export, rebâti avec
 - Le bouton de téléchargement du site n'apparaît que si la release existe :
   lancer `node scripts/relever-apk.mjs` avant de déployer, jamais éditer
   `lib/telechargement.ts` à la main.
-- Les icônes et l'écran de lancement viennent de
-  `scripts/build-icones-android.mjs` ; le motif de l'icône adaptative doit
+- Les icônes du site ET celles d'Android viennent du même script,
+  `scripts/build-icones.mjs` ; le motif de l'icône adaptative doit
   tenir dans la zone sûre du lanceur (au plus 0,47 de la toile).
 
 ## Pièges connus

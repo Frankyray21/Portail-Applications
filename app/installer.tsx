@@ -47,7 +47,7 @@ function sAbonner(prevenir: () => void) {
   };
 }
 
-// Le service worker sert deux choses : rendre Le Hub installable, et garder
+// Le service worker sert deux choses : rendre le portail installable, et
 // les pages consultables sous terre, sans signal. Il ne met en cache que le
 // portail : les applications gardent le leur, chacune sur son chemin.
 // Ce composant ne dessine rien ; il est posé dans le pied de chaque page,
@@ -67,7 +67,7 @@ export function ServiceWorker() {
 
 // Le geste d'installation depuis le navigateur. Trois situations, jamais un
 // bouton qui ne ferait rien : le navigateur a donné l'invitation, ou c'est
-// un iPhone et on décrit le geste, ou Le Hub est déjà installé.
+// un iPhone et on décrit le geste, ou le portail est déjà installé.
 export function BoutonInstaller() {
   // Rendu serveur : « installée », donc rien. Le client recalcule ensuite,
   // sans écart d'hydratation.
@@ -101,7 +101,7 @@ export function BoutonInstaller() {
     return (
       <p className="installer installer--faite">
         <Check size={18} aria-hidden="true" />
-        <span>Le Hub est installé sur cet appareil.</span>
+        <span>Le portail est installé sur cet appareil.</span>
       </p>
     );
   }
@@ -111,7 +111,7 @@ export function BoutonInstaller() {
       <p className="installer">
         <button type="button" onClick={installer}>
           <Download size={18} aria-hidden="true" />
-          Installer Le Hub
+          Installer le portail
         </button>
       </p>
     );

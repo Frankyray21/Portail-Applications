@@ -1,4 +1,4 @@
-package com.machinesroger.lehub;
+package com.machinesroger.portailsst;
 
 import com.getcapacitor.BridgeActivity;
 

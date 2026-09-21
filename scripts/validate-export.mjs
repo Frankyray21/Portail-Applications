@@ -8,7 +8,6 @@ const APPS = [
   'tms',
   'bruit',
   'wiki',
-  'anatomie',
   'rodbot',
   'procedures',
 ];
@@ -211,10 +210,25 @@ assert.ok(
   'code QR du portail absent de l’accueil',
 );
 
+// Les captures : ni orphelin publié, ni fiche qui en réclame une absente.
+// Un nombre écrit en dur ici mentirait au premier changement de catalogue.
 const captures = readdirSync(join(dossier, 'captures')).filter((n) =>
   n.endsWith('.jpg'),
 );
-assert.equal(captures.length, 15, `captures publiées : ${captures.length}`);
+const montrees = new Set();
+for (const id of APPS) {
+  const fiche = sansScript(lu(`app/${id}/`));
+  const siennes = [...fiche.matchAll(/captures\/([\w-]+\.jpg)/g)].map((m) => m[1]);
+  assert.ok(siennes.length > 0, `fiche sans capture : ${id}`);
+  for (const nom of siennes) {
+    assert.ok(nom.startsWith(`${id}-`), `capture d’une autre application sur ${id} : ${nom}`);
+    montrees.add(nom);
+  }
+}
+const orphelines = captures.filter((n) => !montrees.has(n));
+assert.equal(orphelines.length, 0, `captures publiées mais jamais montrées : ${orphelines}`);
+const manquantes = [...montrees].filter((n) => !captures.includes(n));
+assert.equal(manquantes.length, 0, `captures montrées mais absentes : ${manquantes}`);
 assert.ok(
   !readdirSync(dossier).some((nom) =>
     ['server', '.env', '.openai'].includes(nom),

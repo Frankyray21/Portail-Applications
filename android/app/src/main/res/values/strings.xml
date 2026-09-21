@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Le Hub</string>
-    <string name="title_activity_main">Le Hub</string>
-    <string name="package_name">com.machinesroger.lehub</string>
-    <string name="custom_url_scheme">com.machinesroger.lehub</string>
+    <string name="app_name">Portail SST</string>
+    <string name="title_activity_main">Portail SST</string>
+    <string name="package_name">com.machinesroger.portailsst</string>
+    <string name="custom_url_scheme">com.machinesroger.portailsst</string>
 </resources>

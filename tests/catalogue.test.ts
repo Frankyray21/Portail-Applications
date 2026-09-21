@@ -14,9 +14,9 @@ import {
   sujetsWiki,
 } from '../lib/catalogue.ts';
 
-await test('les six applications ont un identifiant unique', () => {
-  assert.equal(APPLICATIONS.length, 6);
-  assert.equal(new Set(APPLICATIONS.map((app) => app.id)).size, 6);
+await test('les cinq applications ont un identifiant unique', () => {
+  assert.equal(APPLICATIONS.length, 5);
+  assert.equal(new Set(APPLICATIONS.map((app) => app.id)).size, 5);
 });
 await test('les destinations sont des pages HTTPS publiques du propriétaire', () => {
   for (const app of APPLICATIONS) {
@@ -81,12 +81,8 @@ await test('chaque code QR mène là où mène le bouton Ouvrir', async () => {
   // refaits, ce test échoue au lieu de laisser un code mentir au mur.
   const QRCode = (await import('qrcode')).default;
   const { URL_PUBLIQUE } = await import('../lib/base.ts');
-  const options = {
-    type: 'svg' as const,
-    errorCorrectionLevel: 'M' as const,
-    margin: 3,
-    color: { dark: '#101d21', light: '#ffffff' },
-  };
+  // Les options viennent du générateur lui-même : une seule source.
+  const { OPTIONS } = await import('../scripts/build-qr.mjs');
   const codes: [string, string][] = [
     ['portail', URL_PUBLIQUE],
     ...APPLICATIONS.map((app): [string, string] => [app.id, app.url]),
@@ -96,7 +92,7 @@ await test('chaque code QR mène là où mène le bouton Ouvrir', async () => {
     assert.ok(existsSync(fichier), `code QR manquant : ${nom}`);
     assert.equal(
       readFileSync(fichier, 'utf8'),
-      await QRCode.toString(cible, options),
+      await QRCode.toString(cible, OPTIONS),
       `le code QR de ${nom} ne mène plus à ${cible}`,
     );
   }

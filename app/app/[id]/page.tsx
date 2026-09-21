@@ -22,8 +22,8 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const app = application((await params).id);
-  if (!app) return { title: 'Application introuvable — Le Hub' };
-  return { title: `${app.title} — Le Hub`, description: app.description };
+  if (!app) return { title: 'Application introuvable · Portail SST — MRI' };
+  return { title: `${app.title} · Portail SST — MRI`, description: app.description };
 }
 
 export default async function Fiche({

@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 // Définies hors du bloc android : à l'intérieur, file() ne se résout pas
 // toujours sur le projet.
-def cleStore = rootProject.file('../apk/le-hub-release.keystore')
+def cleStore = rootProject.file('../apk/portail-sst-release.keystore')
 def cleDisponible = cleStore.exists() && project.hasProperty('storePass')
 
 android {
-    namespace = "com.machinesroger.lehub"
+    namespace = "com.machinesroger.portailsst"
     compileSdk = rootProject.ext.compileSdkVersion
     // La clé de signature n'est PAS dans le dépôt : elle arrive par les
-    // secrets GitHub, que la CI écrit dans apk/le-hub-release.keystore et
+    // secrets GitHub, que la CI écrit dans apk/portail-sst-release.keystore et
     // dans les propriétés Gradle ci-dessous. Une clé stable permet
     // d'installer une mise à jour par-dessus l'existante ; en changer oblige
     // à désinstaller puis réinstaller sur chaque appareil.
@@ -20,13 +20,13 @@ android {
             if (cleDisponible) {
                 storeFile cleStore
                 storePassword project.property('storePass')
-                keyAlias project.hasProperty('keyName') ? project.property('keyName') : 'lehub'
+                keyAlias project.hasProperty('keyName') ? project.property('keyName') : 'portailsst'
                 keyPassword project.hasProperty('keyPass') ? project.property('keyPass') : project.property('storePass')
             }
         }
     }
     defaultConfig {
-        applicationId "com.machinesroger.lehub"
+        applicationId "com.machinesroger.portailsst"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         // Injectés par la CI depuis la version de package.json :

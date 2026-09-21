@@ -1,7 +1,6 @@
 import {
   Accessibility,
   AudioLines,
-  Box,
   ClipboardList,
   ShieldCheck,
   Wrench,
@@ -16,7 +15,6 @@ const PLAQUES = {
   rodbot: Wrench,
   procedures: ClipboardList,
   wiki: ShieldCheck,
-  anatomie: Box,
 };
 
 export function Icone({

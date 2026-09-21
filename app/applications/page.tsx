@@ -9,8 +9,8 @@ import { StoreShell } from '../store-shell';
 import { Icone } from '../icone';
 
 export const metadata = {
-  title: 'Applications — Le Hub',
-  description: 'Les six applications de la collection, par collection.',
+  title: 'Applications · Portail SST — MRI',
+  description: 'Les cinq applications de la collection, par collection.',
 };
 
 export default function Applications() {

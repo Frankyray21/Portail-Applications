@@ -1,18 +1,21 @@
 @import 'tailwindcss';
 
-/* Le Hub 1.2 — boutique d'applications.
+/* Portail SST — MRI : boutique d'applications.
    Une seule couche : pas de surcharges empilées.
 
-   Identité : « plaque gravée et carnet de terrain ».
-   - Deux couleurs et rien d'autre : le pétrole (vert-de-gris) porte la
-     coquille, le cuivre porte l'action. Les six plaques d'icônes gardent
-     la couleur de leur application, harmonisées à la même clarté.
+   Identité : les couleurs de Machines Roger International, relevées sur le
+   logo (rouge #d22325 sur noir) et déjà en place sur Procédures de forage.
+   - Deux couleurs et rien d'autre : le noir porte la coquille, le rouge
+     porte l'action. Les plaques d'icônes gardent la couleur de leur
+     application, harmonisées à la même clarté.
+   - Le rouge de la marque est trop clair pour du texte sur fond pâle : on
+     l'assombrit à #b81b1d pour écrire, on l'éclaircit à #ef5a5c sur le
+     noir. Le rouge exact du logo reste celui des aplats.
    - Deux caractères : Hepta Slab (800) grave les titres ; Atkinson
      Hyperlegible Next, dessinée pour les lecteurs peu à l'aise, compose
      tout le reste. Les deux fichiers sont hébergés dans app/fonts (OFL).
    - Un mode sombre réel, pour les écrans sous terre.
-   Les couleurs sont conçues en OKLCH et écrites en hexadécimal, pour les
-   navigateurs anciens et pour les outils de mesure de contraste. */
+   Chaque valeur ci-dessous est vérifiée au ratio de contraste WCAG. */
 
 @font-face {
   font-family: 'Hepta Slab';
@@ -32,31 +35,31 @@
 :root {
   color-scheme: light dark;
 
-  /* Neutres teintés vers le pétrole (oklch, chroma 0.004 à 0.02) */
-  --fond: #f5f9fa;
-  --surface: #e8f0f2;
-  --surface-forte: #d7e4e6;
-  --encre: #101d21;
-  --encre-douce: #3c4a4f;
-  --encre-faible: #4f5e63;
-  --filet: #7c898b; /* 3,4:1 sur le fond : un trait qu'on voit */
-  --filet-doux: #bcc6c8;
+  /* Neutres franchement gris : le rouge et le noir portent seuls la couleur */
+  --fond: #f6f6f7;
+  --surface: #eaeaec;
+  --surface-forte: #dcdde0;
+  --encre: #15171a; /* 16,6:1 sur le fond */
+  --encre-douce: #44484d; /* 8,5:1 */
+  --encre-faible: #585d63; /* 6,2:1 */
+  --filet: #878b90; /* 3,2:1 sur le fond : un trait qu'on voit */
+  --filet-doux: #c7c9cc;
 
-  /* Pétrole : la coquille (bandeau, onglets) */
-  --petrole: #094850;
-  --petrole-texte: #ffffff;
-  --petrole-texte-doux: #b3dee0; /* 7:1 sur le pétrole */
-  --petrole-fond: #d2eef1;
+  /* Noir MRI : la coquille (bandeau, onglets) */
+  --noir: #101214;
+  --noir-texte: #ffffff; /* 18,8:1 sur le noir */
+  --noir-texte-doux: #c6c9cc; /* 11,3:1 sur le noir */
+  --noir-fond: #e0e1e3;
 
-  /* Cuivre : l'action (ouvrir, voir, onglet courant) */
-  --cuivre: #a44c1d; /* 5,5:1 sur le fond, 5:1 sur la surface */
-  --cuivre-appui: #8d3700;
-  --cuivre-clair: #f7a062; /* sur le pétrole : 4,95:1 */
-  --cuivre-fond: #ffeadc;
-  --bouton-texte: #ffffff;
-  --focus: #a44c1d;
+  /* Rouge MRI : l'action (ouvrir, voir, onglet courant) */
+  --rouge: #b81b1d; /* 6,1:1 sur le fond, 5,4:1 sur la surface */
+  --rouge-appui: #8f1214;
+  --rouge-clair: #ef5a5c; /* sur le noir : 5,6:1 */
+  --rouge-fond: #fbe5e5;
+  --bouton-texte: #ffffff; /* 6,5:1 sur le rouge */
+  --focus: #b81b1d;
 
-  --ombre: 0 12px 28px #23303526;
+  --ombre: 0 12px 28px #15171a26;
 
   --affiche: 'Hepta Slab', 'Rockwell', 'Roboto Slab', serif;
   --texte:
@@ -74,28 +77,29 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fond: #10171a;
-    --surface: #1a2326;
-    --surface-forte: #253033;
-    --encre: #ebeff0;
-    --encre-douce: #bdc6c8;
-    --encre-faible: #a3adaf;
-    --filet: #687478; /* 3,8:1 sur le fond */
-    --filet-doux: #3a4448;
+    --fond: #111315;
+    --surface: #1c1f22;
+    --surface-forte: #272b2f;
+    --encre: #eceef0; /* 16,0:1 sur le fond */
+    --encre-douce: #c3c7ca; /* 10,9:1 */
+    --encre-faible: #a8adb1; /* 8,2:1 */
+    --filet: #6e7478; /* 3,9:1 sur le fond */
+    --filet-doux: #3c4145;
 
-    --petrole: #00353c;
-    --petrole-texte: #ebeff0;
-    --petrole-texte-doux: #b3dee0;
-    --petrole-fond: #17444b;
+    /* Sous terre, la coquille descend plus bas que la page. */
+    --noir: #08090a;
+    --noir-texte: #eceef0;
+    --noir-texte-doux: #c6c9cc;
+    --noir-fond: #23272a;
 
-    --cuivre: #f7a062; /* 8,8:1 sur le fond */
-    --cuivre-appui: #ffb777;
-    --cuivre-clair: #f7a062;
-    --cuivre-fond: #452c1d;
-    --bouton-texte: #10171a;
-    --focus: #f7a062;
+    --rouge: #ef5a5c; /* 5,6:1 sur le fond, 5,0:1 sur la surface */
+    --rouge-appui: #ff8183;
+    --rouge-clair: #ef5a5c;
+    --rouge-fond: #3a1a1b;
+    --bouton-texte: #111315; /* 5,6:1 sur le rouge */
+    --focus: #ef5a5c;
 
-    --ombre: 0 12px 28px #00000059;
+    --ombre: 0 12px 28px #00000073;
   }
 }
 
@@ -168,9 +172,9 @@ input:focus-visible {
   z-index: var(--z-evitement);
   padding: 14px 18px;
   background: var(--fond);
-  color: var(--cuivre);
+  color: var(--rouge);
   font-weight: 700;
-  border: 2px solid var(--cuivre);
+  border: 2px solid var(--rouge);
   border-radius: var(--rayon);
 }
 .skip-link:focus {
@@ -203,7 +207,7 @@ h3 {
   text-wrap: balance;
 }
 
-/* ---------- Coquille : bandeau pétrole, onglets ---------- */
+/* ---------- Coquille : bandeau noir, onglets ---------- */
 
 .store {
   display: flex;
@@ -211,8 +215,8 @@ h3 {
   min-height: 100svh;
 }
 .bandeau {
-  background: var(--petrole);
-  color: var(--petrole-texte);
+  background: var(--noir);
+  color: var(--noir-texte);
 }
 .bandeau__dedans {
   display: flex;
@@ -234,10 +238,10 @@ h3 {
 .marque svg {
   width: 26px;
   height: 26px;
-  color: var(--petrole-texte);
+  color: var(--noir-texte);
 }
-.marque__cuivre {
-  fill: var(--cuivre-clair);
+.marque__accent {
+  fill: var(--rouge-clair);
 }
 .marque__nom {
   font-size: 1.5rem;
@@ -249,7 +253,7 @@ h3 {
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.2;
-  color: var(--petrole-texte-doux);
+  color: var(--noir-texte-doux);
 }
 .onglets-haut ul {
   display: flex;
@@ -264,19 +268,19 @@ h3 {
   padding: 0 16px;
   font-size: 1rem;
   font-weight: 600;
-  color: var(--petrole-texte-doux);
+  color: var(--noir-texte-doux);
   transition: color 120ms ease-out;
 }
 .onglet:hover {
-  color: var(--petrole-texte);
+  color: var(--noir-texte);
 }
 .onglet[aria-current] {
-  color: var(--petrole-texte);
-  box-shadow: inset 0 -4px 0 var(--cuivre-clair);
+  color: var(--noir-texte);
+  box-shadow: inset 0 -4px 0 var(--rouge-clair);
 }
 .bandeau a:focus-visible,
 .onglets a:focus-visible {
-  outline-color: var(--cuivre-clair);
+  outline-color: var(--rouge-clair);
   outline-offset: -4px;
 }
 .vue {
@@ -307,11 +311,11 @@ h3 {
   align-items: center;
   gap: 4px;
   min-height: 44px;
-  color: var(--cuivre);
+  color: var(--rouge);
   font-weight: 600;
 }
 .pied a:hover {
-  color: var(--cuivre-appui);
+  color: var(--rouge-appui);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -333,7 +337,7 @@ h3 {
   width: 56px;
   height: 5px;
   margin-top: 16px;
-  background: var(--cuivre);
+  background: var(--rouge);
 }
 .entete__lede {
   max-width: 56ch;
@@ -361,25 +365,25 @@ h3 {
   justify-content: flex-end;
   margin-top: 6px;
 }
-.lien-cuivre {
+.lien-rouge {
   display: inline-flex;
   align-items: center;
   gap: 2px;
   min-height: 44px;
-  color: var(--cuivre);
+  color: var(--rouge);
   font-size: 0.9375rem;
   font-weight: 700;
   white-space: nowrap;
 }
-.lien-cuivre:hover {
-  color: var(--cuivre-appui);
+.lien-rouge:hover {
+  color: var(--rouge-appui);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 /* Posé au fil d'un paragraphe, le lien garde sa cible de 44 px mais ne
    gonfle plus la ligne : ses marges négatives ramènent sa boîte de ligne
    à l'interligne du texte. */
-.fonds__lede .lien-cuivre {
+.fonds__lede .lien-rouge {
   margin-block: -10px;
   vertical-align: baseline;
   white-space: normal;
@@ -467,12 +471,12 @@ h3 {
   align-items: center;
   gap: 2px;
   margin-top: 8px;
-  color: var(--cuivre);
+  color: var(--rouge);
   font-size: 0.9375rem;
   font-weight: 700;
 }
 .carte-une:hover .carte-une__voir {
-  color: var(--cuivre-appui);
+  color: var(--rouge-appui);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -557,7 +561,7 @@ h3 {
     color 120ms ease-out;
 }
 .rangee:hover .rangee__chevron {
-  color: var(--cuivre);
+  color: var(--rouge);
   transform: translateX(3px);
 }
 
@@ -575,7 +579,7 @@ h3 {
   transition: border-color 120ms ease-out;
 }
 .champ:focus-within {
-  border-color: var(--cuivre);
+  border-color: var(--rouge);
 }
 .champ svg {
   color: var(--encre-faible);
@@ -619,12 +623,12 @@ h3 {
   min-height: 44px;
   margin: -8px 0 14px -6px;
   padding-right: 8px;
-  color: var(--cuivre);
+  color: var(--rouge);
   font-size: 0.9375rem;
   font-weight: 700;
 }
 .retour:hover {
-  color: var(--cuivre-appui);
+  color: var(--rouge-appui);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -649,7 +653,7 @@ h3 {
   gap: 8px;
   min-height: 56px;
   padding: 0 30px;
-  background: var(--cuivre);
+  background: var(--rouge);
   color: var(--bouton-texte);
   border-radius: var(--rayon);
   font-size: 1.0625rem;
@@ -663,7 +667,7 @@ h3 {
   transition: transform 150ms ease-out;
 }
 .ouvrir:hover {
-  background: var(--cuivre-appui);
+  background: var(--rouge-appui);
 }
 .ouvrir:hover svg {
   transform: translate(2px, -2px);
@@ -671,7 +675,7 @@ h3 {
 .ouvrir:active {
   transform: scale(0.98);
 }
-/* Un anneau cuivre autour d'un bouton cuivre se verrait mal : encre. */
+/* Un anneau rouge autour d'un bouton rouge se verrait mal : encre. */
 .ouvrir:focus-visible {
   outline-color: var(--encre);
 }
@@ -730,7 +734,7 @@ h3 {
   top: 0.55em;
   width: 8px;
   height: 8px;
-  background: var(--cuivre);
+  background: var(--rouge);
 }
 .liens {
   display: flex;
@@ -743,12 +747,12 @@ h3 {
   align-items: center;
   gap: 8px;
   min-height: 48px;
-  color: var(--cuivre);
+  color: var(--rouge);
   font-size: 1.0625rem;
   font-weight: 700;
 }
 .liens a:hover {
-  color: var(--cuivre-appui);
+  color: var(--rouge-appui);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -804,9 +808,6 @@ h3 {
 }
 .color-navy {
   background: #0b517f;
-}
-.color-violet {
-  background: #714ca6;
 }
 .color-orange {
   background: #b0540e;
@@ -870,8 +871,8 @@ h3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 0 0 env(safe-area-inset-bottom);
-    background: var(--petrole);
-    color: var(--petrole-texte-doux);
+    background: var(--noir);
+    color: var(--noir-texte-doux);
   }
   .onglets a {
     display: flex;
@@ -882,15 +883,15 @@ h3 {
     min-height: var(--barre);
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--petrole-texte-doux);
+    color: var(--noir-texte-doux);
   }
   .onglets a[aria-current] {
-    color: var(--petrole-texte);
+    color: var(--noir-texte);
     font-weight: 700;
-    box-shadow: inset 0 4px 0 var(--cuivre-clair);
+    box-shadow: inset 0 4px 0 var(--rouge-clair);
   }
   .onglets a[aria-current] svg {
-    color: var(--cuivre-clair);
+    color: var(--rouge-clair);
   }
   .bande {
     margin-bottom: 36px;
@@ -1066,7 +1067,7 @@ h3 {
   align-items: center;
   gap: 4px;
   margin-top: 2px;
-  color: var(--cuivre);
+  color: var(--rouge);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -1080,7 +1081,7 @@ h3 {
   }
 }
 
-/* ---------- Emporter Le Hub ---------- */
+/* ---------- Emporter le portail ---------- */
 
 .emporter {
   margin-bottom: 44px;
@@ -1099,7 +1100,7 @@ h3 {
 }
 .emporter__lede svg {
   flex: none;
-  color: var(--cuivre);
+  color: var(--rouge);
   transform: translateY(2px);
 }
 .emporter__liste {
@@ -1125,7 +1126,7 @@ h3 {
 }
 .emporter__carte h3 svg {
   flex: none;
-  color: var(--cuivre);
+  color: var(--rouge);
 }
 .emporter__carte > p {
   max-width: 44ch;
@@ -1158,7 +1159,7 @@ h3 {
   padding: 0 20px;
   border: 0;
   border-radius: var(--rayon);
-  background: var(--cuivre);
+  background: var(--rouge);
   color: var(--bouton-texte);
   font: inherit;
   font-weight: 700;
@@ -1168,7 +1169,7 @@ h3 {
 }
 .installer button:hover,
 .emporter__bouton a:hover {
-  background: var(--cuivre-appui);
+  background: var(--rouge-appui);
 }
 .installer button:active,
 .emporter__bouton a:active {
@@ -1185,7 +1186,7 @@ h3 {
 .installer--geste svg,
 .installer--faite svg {
   flex: none;
-  color: var(--cuivre);
+  color: var(--rouge);
   transform: translateY(3px);
 }
 .installer--geste strong {

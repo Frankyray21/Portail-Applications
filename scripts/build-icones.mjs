@@ -1,19 +1,23 @@
-// Fabrique les icônes et l'écran de lancement de l'APK à partir du même
-// motif que le site : quatre tuiles sur fond pétrole, dont une cuivre.
-// Sans ce script, Capacitor laisse son logo générique dans l'APK.
+// Fabrique toutes les icônes du portail à partir d'un seul motif : quatre
+// tuiles sur fond noir, dont une rouge. Les couleurs sont celles de
+// Machines Roger International, relevées sur le logo.
 //
-//   node scripts/build-icones-android.mjs
+//   node scripts/build-icones.mjs
 //
-// Les PNG produits sont versionnés (la CI ne les régénère pas) : relancer
-// le script à la main si le motif ou les couleurs changent.
+// Produit le favicon d'application (PWA), les icônes de lanceur Android et
+// l'écran de lancement de l'APK. Sans ce script, Capacitor laisse son logo
+// générique dans l'APK et les trois familles d'icônes dérivent.
+//
+// Les PNG produits sont versionnés : relancer le script à la main quand le
+// motif ou les couleurs changent.
 import sharp from 'sharp';
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-// Les mêmes jetons que app/globals.css : --petrole, --fond, --cuivre-clair.
-const PETROLE = '#094850';
-const CLAIR = '#f5f9fa';
-const CUIVRE = '#f7a062';
+// Les mêmes jetons que app/globals.css : --noir, --fond, --rouge-clair.
+const NOIR = '#101214';
+const CLAIR = '#f6f6f7';
+const ROUGE = '#ef5a5c';
 
 const RES = 'android/app/src/main/res';
 
@@ -23,15 +27,14 @@ function motif(taille) {
     `<rect x="${x}" y="${y}" width="110" height="110" rx="24" fill="${teinte}"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${taille}" height="${taille}" viewBox="0 0 242 242">
     ${tuile(0, 0, CLAIR)}${tuile(132, 0, CLAIR)}
-    ${tuile(0, 132, CLAIR)}${tuile(132, 132, CUIVRE)}
+    ${tuile(0, 132, CLAIR)}${tuile(132, 132, ROUGE)}
   </svg>`;
 }
 
 const svg = (source) => Buffer.from(source);
 
 async function ecrire(chemin, image) {
-  const octets = await image.png().toBuffer();
-  writeFileSync(resolve(chemin), octets);
+  writeFileSync(resolve(chemin), await image.png().toBuffer());
   console.log(`  ${chemin}`);
 }
 
@@ -42,11 +45,40 @@ async function composer(largeur, hauteur, fond, part) {
   return sharp(fond).composite([{ input: dessin, gravity: 'centre' }]);
 }
 
-const uni = (largeur, hauteur, teinte) =>
-  ({ create: { width: largeur, height: hauteur, channels: 4, background: teinte } });
+const uni = (largeur, hauteur, teinte) => ({
+  create: { width: largeur, height: hauteur, channels: 4, background: teinte },
+});
 
-const vide = (cote) =>
-  ({ create: { width: cote, height: cote, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } });
+const vide = (cote) => ({
+  create: {
+    width: cote,
+    height: cote,
+    channels: 4,
+    background: { r: 0, g: 0, b: 0, alpha: 0 },
+  },
+});
+
+// Carré noir aux coins arrondis, comme une plaque d'application.
+const plaque = (cote) =>
+  svg(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${cote}" height="${cote}">
+      <rect width="${cote}" height="${cote}" rx="${Math.round(cote * 0.195)}" fill="${NOIR}"/>
+    </svg>`,
+  );
+
+console.log('Icônes du site :');
+// Icônes « any » du manifeste : la plaque telle qu'elle s'affiche.
+for (const cote of [192, 512]) {
+  await ecrire(`public/icone-${cote}.png`, await composer(cote, cote, plaque(cote), 0.47));
+}
+// iOS applique lui-même son masque : le fond doit remplir le carré.
+await ecrire('public/apple-touch-icon.png', await composer(180, 180, uni(180, 180, NOIR), 0.47));
+// Icône masquable : Android peut y découper un cercle de 80 % du côté, donc
+// un motif carré n'y entre qu'au plus à 0,80 / √2 ≈ 0,56 de la toile.
+await ecrire(
+  'public/icone-maskable-512.png',
+  await composer(512, 512, uni(512, 512, NOIR), 0.47),
+);
 
 // Densités Android : le premier nombre est la toile de l'icône adaptative
 // (108 dp), le second celle de l'icône classique (48 dp).
@@ -58,7 +90,7 @@ const DENSITES = [
   ['xxxhdpi', 432, 192],
 ];
 
-console.log('Icônes de lancement :');
+console.log('Icônes de lancement Android :');
 for (const [densite, adaptative, classique] of DENSITES) {
   // Icône adaptative : le lanceur peut découper un cercle de 72 dp sur les
   // 108 de la toile. Un motif carré n'y entre que s'il mesure au plus
@@ -71,13 +103,13 @@ for (const [densite, adaptative, classique] of DENSITES) {
   // Icônes classiques, pour les lanceurs qui ignorent l'adaptative.
   await ecrire(
     `${RES}/mipmap-${densite}/ic_launcher.png`,
-    await composer(classique, classique, uni(classique, classique, PETROLE), 0.62),
+    await composer(classique, classique, uni(classique, classique, NOIR), 0.62),
   );
 
   const rayon = classique / 2;
   const cercle = svg(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${classique}" height="${classique}">
-      <circle cx="${rayon}" cy="${rayon}" r="${rayon}" fill="${PETROLE}"/>
+      <circle cx="${rayon}" cy="${rayon}" r="${rayon}" fill="${NOIR}"/>
     </svg>`,
   );
   await ecrire(
@@ -101,11 +133,11 @@ const ECRANS = [
   ['drawable-land-xxxhdpi', 1920, 1280],
 ];
 
-console.log("Écrans de lancement :");
+console.log('Écrans de lancement Android :');
 for (const [dossier, largeur, hauteur] of ECRANS) {
   await ecrire(
     `${RES}/${dossier}/splash.png`,
-    await composer(largeur, hauteur, uni(largeur, hauteur, PETROLE), 0.28),
+    await composer(largeur, hauteur, uni(largeur, hauteur, NOIR), 0.28),
   );
 }
 
@@ -114,7 +146,7 @@ writeFileSync(
   resolve(`${RES}/values/ic_launcher_background.xml`),
   `<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_launcher_background">${PETROLE.toUpperCase()}</color>
+    <color name="ic_launcher_background">${NOIR.toUpperCase()}</color>
 </resources>
 `,
 );

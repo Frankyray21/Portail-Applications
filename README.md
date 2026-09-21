@@ -1,6 +1,7 @@
-# Le Hub — Portail d’applications
+# Portail SST — MRI
 
-Boutique publique des applications de Frank. Chaque application a sa fiche :
+Boutique publique des applications santé et sécurité de Machines Roger
+International, construites par Frank. Chaque application a sa fiche :
 présentation, ce qu’elle contient, captures d’écran, et un bouton pour
 l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
 
@@ -10,7 +11,7 @@ les thèmes et le contenu des fiches).
 
 ## Collections
 
-- **Prévention & découverte** : Prévention des TMS, Bruit, WIKI SST — Mines, Anatomie 3D.
+- **Prévention & découverte** : Prévention des TMS, Bruit, WIKI SST — Mines.
 - **Forage & procédures** : RodBot LP, Procédures de forage MRI.
 
 Aucune note, aucune étoile, aucun avis, aucun compteur de téléchargement,
@@ -20,7 +21,7 @@ construction. La mise en avant de l’onglet « Aujourd’hui » se règle dans
 `A_LA_UNE` (`lib/catalogue.ts`) ; chaque entrée doit porter une raison
 vérifiable dans l’application elle-même.
 
-Les URL publiques des six applications ont été vérifiées le 5 septembre 2026.
+Les URL publiques des cinq applications ont été vérifiées le 5 septembre 2026.
 Aucun dépôt privé n’est affiché. Pas de mesure d’audience, de compte ou de
 stockage partagé ajouté au portail. Chaque application garde son fonctionnement.
 
@@ -28,13 +29,17 @@ stockage partagé ajouté au portail. Chaque application garde son fonctionnemen
 
 Deux couleurs et deux caractères, rien d’autre.
 
-- **Pétrole** (`--petrole`) pour la coquille : bandeau et onglets.
-  **Cuivre** (`--cuivre`) pour l’action : bouton « Ouvrir », liens, onglet
-  courant, barre sous les titres. Les neutres sont teintés vers le pétrole.
-  Les six plaques d’icônes gardent la couleur de leur application, ramenées
-  à la même clarté. Les couleurs sont conçues en OKLCH et écrites en
-  hexadécimal dans `app/globals.css`, ratios de contraste en commentaire.
-- **Hepta Slab 800** grave les titres et le mot « Le Hub » ;
+- Les couleurs sont celles de **Machines Roger International**, relevées sur
+  le logo : rouge `#d22325` sur noir. Le **noir** (`--noir`) porte la
+  coquille (bandeau, onglets) ; le **rouge** (`--rouge`) porte l’action
+  (bouton « Ouvrir », liens, onglet courant, barre sous les titres). Les
+  neutres sont franchement gris : la couleur vient du rouge et du noir, de
+  rien d’autre.
+- Le rouge du logo est trop clair pour écrire sur fond pâle : il est
+  assombri à `#b81b1d` pour le texte et éclairci à `#ef5a5c` sur le noir. Le
+  rouge exact reste celui des aplats. Chaque valeur d’`app/globals.css`
+  porte son ratio de contraste en commentaire.
+- **Hepta Slab 800** grave les titres et le nom du portail ;
   **Atkinson Hyperlegible Next**, dessinée pour les lecteurs peu à l’aise,
   compose tout le reste. Les deux fichiers woff2 (sous-ensemble latin, 57 Ko
   en tout) sont dans `app/fonts/`, sous licence OFL (`app/fonts/OFL.txt`) ;
@@ -43,7 +48,9 @@ Deux couleurs et deux caractères, rien d’autre.
 - **Mode sombre** : `prefers-color-scheme: dark` redéfinit les jetons et la
   barre du navigateur suit (`theme-color`). Pas de bouton de bascule : il
   faudrait du JavaScript et une mémoire.
-- Le favicon reprend la marque : quatre plaques, dont une en cuivre.
+- Le favicon reprend la marque : quatre plaques, dont une en rouge. Toutes
+  les icônes (site, lanceur Android, écran de lancement) sortent du même
+  motif, par `node scripts/build-icones.mjs`.
 
 ## Développement
 
@@ -105,10 +112,10 @@ le lien GitHub du pied de page et l’adresse du favicon.
 
 ## Application Android
 
-Le Hub existe aussi en APK : le site entier, embarqué, qui s'ouvre sans
+Le portail existe aussi en APK : le site entier, embarqué, qui s'ouvre sans
 réseau dès l'installation. Le fichier est toujours à la même adresse :
 
-<https://github.com/Frankyray21/Portail-Applications/releases/download/apk-latest/le-hub.apk>
+<https://github.com/Frankyray21/Portail-Applications/releases/download/apk-latest/portail-sst-mri.apk>
 
 Capacitor enveloppe l'export existant. Le préfixe `/Portail-Applications`
 n'existe pas dans une WebView, donc `scripts/build-apk-www.mjs` rebâtit
@@ -116,7 +123,7 @@ l'export avec `PORTAIL_BASE` vide, dans `apk/www`.
 
 ```sh
 npm run apk:sync                 # reconstruit apk/www, puis npx cap sync android
-node scripts/build-icones-android.mjs   # seulement si le motif de l'icône change
+node scripts/build-icones.mjs   # seulement si le motif de l'icône change
 ```
 
 La compilation elle-même demande le SDK Android : elle se fait dans
@@ -133,16 +140,16 @@ entrer dans le dépôt : elle vit dans les secrets, sous
 | --- | --- |
 | `ANDROID_KEYSTORE_BASE64` | le fichier `.keystore`, encodé en base64 |
 | `ANDROID_KEYSTORE_PASSWORD` | le mot de passe du magasin |
-| `ANDROID_KEY_ALIAS` | le nom de la clé dans le magasin |
+| `ANDROID_KEY_ALIAS` | le nom de la clé dans le magasin (`portailsst`) |
 | `ANDROID_KEY_PASSWORD` | le mot de passe de la clé |
 
 Pour créer la clé, une seule fois, sur une machine avec Java :
 
 ```sh
-keytool -genkeypair -v -keystore le-hub-release.keystore \
-  -alias lehub -keyalg RSA -keysize 2048 -validity 10950 \
-  -dname "CN=Le Hub, O=Machines Roger International, C=CA"
-base64 -w0 le-hub-release.keystore   # sur macOS : base64 -i le-hub-release.keystore
+keytool -genkeypair -v -keystore portail-sst-release.keystore \
+  -alias portailsst -keyalg RSA -keysize 2048 -validity 10950 \
+  -dname "CN=Portail SST MRI, O=Machines Roger International, C=CA"
+base64 -w0 portail-sst-release.keystore   # sur macOS : base64 -i portail-sst-release.keystore
 ```
 
 Garder le fichier `.keystore` en lieu sûr, hors du dépôt : **le perdre oblige
@@ -158,6 +165,23 @@ Avant de déployer, relever la release :
 ```sh
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
+
+## Version 1.8.0
+
+- Les couleurs du portail sont celles de **Machines Roger International** :
+  rouge sur noir, relevé sur le logo, comme Procédures de forage. Les
+  neutres passent au gris franc. Tous les ratios de contraste sont
+  recalculés et notés dans `app/globals.css`.
+- Le portail s'appelle **Portail SST — MRI**. Le nom change partout : en-tête,
+  titres de pages, manifeste, application Android (`com.machinesroger.portailsst`)
+  et nom du fichier APK.
+- **Anatomie 3D** sort du catalogue. Le portail compte cinq applications, en
+  deux collections.
+- Toutes les icônes sortent maintenant d'un seul script,
+  `scripts/build-icones.mjs` : favicon d'application, icônes de lanceur
+  Android et écran de lancement ne peuvent plus diverger.
+- Le test des codes QR importe les options du générateur au lieu de les
+  recopier : changer l'encre à un seul endroit suffit.
 
 ## Version 1.7.0
 

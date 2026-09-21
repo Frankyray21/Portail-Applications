@@ -33,7 +33,7 @@ function Marque() {
         width="9"
         height="9"
         rx="1.5"
-        className="marque__cuivre"
+        className="marque__accent"
       />
     </svg>
   );
@@ -54,11 +54,11 @@ export function StoreShell({
     <div className="store">
       <header className="bandeau">
         <div className="bandeau__dedans">
-          <Link href="/" className="marque" aria-label="Le Hub, accueil">
+          <Link href="/" className="marque" aria-label="Portail SST MRI, accueil">
             <Marque />
             <span>
-              <span className="marque__nom">Le Hub</span>
-              <span className="marque__sous">La collection de Frank</span>
+              <span className="marque__nom">Portail SST — MRI</span>
+              <span className="marque__sous">Machines Roger International</span>
             </span>
           </Link>
           <nav className="onglets-haut" aria-label="Navigation principale">
@@ -85,7 +85,7 @@ export function StoreShell({
         <footer className="pied">
           <ServiceWorker />
           <p>
-            Le Hub 1.7 · {APPLICATIONS.length} applications, construites par
+            Portail SST 1.8 · {APPLICATIONS.length} applications, construites par
             Frank.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail

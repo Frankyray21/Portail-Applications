@@ -1,17 +1,21 @@
 {
   "id": "/Portail-Applications/",
-  "name": "Le Hub — La collection de Frank",
-  "short_name": "Le Hub",
-  "description": "Les applications de prévention, de formation et de forage de Frank, réunies en un seul endroit.",
+  "name": "Portail SST — MRI",
+  "short_name": "Portail SST",
+  "description": "Les applications santé et sécurité de Machines Roger International : prévention, formation et forage en mine.",
   "lang": "fr-CA",
   "dir": "ltr",
   "start_url": "/Portail-Applications/",
   "scope": "/Portail-Applications/",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#f5f9fa",
-  "theme_color": "#094850",
-  "categories": ["education", "productivity", "utilities"],
+  "background_color": "#f6f6f7",
+  "theme_color": "#101214",
+  "categories": [
+    "education",
+    "productivity",
+    "utilities"
+  ],
   "icons": [
     {
       "src": "/Portail-Applications/icone-192.png",

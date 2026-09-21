@@ -3,7 +3,7 @@ import { StoreShell } from '../store-shell';
 import { Recherche } from './recherche';
 
 export const metadata = {
-  title: 'Rechercher — Le Hub',
+  title: 'Rechercher · Portail SST — MRI',
   description: 'Chercher une application dans la collection.',
 };
 

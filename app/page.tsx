@@ -16,9 +16,9 @@ import { StoreShell } from './store-shell';
 import { Icone } from './icone';
 
 export const metadata = {
-  title: 'Aujourd’hui — Le Hub',
+  title: 'Aujourd’hui · Portail SST — MRI',
   description:
-    'La collection de Frank : prévention, formation et forage en mine.',
+    'Les applications santé et sécurité de Machines Roger International : prévention, formation et forage en mine.',
 };
 
 // Le lanceur d'abord, la vitrine ensuite : l'habitué trouve sa plaque au
@@ -31,14 +31,14 @@ export default function Aujourdhui() {
         <header className="entete">
           <h1>Aujourd’hui</h1>
           <p className="entete__lede">
-            Six applications construites par Frank pour la prévention, la
+            Cinq applications construites par Frank pour la prévention, la
             formation et le forage en mine. Chaque fiche dit ce que
             l’application contient, puis l’ouvre.
           </p>
         </header>
 
         <section className="bande" aria-labelledby="titre-tout">
-          <h2 id="titre-tout">Les six applications</h2>
+          <h2 id="titre-tout">Les cinq applications</h2>
           <ul className="pastilles">
             {APPLICATIONS.map((app) => (
               <li key={app.id}>
@@ -50,7 +50,7 @@ export default function Aujourdhui() {
             ))}
           </ul>
           <p className="bande__suite">
-            <Link href="/applications/" className="lien-cuivre">
+            <Link href="/applications/" className="lien-rouge">
               Voir par collection
               <ChevronRight size={18} aria-hidden="true" />
             </Link>
@@ -95,7 +95,7 @@ export default function Aujourdhui() {
           <p className="fonds__lede">
             Le WIKI SST — Mines réunit {nombre(pagesWiki())} pages en sept
             disciplines. Chaque sujet s’ouvre droit dans le wiki, ou{' '}
-            <Link href="/app/wiki/" className="lien-cuivre">
+            <Link href="/app/wiki/" className="lien-rouge">
               voyez d’abord sa fiche
             </Link>
             .
@@ -122,7 +122,7 @@ export default function Aujourdhui() {
         <Emporter />
 
         <section className="afficher" aria-labelledby="titre-afficher">
-          <h2 id="titre-afficher">Afficher Le Hub</h2>
+          <h2 id="titre-afficher">Afficher le portail</h2>
           <div className="qr">
             <img
               src={ressource('/qr/portail.svg')}
@@ -140,7 +140,7 @@ export default function Aujourdhui() {
 
         <aside className="mention" aria-label="À propos de cette collection">
           <p>
-            Six outils personnels, construits par Frank pour son travail. Ils
+            Cinq outils personnels, construits par Frank pour son travail. Ils
             ne remplacent ni les procédures officielles de votre employeur, ni
             un avis professionnel.
           </p>

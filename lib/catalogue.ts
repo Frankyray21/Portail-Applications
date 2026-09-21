@@ -19,8 +19,7 @@ export type IconeId =
   | 'bruit'
   | 'rodbot'
   | 'procedures'
-  | 'wiki'
-  | 'anatomie';
+  | 'wiki';
 
 export interface Application {
   id: IconeId;
@@ -121,29 +120,6 @@ collection: 'prevention',
     depot: 'https://github.com/Frankyray21/wiki-sst-mines',
     color: 'navy',
     tags: ['Références', 'Prévention'],
-  },
-  {
-    id: 'anatomie',
-    title: 'Anatomie 3D',
-    subtitle: 'Le corps humain, à explorer',
-    description:
-      'Explorer le corps humain en 3D et afficher séparément les os, muscles, nerfs et vaisseaux.',
-    resume:
-      'Un atlas anatomique en trois dimensions : tourner le corps, isoler une couche, ouvrir une structure. Les sources et les limites du modèle sont affichées dans l’application.',
-    contenu: [
-      'Atlas local et écorché 3D',
-      'Couches : corps, os, muscles, réseaux',
-      'Rotation, parcours guidé, recentrage',
-      'Fiche par structure explorée',
-      'Sources et limites affichées',
-    ],
-    captures: 1,
-        logo: false,
-collection: 'prevention',
-    url: 'https://frankyray21.github.io/anatomie-3d-template/',
-    depot: 'https://github.com/Frankyray21/anatomie-3d-template',
-    color: 'violet',
-    tags: ['3D', 'Découverte'],
   },
   {
     id: 'rodbot',

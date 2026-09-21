@@ -11,12 +11,17 @@ const dossier = resolve('public/qr');
 mkdirSync(dossier, { recursive: true });
 
 // Correction d'erreur M : un code qui tient même un peu abîmé ou sali, ce
-// qui arrive à une feuille affichée dans un atelier.
-const options = {
+// qui arrive à une feuille affichée dans un atelier. Exporté parce que le
+// test régénère les codes avec exactement ces options : les recopier
+// ailleurs, c'est se garantir une divergence le jour où l'encre change.
+/** @type {import('qrcode').QRCodeToStringOptions} */
+export const OPTIONS = {
   type: 'svg',
   errorCorrectionLevel: 'M',
   margin: 3,
-  color: { dark: '#101d21', light: '#ffffff' },
+  // La même encre que --encre dans app/globals.css, sur fond blanc : un
+  // lecteur a besoin de contraste, pas d'un thème.
+  color: { dark: '#15171a', light: '#ffffff' },
 };
 
 const codes = [
@@ -26,7 +31,7 @@ const codes = [
 
 let total = 0;
 for (const [nom, cible] of codes) {
-  const svg = await QRCode.toString(cible, options);
+  const svg = await QRCode.toString(cible, OPTIONS);
   writeFileSync(resolve(dossier, `${nom}.svg`), svg);
   total += svg.length;
 }

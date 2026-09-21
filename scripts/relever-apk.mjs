@@ -45,10 +45,10 @@ if (!reponse.ok) {
 }
 
 const release = await reponse.json();
-const apk = (release.assets ?? []).find((a) => a.name === 'le-hub.apk');
+const apk = (release.assets ?? []).find((a) => a.name === 'portail-sst-mri.apk');
 if (!apk) {
   ecrire({ publie: false, version: '', taille: '', date: '' });
-  console.log("La release existe mais n'a pas de le-hub.apk : bouton caché.");
+  console.log("La release existe mais n'a pas de portail-sst-mri.apk : bouton caché.");
   process.exit(0);
 }
 

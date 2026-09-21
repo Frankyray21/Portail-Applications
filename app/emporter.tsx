@@ -2,16 +2,16 @@ import { Download, Globe, Smartphone, WifiOff } from 'lucide-react';
 import { APK } from '@/lib/telechargement';
 import { BoutonInstaller } from './installer';
 
-// Emporter Le Hub sur l'appareil, par les deux chemins qui existent.
+// Emporter le portail sur l'appareil, par les deux chemins qui existent.
 // La carte Android n'apparaît que si le fichier est vraiment publié :
 // mieux vaut pas de bouton qu'un bouton qui renvoie une page introuvable.
 export function Emporter() {
   return (
     <section className="emporter" aria-labelledby="titre-emporter">
-      <h2 id="titre-emporter">Emporter Le Hub</h2>
+      <h2 id="titre-emporter">Emporter le portail</h2>
       <p className="emporter__lede">
         <WifiOff size={17} aria-hidden="true" />
-        Une fois installé, Le Hub s’ouvre depuis l’écran d’accueil et reste
+        Une fois installé, le portail s’ouvre depuis l’écran d’accueil et reste
         consultable sous terre, sans signal.
       </p>
 

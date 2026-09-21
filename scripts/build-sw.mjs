@@ -38,7 +38,7 @@ const empreinte = createHash('sha256')
   .slice(0, 12);
 
 const sw = `// Généré par scripts/build-sw.mjs — ne pas modifier à la main.
-const CACHE = 'le-hub-${empreinte}';
+const CACHE = 'portail-sst-${empreinte}';
 const BASE = ${JSON.stringify(base)};
 const PRECACHE = ${JSON.stringify(precache, null, 2)};
 
@@ -113,5 +113,5 @@ const poids = precache.reduce(
   0,
 );
 console.log(
-  `Service worker écrit : ${precache.length} fichiers préchargés, ${(poids / 1048576).toFixed(2)} Mo, cache le-hub-${empreinte}.`,
+  `Service worker écrit : ${precache.length} fichiers préchargés, ${(poids / 1048576).toFixed(2)} Mo, cache portail-sst-${empreinte}.`,
 );

@@ -1,4 +1,4 @@
-// Les deux façons d'emporter Le Hub sur un appareil.
+// Les deux façons d'emporter le portail sur un appareil.
 //
 // 1. Depuis le navigateur (PWA) : marche partout, aucune permission à
 //    donner, la mise à jour se fait toute seule.
@@ -29,7 +29,7 @@ export interface Telechargement {
 // Renseigné par `node scripts/relever-apk.mjs`, qui lit la release publiée.
 // Jamais à la main : les quatre champs doivent décrire le même fichier.
 export const APK: Telechargement = {
-  fichier: `${DEPOT}/releases/download/${TAG}/le-hub.apk`,
+  fichier: `${DEPOT}/releases/download/${TAG}/portail-sst-mri.apk`,
   page: `${DEPOT}/releases/tag/${TAG}`,
   publie: false,
   version: '',

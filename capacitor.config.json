@@ -1,6 +1,6 @@
 {
-  "appId": "com.machinesroger.lehub",
-  "appName": "Le Hub",
+  "appId": "com.machinesroger.portailsst",
+  "appName": "Portail SST — MRI",
   "webDir": "apk/www",
   "android": {
     "allowMixedContent": false

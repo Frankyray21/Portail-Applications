@@ -1,7 +1,7 @@
-# Compile l'application Android du Hub et la publie en release.
+# Compile l'application Android du portail et la publie en release.
 #
 # Le téléchargement stable, celui qu'on partage et qu'on met dans un code QR :
-#   https://github.com/Frankyray21/Portail-Applications/releases/download/apk-latest/le-hub.apk
+#   https://github.com/Frankyray21/Portail-Applications/releases/download/apk-latest/portail-sst-mri.apk
 #
 # L'APK embarque le site entier (pages, captures, logos, codes QR) : il
 # s'ouvre sous terre sans réseau dès l'installation.
@@ -76,8 +76,8 @@ jobs:
             exit 1
           fi
           mkdir -p apk
-          printf '%s' "$CLE" | base64 -d > apk/le-hub-release.keystore
-          ls -l apk/le-hub-release.keystore
+          printf '%s' "$CLE" | base64 -d > apk/portail-sst-release.keystore
+          ls -l apk/portail-sst-release.keystore
 
       - name: Compiler l'APK signé
         working-directory: android
@@ -91,35 +91,35 @@ jobs:
             -PappVersionCode=${{ steps.ver.outputs.code }} \
             -PappVersionName=${{ steps.ver.outputs.name }} \
             -PstorePass="$STORE_PASS" \
-            -PkeyName="${KEY_NAME:-lehub}" \
+            -PkeyName="${KEY_NAME:-portailsst}" \
             -PkeyPass="${KEY_PASS:-$STORE_PASS}"
 
       - name: Effacer la clé
         if: always()
-        run: rm -f apk/le-hub-release.keystore
+        run: rm -f apk/portail-sst-release.keystore
 
       - name: Renommer l'APK
         run: |
           mkdir -p dist-apk
-          cp android/app/build/outputs/apk/release/app-release.apk dist-apk/le-hub.apk
+          cp android/app/build/outputs/apk/release/app-release.apk dist-apk/portail-sst-mri.apk
           ls -lh dist-apk
 
       - name: Publier la release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: apk-latest
-          name: "Le Hub pour Android (${{ steps.ver.outputs.name }})"
+          name: "Portail SST — MRI pour Android (${{ steps.ver.outputs.name }})"
           body: |
-            L'application **Le Hub** pour Android, avec tout le contenu
+            L'application **Portail SST — MRI** pour Android, avec tout le contenu
             embarqué : elle s'ouvre sans réseau dès l'installation.
 
             Version ${{ steps.ver.outputs.name }} (build ${{ steps.ver.outputs.code }})
 
-            **Installation** : télécharger `le-hub.apk` sur le téléphone,
+            **Installation** : télécharger `portail-sst-mri.apk` sur le téléphone,
             l'ouvrir, puis accepter « installer des applications de cette
             source ». Une mise à jour s'installe par-dessus la précédente,
             sans désinstaller.
 
             Sur iPhone, l'APK ne s'applique pas : ouvrir le site et utiliser
             « Partager » puis « Sur l'écran d'accueil ».
-          files: dist-apk/le-hub.apk
+          files: dist-apk/portail-sst-mri.apk
