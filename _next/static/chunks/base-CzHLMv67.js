@@ -1,0 +1,1 @@
+var e={}.PORTAIL_BASE??`/Portail-Applications`;function t(t){return`${e}${t}`}export{t};
