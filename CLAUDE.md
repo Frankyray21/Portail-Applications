@@ -66,6 +66,14 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
   `localStorage`, rétabli avant le premier affichage par le script de
   `layout.tsx`). Ne pas remettre de bascule sur `prefers-color-scheme`.
 
+## Chaque application, une seule fois
+
+L'accueil présente les cinq applications **une fois**, dans « Les cinq
+applications ». Pas de bande « à la une » qui en répéterait trois au-dessus :
+sur une tablette de terrain, ce doublon rallongeait la page sans rien
+apprendre. Une mise en avant éditoriale, si elle revient un jour, doit
+remplacer une présentation, pas s'y ajouter.
+
 ## Ouvrir, installer : ce que le portail peut dire
 
 Le portail voudrait faire comme une boutique : « Installer » quand ce n'est
@@ -95,8 +103,9 @@ La cible est une **Galaxy Tab Active4 Pro** : 1920 × 1200 à densité 1,5, soit
 gants.
 
 - En paysage l'écran n'a que 800 px de haut : un palier
-  `(min-width: 901px) and (max-height: 860px)` resserre le titre et la une
-  pour que « Les essentiels » reste au-dessus de la ligne de flottaison.
+  `(min-width: 901px) and (max-height: 860px)` resserre le titre et son
+  chapeau pour que les applications restent au-dessus de la ligne de
+  flottaison.
 - `@media (pointer: coarse)` porte les commandes principales à 48 px.
 - Vérifier à onze largeurs, de 320 à 1920 px, avec les deux types de
   pointeur : aucun débordement, et l'invite du champ de recherche entière.

@@ -3,11 +3,7 @@ import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import { URL_PUBLIQUE, ressource } from '@/lib/base';
 import {
   APPLICATIONS,
-  A_LA_UNE,
-  COLLECTIONS,
   VERIFICATION_LIENS,
-  application,
-  captures,
   nombre,
   pagesWiki,
   sujetsWiki,
@@ -21,9 +17,6 @@ export const metadata = {
   description:
     'Les applications santé et sécurité de Machines Roger International : prévention, formation et forage en mine.',
 };
-
-const collection = (id: string) =>
-  COLLECTIONS.find((c) => c.id === id)?.label ?? '';
 
 // Deux gestes, jamais mélangés : le nom mène à la fiche (ce que contient
 // l'application), le bouton ouvre l'application. Aucun lien dans un lien.
@@ -41,55 +34,9 @@ export default function Decouvrir() {
           </p>
         </header>
 
-        <section className="une" aria-labelledby="titre-une">
-          <h2 id="titre-une" className="sr-only">
-            À la une
-          </h2>
-          <ul className="une__liste">
-            {A_LA_UNE.map(({ id, raison }, rang) => {
-              const app = application(id)!;
-              const [image] = captures(app);
-              return (
-                <li key={id} className="heros">
-                  <p className="heros__genre">
-                    {rang === 0 ? 'À la une' : collection(app.collection)}
-                  </p>
-                  <h3 className="heros__nom">
-                    <Link href={`/app/${app.id}/`}>{app.title}</Link>
-                  </h3>
-                  <p className="heros__sous">{app.subtitle}</p>
-                  <p className="heros__raison">{raison}</p>
-                  <p className="heros__action">
-                    <a
-                      href={app.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="bouton-clair"
-                    >
-                      Ouvrir
-                      <ArrowUpRight size={17} aria-hidden="true" />
-                      <span className="sr-only">
-                        {` ${app.title} (nouvel onglet)`}
-                      </span>
-                    </a>
-                  </p>
-                  <img
-                    className="heros__apercu"
-                    src={ressource(image)}
-                    alt=""
-                    width={585}
-                    height={1266}
-                    loading="lazy"
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-
         <section className="essentiels" aria-labelledby="titre-essentiels">
           <div className="essentiels__tete">
-            <h2 id="titre-essentiels">Les essentiels</h2>
+            <h2 id="titre-essentiels">Les cinq applications</h2>
             <Link href="/applications/" className="lien-rouge">
               Voir par collection
               <ChevronRight size={18} aria-hidden="true" />

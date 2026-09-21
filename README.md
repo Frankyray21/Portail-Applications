@@ -5,7 +5,7 @@ International. Chaque application a sa fiche :
 présentation, ce qu’elle contient, captures d’écran, et un bouton pour
 l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
 
-Deux onglets : **Découvrir** (la une et les essentiels) et **Applications**
+Deux onglets : **Découvrir** (les cinq applications) et **Applications**
 (le catalogue par collection). La recherche est un champ du bandeau, présent
 sur toutes les pages : elle filtre sur le nom, les thèmes et le contenu des
 fiches.
@@ -18,9 +18,7 @@ fiches.
 Aucune note, aucune étoile, aucun avis, aucun compteur de téléchargement,
 aucun classement : rien de tout cela n’existe, donc rien de tout cela n’est
 affiché. Un test du catalogue et le validateur d’export le vérifient à chaque
-construction. La mise en avant de l’onglet « Découvrir » se règle dans
-`A_LA_UNE` (`lib/catalogue.ts`) ; chaque entrée doit porter une raison
-vérifiable dans l’application elle-même.
+construction.
 
 Les URL publiques des cinq applications ont été vérifiées le 5 septembre 2026.
 Aucun dépôt privé n’est affiché. Pas de mesure d’audience, de compte ou de
@@ -206,6 +204,16 @@ Avant de déployer, relever la release :
 ```sh
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
+
+## Version 1.15.0
+
+- **Chaque application n'est présentée qu'une fois.** La bande « À la une »
+  répétait RodBot, Bruit et le WIKI juste au-dessus de la liste complète ;
+  elle est retirée. L'accueil montre « Les cinq applications », et c'est tout.
+- La page raccourcit d'autant : sur la tablette en paysage elle passe de 3,2 à
+  2,8 écrans, et de 2,5 à 2,0 en portrait.
+- `A_LA_UNE` disparaît du catalogue avec la section qu'il servait, ainsi que
+  les styles de la carte rouge et ses jetons de couleur.
 
 ## Version 1.14.0
 

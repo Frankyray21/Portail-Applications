@@ -189,20 +189,6 @@ collection: 'forage',
 // Elle est affichée sur le site : la mettre à jour en même temps que les URL.
 export const VERIFICATION_LIENS = '5 septembre 2026';
 
-export interface MiseEnAvant {
-  id: IconeId;
-  raison: string;
-}
-
-// Mise en avant de la page d'accueil. Chaque entrée dit une chose
-// vérifiable dans l'application elle-même : aucune note, aucun classement,
-// aucun compteur de téléchargement.
-export const A_LA_UNE: readonly MiseEnAvant[] = [
-  { id: 'rodbot', raison: 'Huit étapes, du pivot au grappin.' },
-  { id: 'bruit', raison: 'Six modules, environ quinze minutes.' },
-  { id: 'wiki', raison: 'L’encyclopédie SST du milieu minier.' },
-];
-
 export interface SujetWiki {
   id: string;
   titre: string;

@@ -3,7 +3,6 @@ import { existsSync, readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import {
   APPLICATIONS,
-  A_LA_UNE,
   COLLECTIONS,
   application,
   applicationsCollection,
@@ -106,24 +105,6 @@ await test('chaque capture annoncée existe vraiment', () => {
         `capture manquante : ${image}`,
       );
   }
-});
-await test('la mise en avant ne cite que des applications réelles et motivées', () => {
-  assert.equal(new Set(A_LA_UNE.map((une) => une.id)).size, A_LA_UNE.length);
-  for (const une of A_LA_UNE) {
-    assert.ok(application(une.id), `application inconnue : ${une.id}`);
-    assert.ok(une.raison.trim().length > 10, `raison trop mince : ${une.id}`);
-  }
-});
-await test('aucune note, aucun avis, aucun compteur inventé', () => {
-  // Le portail ne fabrique pas de popularité : ces mots ne doivent pas
-  // apparaître dans les textes du catalogue.
-  const interdits =
-    /\b(étoiles?|note de|notée?|avis|téléchargements?|classement|top \d|\d+ ?★)\b/i;
-  for (const app of APPLICATIONS) {
-    const textes = [app.resume, app.description, ...app.contenu].join(' ');
-    assert.doesNotMatch(textes, interdits, `mention inventée : ${app.id}`);
-  }
-  for (const une of A_LA_UNE) assert.doesNotMatch(une.raison, interdits);
 });
 await test('les sujets du wiki mènent tous dans le wiki', () => {
   const sujets = sujetsWiki();

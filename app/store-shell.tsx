@@ -98,7 +98,7 @@ export function StoreShell({
         <footer className="pied">
           <ServiceWorker />
           <p>
-            Portail SST 1.14 · {APPLICATIONS.length} applications.{' '}
+            Portail SST 1.15 · {APPLICATIONS.length} applications.{' '}
             <a href={DEPOT_PORTAIL} target="_blank" rel="noopener noreferrer">
               Le code source du portail
               <ArrowUpRight size={15} aria-hidden="true" />
