@@ -174,6 +174,9 @@ node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/tele
 - Le bouton de téléchargement ne s'affiche que si le fichier existe
   vraiment : `scripts/relever-apk.mjs` relève la release avant chaque
   déploiement.
+- Ouvert dans l'APK, Le Hub reconnaît la WebView et dit simplement qu'il est
+  déjà installé, au lieu de conseiller de l'installer. Il n'y enregistre pas
+  non plus de service worker : l'application embarque déjà tout.
 
 ## Version 1.6.0
 

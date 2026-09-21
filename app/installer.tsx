@@ -13,8 +13,18 @@ type Etat = 'installee' | 'ios' | 'autre';
 
 const REQUETE_AUTONOME = '(display-mode: standalone)';
 
+// Dans l'APK, le pont Capacitor pose cet objet avant le reste. La WebView
+// n'est ni en display-mode autonome ni candidate à l'installation : sans ce
+// test, l'application installée conseillerait de s'installer.
+function dansAPK(): boolean {
+  const pont = (window as unknown as { Capacitor?: { isNativePlatform?: () => boolean } })
+    .Capacitor;
+  return pont?.isNativePlatform?.() === true;
+}
+
 function lireEtat(): Etat {
   const autonome =
+    dansAPK() ||
     window.matchMedia(REQUETE_AUTONOME).matches ||
     // Safari iOS n'expose pas display-mode : il a son propre indicateur.
     (navigator as unknown as { standalone?: boolean }).standalone === true;
@@ -44,7 +54,8 @@ function sAbonner(prevenir: () => void) {
 // pour que le cache se remplisse quelle que soit la page d'arrivée.
 export function ServiceWorker() {
   useEffect(() => {
-    if (!('serviceWorker' in navigator)) return;
+    // L'APK embarque déjà tout : pas de worker à y enregistrer.
+    if (dansAPK() || !('serviceWorker' in navigator)) return;
     navigator.serviceWorker
       .register(ressource('/sw.js'), { scope: ressource('/') })
       .catch(() => {
