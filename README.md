@@ -207,6 +207,18 @@ Avant de déployer, relever la release :
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
 
+## Version 1.14.0
+
+- **La marque du bandeau grossit.** Elle était trop discrète sur une tablette
+  de terrain tenue à bout de bras : 46 px avant, 58 px à la souris, et 72 px
+  sur tout appareil tactile — tablette comme téléphone. Sous 380 px elle
+  redescend à 56 px, sinon le nom sortirait de l'écran.
+- La source `public/marque.png` passe à 224 px, pour rester nette à 72 px sur
+  un téléphone à trois pixels par point.
+- Vérifié : le bandeau tient sur une ligne à cinq classes d'appareils, et sur
+  la tablette en paysage « Les essentiels » reste au-dessus de la ligne de
+  flottaison (601 px sur 800).
+
 ## Version 1.13.0
 
 - Le bouton dit **« Ouvrir »**, le seul libellé vrai dans les deux cas : si

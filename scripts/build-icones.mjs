@@ -85,7 +85,7 @@ const cercle = (cote) =>
 console.log('Source : assets/logo-portail.png');
 
 console.log('Marque et favicon (la grappe seule, lisible en petit) :');
-await ecrire('public/marque.png', sharp(await marque()).resize(160, 160));
+await ecrire('public/marque.png', sharp(await marque()).resize(224, 224));
 await ecrire('public/favicon.png', sharp(await marque()).resize(64, 64));
 
 console.log('Icônes du manifeste :');

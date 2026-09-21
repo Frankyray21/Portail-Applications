@@ -248,7 +248,7 @@ h3 {
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 var(--gouttiere);
-  min-height: 76px;
+  min-height: 84px;
 }
 .marque {
   display: flex;
@@ -261,9 +261,9 @@ h3 {
    pixels elle devient une tache rouge. Elle se cale sur la hauteur du nom
    et de sa ligne d'en dessous. */
 .marque img {
-  width: 46px;
-  height: 46px;
-  border-radius: 8px;
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
 }
 .marque__nom {
   font-size: 1.5rem;
@@ -1079,14 +1079,14 @@ h3 {
     --gouttiere: 20px;
   }
   .bandeau__dedans {
-    min-height: 56px;
+    min-height: 64px;
   }
   .marque {
     gap: 10px;
   }
   .marque img {
-    width: 38px;
-    height: 38px;
+    width: 54px;
+    height: 54px;
   }
   .marque__nom {
     font-size: 1.25rem;
@@ -1226,6 +1226,10 @@ h3 {
   .marque__sous {
     display: none;
   }
+  .marque img {
+    width: 44px;
+    height: 44px;
+  }
   .heros {
     padding: 18px;
   }
@@ -1278,6 +1282,16 @@ h3 {
 /* 2. Elle se manipule avec des gants : sur un pointeur grossier, les
       commandes principales passent de 44 à 48 px. */
 @media (pointer: coarse) {
+  /* Sur un appareil tenu à bout de bras, la marque doit se voir : elle
+     grossit sur toutes les tailles tactiles. */
+  .bandeau__dedans {
+    min-height: 92px;
+  }
+  .marque img {
+    width: 72px;
+    height: 72px;
+    border-radius: 12px;
+  }
   .bouton-clair,
   .bouton-rouge,
   .ouvrir,
@@ -1300,6 +1314,19 @@ h3 {
   .heros__nom a {
     padding-block: 10px;
     margin-block: -10px;
+  }
+}
+
+/* Sous 380 px, 72 px de marque pousseraient le nom hors de l'écran : elle
+   redescend, sans revenir à sa taille d'avant. */
+@media (pointer: coarse) and (max-width: 380px) {
+  .bandeau__dedans {
+    min-height: 76px;
+  }
+  .marque img {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
   }
 }
 
