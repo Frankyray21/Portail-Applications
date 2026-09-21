@@ -976,6 +976,18 @@ h3 {
   color: var(--encre-douce);
 }
 
+/* Le bloc qui dit comment poser l'application sur l'écran d'accueil. */
+.installer-fiche {
+  max-width: 62ch;
+  color: var(--encre-douce);
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.installer-fiche strong {
+  color: var(--encre);
+  font-weight: 700;
+}
+
 /* ---------- Plaques d'icônes ---------- */
 
 .icone {

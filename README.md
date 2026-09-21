@@ -3,7 +3,7 @@
 Boutique publique des applications santé et sécurité de Machines Roger
 International. Chaque application a sa fiche :
 présentation, ce qu’elle contient, captures d’écran, et un bouton pour
-l’installer. Le portail ne copie ni les données ni les comptes des applications.
+l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
 
 Deux onglets : **Découvrir** (la une et les essentiels) et **Applications**
 (le catalogue par collection). La recherche est un champ du bandeau, présent
@@ -206,6 +206,22 @@ Avant de déployer, relever la release :
 ```sh
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
+
+## Version 1.13.0
+
+- Le bouton dit **« Ouvrir »**, le seul libellé vrai dans les deux cas : si
+  l'application est déjà posée sur l'écran d'accueil, elle s'ouvre telle
+  quelle ; sinon elle s'ouvre dans le navigateur.
+- Un site ne peut **ni installer ni détecter** la PWA d'un autre site.
+  `beforeinstallprompt` ne concerne que sa propre origine, `navigator.install`
+  n'existe pas encore, et `navigator.getInstalledRelatedApps()` ne voit que la
+  PWA du site qui l'appelle. C'est une protection contre le pistage, sans
+  contournement : le portail ne peut donc pas basculer entre « Installer » et
+  « Ouvrir » comme le ferait une boutique.
+- Le geste d'installation est expliqué là où il y a la place : le chapeau de
+  l'accueil, et un bloc **« L'avoir sous terre »** sur chaque fiche, avec le
+  geste iPhone. Le bloc n'apparaît que si le champ `installable` du catalogue
+  est vrai.
 
 ## Version 1.12.0
 

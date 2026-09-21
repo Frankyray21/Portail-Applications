@@ -66,21 +66,27 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
   `localStorage`, rétabli avant le premier affichage par le script de
   `layout.tsx`). Ne pas remettre de bascule sur `prefers-color-scheme`.
 
-## « Installer », pas « Ouvrir »
+## Ouvrir, installer : ce que le portail peut dire
 
-Le portail propose d'**installer** chaque application, pas de l'ouvrir : sous
-terre, une application posée sur l'écran d'accueil s'ouvre sans réseau.
+Le portail voudrait faire comme une boutique : « Installer » quand ce n'est
+pas installé, « Ouvrir » quand ça l'est. **Il ne peut pas.**
 
-- **Un site ne peut pas installer la PWA d'un autre site.**
-  `beforeinstallprompt` ne concerne que sa propre origine et `navigator.install`
-  n'existe pas encore. Le bouton ouvre donc l'application, et c'est le
-  navigateur qui propose ensuite de l'ajouter. Le portail le dit franchement,
-  dans son chapeau et sur chaque fiche : ne pas retirer ces phrases, le bouton
-  deviendrait un mensonge.
+- Un site **ne peut ni installer ni détecter** la PWA d'un autre site.
+  `beforeinstallprompt` ne concerne que sa propre origine, `navigator.install`
+  n'existe pas encore (absent de Chrome 141), et
+  `navigator.getInstalledRelatedApps()` ne voit que la PWA du site qui
+  l'appelle. Aucun contournement : c'est une protection contre le pistage.
+- Le bouton dit donc **« Ouvrir »**, seul libellé vrai dans les deux cas :
+  installée, l'application s'ouvre telle quelle ; sinon, elle s'ouvre dans le
+  navigateur. Ne pas le remplacer par « Installer », ce serait promettre un
+  geste que le portail ne fait pas.
+- Le geste d'installation est expliqué là où il y a la place : le chapeau de
+  l'accueil et le bloc « L'avoir sous terre » de chaque fiche, geste iPhone
+  compris. Ne pas retirer ces passages.
 - Le champ `installable` du catalogue est **relevé**, jamais supposé :
   manifeste lié, `display: standalone`, icônes 192/512/masquable et service
-  worker, sur la branche publiée de l'application. Une application qui ne les
-  a pas garde « Ouvrir ».
+  worker, sur la branche publiée de l'application. Il commande le bloc
+  d'installation de la fiche.
 
 ## Tablette de terrain
 
