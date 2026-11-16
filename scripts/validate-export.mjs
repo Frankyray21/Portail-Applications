@@ -10,9 +10,10 @@ const APPS = [
   'wiki',
   'rodbot',
   'procedures',
+  'visite',
 ];
 const PAGES = [
-  ['', 'Les cinq applications'],
+  ['', 'Les six applications'],
   ['applications/', 'Applications'],
   ['recherche/', 'Rechercher'],
   ...APPS.map((id) => [`app/${id}/`, null]),

@@ -13,9 +13,9 @@ import {
   sujetsWiki,
 } from '../lib/catalogue.ts';
 
-await test('les cinq applications ont un identifiant unique', () => {
-  assert.equal(APPLICATIONS.length, 5);
-  assert.equal(new Set(APPLICATIONS.map((app) => app.id)).size, 5);
+await test('les six applications ont un identifiant unique', () => {
+  assert.equal(APPLICATIONS.length, 6);
+  assert.equal(new Set(APPLICATIONS.map((app) => app.id)).size, 6);
 });
 await test('les destinations sont des pages HTTPS publiques du propriétaire', () => {
   for (const app of APPLICATIONS) {

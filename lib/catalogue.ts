@@ -19,7 +19,8 @@ export type IconeId =
   | 'bruit'
   | 'rodbot'
   | 'procedures'
-  | 'wiki';
+  | 'wiki'
+  | 'visite';
 
 export interface Application {
   id: IconeId;
@@ -42,7 +43,8 @@ export interface Application {
    * lié, `display: standalone`, icônes 192/512/masquable et service worker.
    * Relevé dans l'application publiée, jamais supposé — une application sans
    * tout cela ne s'installe pas, et le portail ne doit pas le promettre.
-   * Les cinq ont été vérifiées sur leur branche publiée le 21 septembre 2026.
+   * Les cinq premières ont été vérifiées sur leur branche publiée le
+   * 21 septembre 2026, la visite du plancher le 16 novembre 2026.
    */
   installable: boolean;
   collection: CollectionId;
@@ -183,11 +185,35 @@ collection: 'forage',
     color: 'teal',
     tags: ['Procédures', 'Documents'],
   },
+  {
+    id: 'visite',
+    title: 'Visite du plancher',
+    subtitle: 'Le plancher de foreuse en 3D',
+    description:
+      'Parcourir en 3D la galerie et le plancher de foreuse, étape par étape (PRO-DD-ST-003).',
+    resume:
+      'Une visite 3D de la galerie et du plancher de foreuse. On suit les dix-neuf étapes de la procédure PRO-DD-ST-003, de « Avant de commencer » au plancher secondaire, ou on marche librement dans la galerie. Les étapes résument la procédure pour la formation ; elles ne remplacent pas le document officiel.',
+    contenu: [
+      'Dix-neuf étapes, de « Avant de commencer » au plancher secondaire',
+      'Marche libre dans la galerie, en première personne ou en vue avatar',
+      'La foreuse en place sur le plancher',
+      'Le coffre à outils, sa liste de matériel et ses pièces vues en détail',
+      'Le mode Déplacer, pour replacer les équipements',
+    ],
+    captures: 3,
+    logo: true,
+    installable: true,
+    collection: 'forage',
+    url: 'https://frankyray21.github.io/Visite-Plancher-MRI/',
+    depot: 'https://github.com/Frankyray21/Visite-Plancher-MRI',
+    color: 'navy',
+    tags: ['3D', 'Procédures'],
+  },
 ];
 
 // Date de la dernière vérification manuelle des six adresses publiques.
 // Elle est affichée sur le site : la mettre à jour en même temps que les URL.
-export const VERIFICATION_LIENS = '5 septembre 2026';
+export const VERIFICATION_LIENS = '16 novembre 2026';
 
 export interface SujetWiki {
   id: string;

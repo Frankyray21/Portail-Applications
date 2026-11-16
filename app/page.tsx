@@ -26,7 +26,7 @@ export default function Decouvrir() {
       <main id="contenu" className="page" tabIndex={-1}>
         <section className="essentiels" aria-labelledby="titre-essentiels">
           <div className="essentiels__tete">
-            <h1 id="titre-essentiels">Les cinq applications</h1>
+            <h1 id="titre-essentiels">Les six applications</h1>
             <Link href="/applications/" className="lien-rouge">
               Voir par collection
               <ChevronRight size={18} aria-hidden="true" />
@@ -113,7 +113,7 @@ export default function Decouvrir() {
 
         <aside className="mention" aria-label="À propos de ce portail">
           <p>
-            Cinq outils de travail, réunis ici pour les retrouver vite. Ils ne
+            Six outils de travail, réunis ici pour les retrouver vite. Ils ne
             remplacent ni les procédures officielles de votre employeur, ni un
             avis professionnel.
           </p>

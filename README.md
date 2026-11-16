@@ -5,7 +5,7 @@ International. Chaque application a sa fiche :
 présentation, ce qu’elle contient, captures d’écran, et un bouton pour
 l’ouvrir. Le portail ne copie ni les données ni les comptes des applications.
 
-Deux onglets : **Découvrir** (les cinq applications) et **Applications**
+Deux onglets : **Découvrir** (les six applications) et **Applications**
 (le catalogue par collection). La recherche est un champ du bandeau, présent
 sur toutes les pages : elle filtre sur le nom, les thèmes et le contenu des
 fiches.
@@ -13,14 +13,15 @@ fiches.
 ## Collections
 
 - **Prévention & découverte** : Prévention des TMS, Bruit, WIKI SST — Mines.
-- **Forage & procédures** : RodBot LP, Procédures de forage MRI.
+- **Forage & procédures** : RodBot LP, Procédures de forage MRI, Visite du
+  plancher.
 
 Aucune note, aucune étoile, aucun avis, aucun compteur de téléchargement,
 aucun classement : rien de tout cela n’existe, donc rien de tout cela n’est
 affiché. Un test du catalogue et le validateur d’export le vérifient à chaque
 construction.
 
-Les URL publiques des cinq applications ont été vérifiées le 5 septembre 2026.
+Les URL publiques des six applications ont été vérifiées le 16 novembre 2026.
 Aucun dépôt privé n’est affiché. Pas de mesure d’audience, de compte ou de
 stockage partagé ajouté au portail. Chaque application garde son fonctionnement.
 
@@ -204,6 +205,20 @@ Avant de déployer, relever la release :
 ```sh
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
+
+## Version 1.18.0
+
+- **Visite du plancher** entre au catalogue, dans « Forage & procédures » :
+  une visite 3D de la galerie et du plancher de foreuse, étape par étape
+  (PRO-DD-ST-003). Le portail compte six applications, et l'accueil dit
+  « Les six applications ».
+- La fiche est relevée dans l'application : résumé, contenu, trois captures
+  réelles au format téléphone, logo tiré de l'icône de l'application, code QR.
+- `installable` est relevé sur le site publié le 16 novembre 2026 : manifeste
+  lié, `display: standalone`, icônes 192, 512 et masquable, service worker.
+  Chrome n'y voit aucun obstacle à l'installation, et l'application se
+  rouvre réseau coupé.
+- Les six adresses publiques ont été revérifiées le 16 novembre 2026.
 
 ## Version 1.17.0
 

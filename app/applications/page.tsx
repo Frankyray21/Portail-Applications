@@ -10,7 +10,7 @@ import { Icone } from '../icone';
 
 export const metadata = {
   title: 'Applications · Portail SST — MRI',
-  description: 'Les cinq applications de la collection, par collection.',
+  description: 'Les six applications de la collection, par collection.',
 };
 
 export default function Applications() {

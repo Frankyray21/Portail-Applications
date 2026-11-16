@@ -68,8 +68,8 @@ logo : rouge `#d22325` sur noir. Ne pas en inventer d'autres.
 
 ## Chaque application, une seule fois
 
-L'accueil présente les cinq applications **une fois**, et rien d'autre
-au-dessus : pas de titre de cérémonie, pas de chapeau. « Les cinq
+L'accueil présente les six applications **une fois**, et rien d'autre
+au-dessus : pas de titre de cérémonie, pas de chapeau. « Les six
 applications » est le `h1` de la page, et la liste commence tout de suite.
 Sur une tablette de terrain, chaque ligne avant les applications est une
 ligne de trop. Une mise en avant éditoriale, si elle revient un jour, doit
