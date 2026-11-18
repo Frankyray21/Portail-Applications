@@ -1,5 +1,5 @@
 // Généré par scripts/build-sw.mjs — ne pas modifier à la main.
-const CACHE = 'portail-sst-7c26ca31786c';
+const CACHE = 'portail-sst-5688f7080abf';
 const BASE = "/Portail-Applications/";
 const PRECACHE = [
   "/Portail-Applications/app/bruit/index.html",
@@ -31,22 +31,22 @@ const PRECACHE = [
   "/Portail-Applications/qr/visite.svg",
   "/Portail-Applications/qr/wiki.svg",
   "/Portail-Applications/recherche/index.html",
-  "/Portail-Applications/_next/static/16bf052a-a0a1-49f9-bbbf-1210f0b701e0/_buildManifest.js",
-  "/Portail-Applications/_next/static/16bf052a-a0a1-49f9-bbbf-1210f0b701e0/_ssgManifest.js",
+  "/Portail-Applications/_next/static/028af7a4-5d8d-445e-a785-7ed78c9929fb/_buildManifest.js",
+  "/Portail-Applications/_next/static/028af7a4-5d8d-445e-a785-7ed78c9929fb/_ssgManifest.js",
   "/Portail-Applications/_next/static/chunks/base-CzHLMv67.js",
   "/Portail-Applications/_next/static/chunks/createLucideIcon-C0Hk8rLa.js",
   "/Portail-Applications/_next/static/chunks/framework-DTZGTDtF.js",
-  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-BBu3HZPO.js",
+  "/Portail-Applications/_next/static/chunks/hybrid-client-route-owner-B29dj1nJ.js",
   "/Portail-Applications/_next/static/chunks/Icon-jpk45vUa.js",
-  "/Portail-Applications/_next/static/chunks/index-Deoucmur.js",
+  "/Portail-Applications/_next/static/chunks/index-CbKXXVIT.js",
   "/Portail-Applications/_next/static/chunks/installer-mxA_jDq1.js",
-  "/Portail-Applications/_next/static/chunks/layout-segment-context-ByfJN2t3.js",
-  "/Portail-Applications/_next/static/chunks/link-CL3bxEK7.js",
+  "/Portail-Applications/_next/static/chunks/layout-segment-context-DZzRGoxD.js",
+  "/Portail-Applications/_next/static/chunks/link-D-CZOZRH.js",
   "/Portail-Applications/_next/static/chunks/query-DugiHe4Q.js",
-  "/Portail-Applications/_next/static/chunks/recherche-BcPH_JSZ.js",
+  "/Portail-Applications/_next/static/chunks/recherche-BkFJv__M.js",
   "/Portail-Applications/_next/static/chunks/rolldown-runtime-hePW80VL.js",
   "/Portail-Applications/_next/static/chunks/theme-CurTP_N7.js",
-  "/Portail-Applications/_next/static/chunks/vinext-C4YKzh8l.js",
+  "/Portail-Applications/_next/static/chunks/vinext-BM7N6xaZ.js",
   "/Portail-Applications/_next/static/css/index.CXdpu-UR.css",
   "/Portail-Applications/_next/static/media/AtkinsonHyperlegibleNext.BcXVPD7q.woff2",
   "/Portail-Applications/_next/static/media/HeptaSlab-800.DbfWV3Kq.woff2"
