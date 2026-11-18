@@ -206,6 +206,17 @@ Avant de déployer, relever la release :
 node scripts/relever-apk.mjs      # écrit version, taille et date dans lib/telechargement.ts
 ```
 
+## Version 1.19.0
+
+- **Visite du plancher** : la fiche suit la version 111 de l'application,
+  mise en ligne le 18 novembre 2026. Deux lignes s'ajoutent à « ce que ça
+  contient », relevées dans l'application : la coupe du plancher secondaire à
+  la scie va-et-vient, et la vue accroupie ou penchée pour voir les pièces de
+  près.
+- Les trois captures sont refaites dans l'application en marche : la foreuse
+  y a sa peinture usée, ses patins et son clamp noirs, et sa tige derrière la
+  tête.
+
 ## Version 1.18.0
 
 - **Visite du plancher** entre au catalogue, dans « Forage & procédures » :
